@@ -1,0 +1,161 @@
+.hexagon {
+  height: 109px;
+  width: 190px;
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.hexagon:before,
+.hexagon:after{
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.hexagon:before{
+  transform: rotate(59deg);
+}
+.hexagon:after{
+  transform: rotate(-60deg);
+}
+
+.hexagon,
+.hexagon:before,
+.hexagon:after
+{
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+
+.line{
+  height: 220px;
+  width: 2px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+.line:before,
+.line:after
+{
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  position: absolute;
+  z-index: 3;
+}
+
+.line:before
+{
+  transform: rotate(60deg);
+}
+
+.line:after
+{
+  transform: rotate(-60deg);
+}
+
+.container{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform: rotate(30deg);
+}
+
+.smallhexagon {
+  height: 54px;
+  width: 95px;
+  background: transparent;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 7;
+}
+
+.smallhexagon:before,
+.smallhexagon:after{
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+}
+
+.smallhexagon:before{
+  transform: rotate(60deg);
+}
+.smallhexagon:after{
+  transform: rotate(-60deg);
+}
+
+.smallhexagon,
+.smallhexagon:before,
+.smallhexagon:after
+{
+  background: transparent;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+
+.smallhexagon:hover {
+ background: #fff2;
+}
+
+.buttons{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 16;
+}
+
+path {
+  fill : #fff2;
+}
+
+path:hover {
+  fill: #fff6;
+}
+
+.bgHex{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.smHex{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.bgPath {
+  stroke: transparent;
+}
+
+.bgPath:hover {
+  fill : #f00;
+}
+
+.tockens {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+text {
+  font-weight:bold;
+}

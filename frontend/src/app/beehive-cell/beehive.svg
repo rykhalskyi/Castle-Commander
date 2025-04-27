@@ -1,0 +1,147 @@
+<svg
+  class="beehive-svg"
+  width="280"
+  height="220"
+  viewBox="0 0 280 220"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g filter="url(#filter0_d_8_22)">
+    <path
+      id="outer-path"
+      d="M139.725 10L226.477 60V160L139.725 210L52.9718 160V60L139.725 10Z"
+      [ngStyle]="{'fill': color}"
+    
+    />
+  </g>
+  <g filter="url(#filter1_d_8_22)">
+    <path
+      id="inner-path"
+      d="M139.725 60L183.101 85V135L139.725 160L96.3482 135V85L139.725 60Z"
+      fill="white"
+      fill-opacity="0.3"
+      shape-rendering="crispEdges"
+      (click)="onSectorClick(7)"
+    />
+  </g>
+  <path
+    id="top-right-path"
+    d="M139.725 10V60L183.3 85L226.375 60L139.725 10Z"
+    fill="white"
+    fill-opacity="0.3"
+    (click)="onSectorClick(2)"
+  />
+  <path
+    id="top-left-path"
+    d="M139.725 10V60L96.1491 85L53.0746 60L139.725 10Z"
+    fill="white"
+    fill-opacity="0.3"
+    stroke="#D0CBCB"
+    stroke-opacity="0.3"
+    (click)="onSectorClick(1)"
+  />
+  <path
+    id="bottom-right-path"
+    d="M140.225 210V160L183.801 135L226.875 160L140.225 210Z"
+    fill="white"
+    fill-opacity="0.3"
+    (click)="onSectorClick(4)"
+  />
+  <path
+    id="bottom-left-path"
+    d="M140.225 210V160L96.65 135L53.5754 160L140.225 210Z"
+    fill="white"
+    fill-opacity="0.3"
+    stroke="#D0CBCB"
+    stroke-opacity="0.3"
+    (click)="onSectorClick(5)"
+  />
+  <path
+    id="left-vertical-path"
+    d="M53.325 160.411L96.7013 135.411L96.6018 85.2391L53.3763 60.5L53.325 160.411Z"
+    fill="white"
+    fill-opacity="0.3"
+    (click)="onSectorClick(6)"
+  />
+  <path
+    id="right-vertical-path"
+    d="M226.675 60L183.299 85L183.398 135.172L226.624 159.911L226.675 60Z"
+    fill="white"
+    fill-opacity="0.3"
+    stroke="#D0CBCB"
+    stroke-opacity="0.3"
+    (click)="onSectorClick(3)"
+  />
+  <defs>
+    <filter
+      id="filter0_d_8_22"
+      x="48.9718"
+      y="10"
+      width="181.505"
+      height="208"
+      filterUnits="userSpaceOnUse"
+      color-interpolation-filters="sRGB"
+    >
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feColorMatrix
+        in="SourceAlpha"
+        type="matrix"
+        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+        result="hardAlpha"
+      />
+      <feOffset dy="4" />
+      <feGaussianBlur stdDeviation="2" />
+      <feComposite in2="hardAlpha" operator="out" />
+      <feColorMatrix
+        type="matrix"
+        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+      />
+      <feBlend
+        mode="normal"
+        in2="BackgroundImageFix"
+        result="effect1_dropShadow_8_22"
+      />
+      <feBlend
+        mode="normal"
+        in="SourceGraphic"
+        in2="effect1_dropShadow_8_22"
+        result="shape"
+      />
+    </filter>
+    <filter
+      id="filter1_d_8_22"
+      x="92.3482"
+      y="60"
+      width="94.7527"
+      height="108"
+      filterUnits="userSpaceOnUse"
+      color-interpolation-filters="sRGB"
+    >
+      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+      <feColorMatrix
+        in="SourceAlpha"
+        type="matrix"
+        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+        result="hardAlpha"
+      />
+      <feOffset dy="4" />
+      <feGaussianBlur stdDeviation="2" />
+      <feComposite in2="hardAlpha" operator="out" />
+      <feColorMatrix
+        type="matrix"
+        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+      />
+      <feBlend
+        mode="normal"
+        in2="BackgroundImageFix"
+        result="effect1_dropShadow_8_22"
+      />
+      <feBlend
+        mode="normal"
+        in="SourceGraphic"
+        in2="effect1_dropShadow_8_22"
+        result="shape"
+      />
+    </filter>
+  </defs>
+</svg>

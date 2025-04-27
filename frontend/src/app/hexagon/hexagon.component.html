@@ -1,0 +1,99 @@
+<div class = "container">
+    <div class="hexagon" ></div>
+    <div class="line"></div>
+    <div class="smallhexagon"></div>
+  
+  
+  
+     <div class="buttons">
+      <svg height="220" width="200">
+        <circle cx="63" cy="50" r="21" [ngStyle]="{'fill':sectorFill[0]}"/>
+        <circle cx="137" cy="50" r="21" [ngStyle]="{'fill':sectorFill[1]}"/>
+        <circle cx="172" cy="110" r="21" [ngStyle]="{'fill':sectorFill[2]}"/>
+        <circle cx="137" cy="173" r="21" [ngStyle]="{'fill':sectorFill[3]}"/>
+        <circle cx="63" cy="173" r="21" [ngStyle]="{'fill':sectorFill[4]}"/>
+        <circle cx="28" cy="110" r="21" [ngStyle]="{'fill':sectorFill[5]}"/>
+  
+        <text x="60" y="43" transform="rotate(-30, 75,60)" [ngStyle]="{'fill':sectorTextFill[0]}">{{sectorValue[0][0]}}</text>
+        <text x="60" y="57" transform="rotate(-30, 75,60)" [ngStyle]="{'fill':sectorTextFill[0]}">{{sectorValue[0][1]}}</text>
+  
+        <text x="135" y="43" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[1]}">{{sectorValue[1][0]}}</text>
+        <text x="135" y="57" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[1]}">{{sectorValue[1][1]}}</text>
+  
+        <text x="135" y="112" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[2]}">{{sectorValue[2][0]}}</text>
+        <text x="135" y="127" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[2]}">{{sectorValue[2][1]}}</text>
+  
+        <text x="73" y="147" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[3]}">{{sectorValue[3][0]}}</text>
+        <text x="73" y="162" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[3]}">{{sectorValue[3][1]}}</text>
+  
+        <text x="10" y="112" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[4]}">{{sectorValue[4][0]}}</text>
+        <text x="10" y="127" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[4]}">{{sectorValue[4][1]}}</text>
+  
+        <text x="8" y="43" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[5]}">{{sectorValue[5][0]}}</text>
+        <text x="8" y="57" transform="rotate(-30,153,65)" [ngStyle]="{'fill':sectorTextFill[5]}">{{sectorValue[5][1]}}</text>
+  
+        <text font-size="26" x="75" y="75" transform="rotate(-30,153,65)" fill="#000" >{{value[0]}}</text>
+        <text font-size="26" x="75" y="100" transform="rotate(-30,153,65)" fill="#000">{{value[1]}}</text>
+  
+        <path (click)="onMouseUp(1)" d="M 4 58
+        L 100 0
+        L 100 58
+        L 52 85
+        Z"   />
+        <path (click)="onMouseUp(2)" d="M 100 0
+        L 198 58
+        L 150 85
+        L 100 58
+        Z"/>
+        <path (click)="onMouseUp(3)" d="M 149 85
+        L 196 58
+        L 196 168
+        L 149 139
+        Z"/>
+        <path (click)="onMouseUp(4)" d="M 100 169
+        L 149 139
+        L 196 168
+        L 100 222
+        Z"/>
+        <path (click)="onMouseUp(5)" d="M 52 138
+        L 100 169
+        L 100 222
+        L 4 166
+        Z"/>
+        <path (click)="onMouseUp(6)" d="M 4 58
+        L 52 85
+        L 52 138
+        L 4 166
+        Z"/>
+  
+    </svg>
+    </div>
+  
+  
+  <div class="bgHex" >
+    <svg height="220" width="200">
+      <path class="bgPath" [ngStyle]="{'fill': color}" d="M 4 58
+      L 100 0
+      L 196 58
+      L 196 166
+      L 100 223
+      L 4 166
+      Z" fill="#00f"/>
+    </svg>
+  </div>
+  
+  <div class="smHex" >
+    <svg height="220" width="200">
+      <path [ngStyle]="{'fill': color}" d="M 52 85
+      L 100 58
+      L 150 85
+      L 149 139
+      L 100 169
+      L 52 138
+      Z" fill="#00f"/>
+    </svg>
+  </div>
+  
+  </div>
+  
+  

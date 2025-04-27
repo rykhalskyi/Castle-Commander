@@ -1,0 +1,6 @@
+@CastleCommander.WebApi_HostAddress = http://localhost:5182
+
+GET {{CastleCommander.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
