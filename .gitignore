@@ -75,6 +75,7 @@ temp/
 .settings/
 .vscode/
 .vscode-test/
+.vs/
 
 # Node modules
 node_modules/
