@@ -1,11 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CastleCommander.WebApi.GameLogic;
+using CastleCommander.WebApi.GameLogic.Handlers;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CastleCommander.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/game")]
     [ApiController]
-    public class GameController : ControllerBase
+    public class GameController(IMediator mediator) : ControllerBase
     {
+        [AllowAnonymous]
+        [HttpGet("startnew")]
+        public async Task<Game> StartNewGame()
+        {
+            var game = await mediator.Send(new StartNewGame.Query() { });
+            return game;
+        }
     }
 }

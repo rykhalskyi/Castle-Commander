@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HexagonComponent } from './hexagon/hexagon.component';
 import { PlayfieldComponent } from './playfield/playfield.component';
-import { BeehiveCellComponent } from './beehive-cell/beehive-cell.component';
-
-
+import { GameDashboardComponent } from './game-dashboard/game-dashboard.component';
+import { GameService } from './services/game.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [PlayfieldComponent],
   templateUrl: './app.component.html',
+  imports: [PlayfieldComponent, GameDashboardComponent, ],
+  standalone: true,
+  providers: [ GameService],
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
