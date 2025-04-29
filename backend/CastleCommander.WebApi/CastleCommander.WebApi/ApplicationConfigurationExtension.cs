@@ -16,6 +16,7 @@ namespace CastleCommander.WebApi
             });
 
             builder.Services.AddSingleton<IGamesCache, GamesCache>();
+            builder.Services.AddSingleton<IGameFlow>(sp => GameFlowFactory.Create());
         }
     }
 }

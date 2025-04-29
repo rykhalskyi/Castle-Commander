@@ -18,5 +18,13 @@ namespace CastleCommander.WebApi.Controllers
             var game = await mediator.Send(new StartNewGame.Query() { });
             return game;
         }
+
+        [AllowAnonymous]
+        [HttpPost("nextturn")]
+        public async Task<Game> NextTurn(Game inputGame)
+        {
+            var game = await mediator.Send(new NextTurn.Query() { InputGame = inputGame});
+            return game;
+        }
     }
 }

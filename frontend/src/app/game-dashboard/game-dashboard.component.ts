@@ -13,13 +13,12 @@ export class GameDashboardComponent {
 
   protected gameId = signal<string>('');
 
-constructor(private readonly gameService: GameService) {
- }
+constructor(
+  private readonly gameService: GameService) { }
 
-  public newGameClick(): void {
-    this.gameService.startNewGame().subscribe((game) => {
-      this.gameId.set(game.id);
-    });
+  public async newGameClick(): Promise<void> {
+    const game =  await this.gameService.client.startnew();
+    this.gameId.set(game.id!);
   }
 
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { PlayfieldComponent } from './playfield/playfield.component';
 import { GameDashboardComponent } from './game-dashboard/game-dashboard.component';
 import { GameService } from './services/game.service';
-import { HttpClient, HttpHandler } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
