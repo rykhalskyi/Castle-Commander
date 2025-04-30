@@ -1,4 +1,13 @@
 <div style="display: flex; justify-content: space-between;">
   <div class="new-game-button" (click)="newGameClick()">new game</div>
-  <div class="game-id">{{ gameId() }}</div>
+  <div class="game-id">{{ game()!.id }}</div>
+</div>
+
+<div style="display: flex; justify-content: space-between;">
+    <div class="make-turn-button" (click)="makeTurnClick()">make turn</div>
+    <div class="game-id">{{ game()!.turnMessage }}</div>
+</div>
+
+<div>
+    <app-player-list [players]="game()!.players ?? null"></app-player-list>
 </div>

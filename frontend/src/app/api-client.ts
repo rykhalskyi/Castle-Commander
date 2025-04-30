@@ -98,10 +98,57 @@ export class Client {
     }
 }
 
+export class Castle implements ICastle {
+    hexagons?: Hexagon[] | undefined;
+
+    constructor(data?: ICastle) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["hexagons"])) {
+                this.hexagons = [] as any;
+                for (let item of _data["hexagons"])
+                    this.hexagons!.push(Hexagon.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): Castle {
+        data = typeof data === 'object' ? data : {};
+        let result = new Castle();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.hexagons)) {
+            data["hexagons"] = [];
+            for (let item of this.hexagons)
+                data["hexagons"].push(item ? item.toJSON() : <any>undefined);
+        }
+        return data;
+    }
+}
+
+export interface ICastle {
+    hexagons?: Hexagon[] | undefined;
+}
+
 export class Game implements IGame {
     id?: string;
     turnMessage?: string | undefined;
     currentTurn?: number;
+    currentPlayer?: number;
+    players?: Player[] | undefined;
+    castle?: Castle;
 
     constructor(data?: IGame) {
         if (data) {
@@ -117,6 +164,13 @@ export class Game implements IGame {
             this.id = _data["id"];
             this.turnMessage = _data["turnMessage"];
             this.currentTurn = _data["currentTurn"];
+            this.currentPlayer = _data["currentPlayer"];
+            if (Array.isArray(_data["players"])) {
+                this.players = [] as any;
+                for (let item of _data["players"])
+                    this.players!.push(Player.fromJS(item));
+            }
+            this.castle = _data["castle"] ? Castle.fromJS(_data["castle"]) : <any>undefined;
         }
     }
 
@@ -132,6 +186,13 @@ export class Game implements IGame {
         data["id"] = this.id;
         data["turnMessage"] = this.turnMessage;
         data["currentTurn"] = this.currentTurn;
+        data["currentPlayer"] = this.currentPlayer;
+        if (Array.isArray(this.players)) {
+            data["players"] = [];
+            for (let item of this.players)
+                data["players"].push(item ? item.toJSON() : <any>undefined);
+        }
+        data["castle"] = this.castle ? this.castle.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -140,6 +201,143 @@ export interface IGame {
     id?: string;
     turnMessage?: string | undefined;
     currentTurn?: number;
+    currentPlayer?: number;
+    players?: Player[] | undefined;
+    castle?: Castle;
+}
+
+export class Hexagon implements IHexagon {
+    color?: HexagonColor;
+    facilities?: IFacility[] | undefined;
+
+    constructor(data?: IHexagon) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.color = _data["color"];
+            if (Array.isArray(_data["facilities"])) {
+                this.facilities = [] as any;
+                for (let item of _data["facilities"])
+                    this.facilities!.push(IFacility.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): Hexagon {
+        data = typeof data === 'object' ? data : {};
+        let result = new Hexagon();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["color"] = this.color;
+        if (Array.isArray(this.facilities)) {
+            data["facilities"] = [];
+            for (let item of this.facilities)
+                data["facilities"].push(item ? item.toJSON() : <any>undefined);
+        }
+        return data;
+    }
+}
+
+export interface IHexagon {
+    color?: HexagonColor;
+    facilities?: IFacility[] | undefined;
+}
+
+export enum HexagonColor {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
+    _4 = 4,
+    _5 = 5,
+    _6 = 6,
+}
+
+export class IFacility implements IIFacility {
+    readonly size?: number;
+
+    constructor(data?: IIFacility) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            (<any>this).size = _data["size"];
+        }
+    }
+
+    static fromJS(data: any): IFacility {
+        data = typeof data === 'object' ? data : {};
+        let result = new IFacility();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["size"] = this.size;
+        return data;
+    }
+}
+
+export interface IIFacility {
+    size?: number;
+}
+
+export class Player implements IPlayer {
+    name?: string | undefined;
+    isActive?: boolean;
+
+    constructor(data?: IPlayer) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.isActive = _data["isActive"];
+        }
+    }
+
+    static fromJS(data: any): Player {
+        data = typeof data === 'object' ? data : {};
+        let result = new Player();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["isActive"] = this.isActive;
+        return data;
+    }
+}
+
+export interface IPlayer {
+    name?: string | undefined;
+    isActive?: boolean;
 }
 
 export class ApiException extends Error {

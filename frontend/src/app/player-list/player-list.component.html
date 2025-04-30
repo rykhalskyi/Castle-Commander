@@ -1,0 +1,7 @@
+<table>
+    <tbody>
+        <tr *ngFor="let player of players">
+            <td [ngStyle]="{'color': player.isActive ? '#FFFFFF' : '#666666'}">{{ player.name }}</td>
+        </tr>
+    </tbody>
+</table>

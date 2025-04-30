@@ -19,6 +19,23 @@
   background-color: #0056b3;
 }
 
+.make-turn-button {
+  cursor: pointer;
+  background-color: #008209;
+  color: white;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.make-turn-button:hover {
+  background-color: #007d06;
+}
+
 .game-id{
   width: 300px;
   margin: 6px 0px 00px 0px;
