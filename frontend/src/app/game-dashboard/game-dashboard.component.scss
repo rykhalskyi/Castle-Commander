@@ -40,3 +40,14 @@
   width: 300px;
   margin: 6px 0px 00px 0px;
 }
+
+.new-game-button-flex{
+  display: flex; 
+  justify-content: space-between;
+}
+
+.new-game-button-flex-16{
+  display: flex; 
+  justify-content: space-between;
+  margin-bottom: 16px;
+}

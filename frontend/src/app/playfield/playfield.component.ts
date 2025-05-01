@@ -1,7 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { Hexagon } from '../gameLogic/hexagon';
 import { HexagonSectorClickArgs } from '../gameLogic/HexagonSectorClickArgs';
-import { HexagonComponent } from '../hexagon/hexagon.component';
 import { PlayfieldService } from '../services/playfield.service';
 import { BeehiveCellComponent } from '../beehive-cell/beehive-cell.component';
 

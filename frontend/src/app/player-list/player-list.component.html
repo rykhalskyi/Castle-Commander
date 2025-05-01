@@ -1,7 +1,19 @@
 <table>
     <tbody>
         <tr *ngFor="let player of players">
-            <td [ngStyle]="{'color': player.isActive ? '#FFFFFF' : '#666666'}">{{ player.name }}</td>
+            <td >
+                <div class="div-flex">
+                    <div [ngStyle]="{'color': player.isActive ? '#FFFFFF' : '#666666'}" class="player-name">
+                        {{ player.name }} &nbsp;
+                    </div>
+                    <div *ngFor="let resource of player.resources" [ngStyle]="{'color': resource.color}">
+                        {{ resource.number }} &nbsp; 
+                    </div>
+                    <div  [ngStyle]="{'color': player.isActive ? '#FFFFFF' : '#666666'}">
+                       &nbsp; B: {{ player.bronze }} &nbsp; S: {{ player.silver }} &nbsp; G: {{ player.gold }} &nbsp; 
+                    </div>
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>

@@ -43,23 +43,62 @@ namespace CastleCommander.WebApi.GameLogic
                     {
                         Name = "Jim Bon Jivi",
                         IsActive = true,
-
+                        Resources = GetPlayerResources(),
                     },
                     new Player()
                     {
                         Name = "Eazy Earsborn",
-                       
+                        Resources = GetPlayerResources()
+
                     },
                     new Player()
                     {
                         Name = "Linn Tildelman",
-
+                        Resources = GetPlayerResources()
                     },
                     new Player()
                     {
                         Name = "Stiggy Zardust",
+                        Resources = GetPlayerResources()
 
                     },
+                }
+            };
+        }
+
+        private static PlayerResource[] GetPlayerResources()
+        {
+            return new PlayerResource[]
+            {
+                new PlayerResource
+                {
+                    Number = 2,
+                    Color = HexagonColors.Values[(int)HexagonColor.Orange],
+                },
+                     new PlayerResource
+                {
+                    Number = 2,
+                    Color = HexagonColors.Values[(int)HexagonColor.Yellow],
+                },
+                          new PlayerResource
+                {
+                    Number = 2,
+                    Color = HexagonColors.Values[(int)HexagonColor.Green],
+                },
+                               new PlayerResource
+                {
+                    Number = 2,
+                    Color = HexagonColors.Values[(int)HexagonColor.Blue],
+                },
+                                    new PlayerResource
+                {
+                    Number = 2,
+                    Color = HexagonColors.Values[(int)HexagonColor.Navy],
+                },
+                                         new PlayerResource
+                {
+                    Number = 2,
+                    Color = HexagonColors.Values[(int)HexagonColor.Purple],
                 }
             };
         }

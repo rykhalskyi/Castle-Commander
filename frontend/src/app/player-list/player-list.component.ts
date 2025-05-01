@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-player-list',
-  imports: [CommonModule],
+  imports: [CommonModule, CommonModule],
   templateUrl: './player-list.component.html',
   styleUrl: './player-list.component.scss'
 })

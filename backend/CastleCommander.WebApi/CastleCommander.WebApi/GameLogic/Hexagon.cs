@@ -11,6 +11,15 @@
         Purple = 6,
     }
 
+    public static class HexagonColors
+    {
+        public static readonly string[] Values = new string[]
+        {
+            "#eb0008", "#ff9d00", "#ffea00", "#00c403", "#00e0d5", "#171ae3", "#9600ed", "#695c00", "#d9d9d9", "#dbaf00"
+        };
+    }
+    
+
     public class Hexagon
     {
         public HexagonColor Color { get; set; }

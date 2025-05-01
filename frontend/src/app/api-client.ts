@@ -303,6 +303,10 @@ export interface IIFacility {
 export class Player implements IPlayer {
     name?: string | undefined;
     isActive?: boolean;
+    resources?: PlayerResource[] | undefined;
+    bronze?: number;
+    silver?: number;
+    gold?: number;
 
     constructor(data?: IPlayer) {
         if (data) {
@@ -317,6 +321,14 @@ export class Player implements IPlayer {
         if (_data) {
             this.name = _data["name"];
             this.isActive = _data["isActive"];
+            if (Array.isArray(_data["resources"])) {
+                this.resources = [] as any;
+                for (let item of _data["resources"])
+                    this.resources!.push(PlayerResource.fromJS(item));
+            }
+            this.bronze = _data["bronze"];
+            this.silver = _data["silver"];
+            this.gold = _data["gold"];
         }
     }
 
@@ -331,6 +343,14 @@ export class Player implements IPlayer {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["isActive"] = this.isActive;
+        if (Array.isArray(this.resources)) {
+            data["resources"] = [];
+            for (let item of this.resources)
+                data["resources"].push(item ? item.toJSON() : <any>undefined);
+        }
+        data["bronze"] = this.bronze;
+        data["silver"] = this.silver;
+        data["gold"] = this.gold;
         return data;
     }
 }
@@ -338,6 +358,50 @@ export class Player implements IPlayer {
 export interface IPlayer {
     name?: string | undefined;
     isActive?: boolean;
+    resources?: PlayerResource[] | undefined;
+    bronze?: number;
+    silver?: number;
+    gold?: number;
+}
+
+export class PlayerResource implements IPlayerResource {
+    number?: number;
+    color?: string | undefined;
+
+    constructor(data?: IPlayerResource) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.number = _data["number"];
+            this.color = _data["color"];
+        }
+    }
+
+    static fromJS(data: any): PlayerResource {
+        data = typeof data === 'object' ? data : {};
+        let result = new PlayerResource();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["number"] = this.number;
+        data["color"] = this.color;
+        return data;
+    }
+}
+
+export interface IPlayerResource {
+    number?: number;
+    color?: string | undefined;
 }
 
 export class ApiException extends Error {
