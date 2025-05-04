@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+}
+
+.content{
+    grid-area: 1/1;
+}
+
+.overlay{
+    margin-bottom: 1px;
+    grid-area: 1/1;
+    pointer-events: none;
+}

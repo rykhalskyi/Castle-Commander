@@ -28,13 +28,13 @@ namespace CastleCommander.WebApi.GameLogic
                 {
                     Hexagons = new List<Hexagon>()
                     {
-                        new Hexagon() { Color = HexagonColor.Red },
-                        new Hexagon() { Color = HexagonColor.Orange },
-                        new Hexagon() { Color = HexagonColor.Yellow },
-                        new Hexagon() { Color = HexagonColor.Green },
-                        new Hexagon() { Color = HexagonColor.Blue },
-                        new Hexagon() { Color = HexagonColor.Navy },
-                        new Hexagon() { Color = HexagonColor.Purple },
+                        new Hexagon() { ColorValue = HexagonColors.Values[(int) HexagonColor.Red], Color = HexagonColor.Red},
+                        new Hexagon() { ColorValue = HexagonColors.Values[(int)HexagonColor.Orange], Color = HexagonColor.Orange },
+                        new Hexagon() { ColorValue = HexagonColors.Values[(int)HexagonColor.Yellow], Color = HexagonColor.Yellow },
+                        new Hexagon() { ColorValue = HexagonColors.Values[(int)HexagonColor.Green] , Color = HexagonColor.Green},
+                        new Hexagon() { ColorValue = HexagonColors.Values[(int) HexagonColor.Blue] , Color = HexagonColor.Blue},
+                        new Hexagon() { ColorValue = HexagonColors.Values[(int) HexagonColor.Navy] , Color = HexagonColor.Navy},
+                        new Hexagon() { ColorValue = HexagonColors.Values[(int) HexagonColor.Purple], Color = HexagonColor.Purple},
                                             }
                 },
                 Players = new List<Player>()

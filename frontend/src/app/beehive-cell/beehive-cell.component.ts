@@ -1,7 +1,8 @@
-import { Component, Output, EventEmitter, Input, signal, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HexagonSectorClickArgs } from '../gameLogic/HexagonSectorClickArgs';
-import { Hexagon } from '../gameLogic/hexagon';
+import { Hexagon } from '../api-client';
+
 
 @Component({
   selector: 'app-beehive-cell',
@@ -19,14 +20,14 @@ export class BeehiveCellComponent implements OnInit, OnChanges {
   color: string = "#bbb";
 
   ngOnInit(): void {
-    this.color = this.model?.color ?? "#bbb";
+    this.color = this.model?.colorValue ?? "#bbb";
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.color = this.model?.color ?? "#bbb";
+    this.color = this.model?.colorValue ?? "#bbb";
   }
 
  onSectorClick(sectorId: number) {
-    this.sectorClick.emit({ sector: sectorId, hexagon: this.model?.index ?? -1 });  
+    this.sectorClick.emit({ sector: sectorId, hexagon: this.model?.color ?? -1 });  
   }
 }

@@ -21,7 +21,7 @@ constructor(
   private readonly gameService: GameService) { }
 
   public async newGameClick(): Promise<void> {
-    const game =  await this.gameService.client.startnew();
+    const game =  await this.gameService.startNewGame();
     this.gameId.set(game.id!);
     this.players.set(game.players!);
     this.game.set(game);
@@ -29,7 +29,7 @@ constructor(
 
   public async makeTurnClick(): Promise<void> {
     if (this.game !== null) {
-      const game = await this.gameService.client.nextturn(this.game()!);
+      const game = await this.gameService.nextTurn(this.game()!);
       this.game.set(game);
     }
   }

@@ -207,6 +207,7 @@ export interface IGame {
 }
 
 export class Hexagon implements IHexagon {
+    colorValue?: string | undefined;
     color?: HexagonColor;
     facilities?: IFacility[] | undefined;
 
@@ -221,6 +222,7 @@ export class Hexagon implements IHexagon {
 
     init(_data?: any) {
         if (_data) {
+            this.colorValue = _data["colorValue"];
             this.color = _data["color"];
             if (Array.isArray(_data["facilities"])) {
                 this.facilities = [] as any;
@@ -239,6 +241,7 @@ export class Hexagon implements IHexagon {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["colorValue"] = this.colorValue;
         data["color"] = this.color;
         if (Array.isArray(this.facilities)) {
             data["facilities"] = [];
@@ -250,6 +253,7 @@ export class Hexagon implements IHexagon {
 }
 
 export interface IHexagon {
+    colorValue?: string | undefined;
     color?: HexagonColor;
     facilities?: IFacility[] | undefined;
 }
@@ -266,6 +270,7 @@ export enum HexagonColor {
 
 export class IFacility implements IIFacility {
     readonly size?: number;
+    startSector?: number;
 
     constructor(data?: IIFacility) {
         if (data) {
@@ -279,6 +284,7 @@ export class IFacility implements IIFacility {
     init(_data?: any) {
         if (_data) {
             (<any>this).size = _data["size"];
+            this.startSector = _data["startSector"];
         }
     }
 
@@ -292,12 +298,14 @@ export class IFacility implements IIFacility {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["size"] = this.size;
+        data["startSector"] = this.startSector;
         return data;
     }
 }
 
 export interface IIFacility {
     size?: number;
+    startSector?: number;
 }
 
 export class Player implements IPlayer {

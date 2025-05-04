@@ -1,13 +1,13 @@
 <div class="new-game-button-flex">
   <div class="new-game-button" (click)="newGameClick()">new game</div>
-  <div class="game-id">{{ game()!.id }}</div>
+  <div class="game-id">{{ game()?.id || 'No Game ID' }}</div>
 </div>
 
 <div class="new-game-button-flex-16">
     <div class="make-turn-button" (click)="makeTurnClick()">make turn</div>
-    <div class="game-id">{{ game()!.turnMessage }}</div>
+    <div class="game-id">{{ game()?.turnMessage || 'No Turn Message' }}</div>
 </div>
 
 <div>
-    <app-player-list [players]="game()!.players ?? null"></app-player-list>
+    <app-player-list [players]="game()?.players ?? null"></app-player-list>
 </div>

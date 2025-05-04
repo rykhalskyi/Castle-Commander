@@ -22,6 +22,7 @@
 
     public class Hexagon
     {
+        public string ColorValue { get; set; }
         public HexagonColor Color { get; set; }
         public List<IFacility> Facilities { get; set; } = new();
     }
