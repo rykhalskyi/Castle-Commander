@@ -24,6 +24,6 @@
     {
         public string ColorValue { get; set; }
         public HexagonColor Color { get; set; }
-        public List<IFacility> Facilities { get; set; } = new();
+        public List<Facility> Facilities { get; set; } = new();
     }
 }

@@ -26,5 +26,18 @@ namespace CastleCommander.WebApi.Controllers
             var game = await mediator.Send(new NextTurn.Query() { InputGame = inputGame});
             return game;
         }
+
+        [AllowAnonymous]
+        [HttpPost("addfacility")]
+        public async Task<Game> AddFacility(Game inputGame, int hexagon, int startSector, int size)
+        {
+            var game = await mediator.Send(new AddFacility.Query() { 
+                InputGame = inputGame,
+                Hexagon = hexagon,
+                StartSector = startSector,
+                Size = size
+            });
+            return game;
+        }
     }
 }

@@ -23,6 +23,11 @@ export class GameService {
     return updatedGame;
   }
 
+  public async addSmallFacility(game: Game, hexagon:number, sector: number): Promise<Game> {
+    const updatedGame = await this.client.addfacility(hexagon, sector, 1, game);
+    this.activeGame.next(updatedGame);
+    return updatedGame;
+  }
   constructor() { } 
  
 }

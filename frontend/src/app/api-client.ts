@@ -96,6 +96,63 @@ export class Client {
         }
         return Promise.resolve<Game>(null as any);
     }
+
+    /**
+     * @param hexagon (optional) 
+     * @param startSector (optional) 
+     * @param size (optional) 
+     * @param body (optional) 
+     * @return OK
+     */
+    addfacility(hexagon: number | undefined, startSector: number | undefined, size: number | undefined, body: Game | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/addfacility?";
+        if (hexagon === null)
+            throw new Error("The parameter 'hexagon' cannot be null.");
+        else if (hexagon !== undefined)
+            url_ += "hexagon=" + encodeURIComponent("" + hexagon) + "&";
+        if (startSector === null)
+            throw new Error("The parameter 'startSector' cannot be null.");
+        else if (startSector !== undefined)
+            url_ += "startSector=" + encodeURIComponent("" + startSector) + "&";
+        if (size === null)
+            throw new Error("The parameter 'size' cannot be null.");
+        else if (size !== undefined)
+            url_ += "size=" + encodeURIComponent("" + size) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processAddfacility(_response);
+        });
+    }
+
+    protected processAddfacility(response: Response): Promise<Game> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Game.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Game>(null as any);
+    }
 }
 
 export class Castle implements ICastle {
@@ -140,6 +197,46 @@ export class Castle implements ICastle {
 
 export interface ICastle {
     hexagons?: Hexagon[] | undefined;
+}
+
+export class Facility implements IFacility {
+    size?: number;
+    startSector?: number;
+
+    constructor(data?: IFacility) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.size = _data["size"];
+            this.startSector = _data["startSector"];
+        }
+    }
+
+    static fromJS(data: any): Facility {
+        data = typeof data === 'object' ? data : {};
+        let result = new Facility();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["size"] = this.size;
+        data["startSector"] = this.startSector;
+        return data;
+    }
+}
+
+export interface IFacility {
+    size?: number;
+    startSector?: number;
 }
 
 export class Game implements IGame {
@@ -209,7 +306,7 @@ export interface IGame {
 export class Hexagon implements IHexagon {
     colorValue?: string | undefined;
     color?: HexagonColor;
-    facilities?: IFacility[] | undefined;
+    facilities?: Facility[] | undefined;
 
     constructor(data?: IHexagon) {
         if (data) {
@@ -227,7 +324,7 @@ export class Hexagon implements IHexagon {
             if (Array.isArray(_data["facilities"])) {
                 this.facilities = [] as any;
                 for (let item of _data["facilities"])
-                    this.facilities!.push(IFacility.fromJS(item));
+                    this.facilities!.push(Facility.fromJS(item));
             }
         }
     }
@@ -255,7 +352,7 @@ export class Hexagon implements IHexagon {
 export interface IHexagon {
     colorValue?: string | undefined;
     color?: HexagonColor;
-    facilities?: IFacility[] | undefined;
+    facilities?: Facility[] | undefined;
 }
 
 export enum HexagonColor {
@@ -266,46 +363,6 @@ export enum HexagonColor {
     _4 = 4,
     _5 = 5,
     _6 = 6,
-}
-
-export class IFacility implements IIFacility {
-    readonly size?: number;
-    startSector?: number;
-
-    constructor(data?: IIFacility) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            (<any>this).size = _data["size"];
-            this.startSector = _data["startSector"];
-        }
-    }
-
-    static fromJS(data: any): IFacility {
-        data = typeof data === 'object' ? data : {};
-        let result = new IFacility();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["size"] = this.size;
-        data["startSector"] = this.startSector;
-        return data;
-    }
-}
-
-export interface IIFacility {
-    size?: number;
-    startSector?: number;
 }
 
 export class Player implements IPlayer {
