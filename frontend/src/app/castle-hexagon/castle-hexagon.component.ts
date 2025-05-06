@@ -5,10 +5,11 @@ import { HexagonSectorClickArgs } from '../gameLogic/HexagonSectorClickArgs';
 import { CommonModule } from '@angular/common';
 import { Hexagon } from '../api-client';
 import { MediumFacilitiesComponent } from '../medium-facilities/medium-facilities.component';
+import { LargeFacilitiesComponent } from '../large-facilities/large-facilities.component';
 
 @Component({
   selector: 'app-castle-hexagon',
-  imports: [BeehiveCellComponent, SmallFacilitiesComponent, CommonModule, MediumFacilitiesComponent],
+  imports: [BeehiveCellComponent, SmallFacilitiesComponent, CommonModule, MediumFacilitiesComponent, LargeFacilitiesComponent],
   templateUrl: './castle-hexagon.component.html',
   styleUrl: './castle-hexagon.component.scss'
 })

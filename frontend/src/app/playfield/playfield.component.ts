@@ -34,7 +34,7 @@ export class PlayfieldComponent implements OnInit {
     if (this.game === null) {
       return;
     }
-    this.gameService.addFacility(this.game, args.hexagon, args.sector, FacilitySize._2)
+    this.gameService.addFacility(this.game, args.hexagon, args.sector, FacilitySize._3)
     console.log("Click "+args.hexagon + ":"+args.sector);
   }
 }
