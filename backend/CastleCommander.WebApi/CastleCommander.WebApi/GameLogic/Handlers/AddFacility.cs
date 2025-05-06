@@ -9,7 +9,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
             public Game InputGame { get; set; }
             public int Hexagon { get; set; }
             public int StartSector { get; set; }
-            public int Size { get; set; }
+            public FacilitySize Size { get; set; }
         }
 
         public class Handler(IGamesCache gamesCache, IGameFlow gameFlow) : IRequestHandler<Query, Game>
@@ -24,15 +24,21 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
 
                 switch (request.Size)
                 {
-                    case 1:
+                    case FacilitySize.Small:
                         game.Castle.Hexagons[request.Hexagon].Facilities.Add(new Facility()
                         {
                             StartSector = request.StartSector,
                             Size = request.Size
                         });
                         break;
-                    case 2:
-                    case 3:
+                    case FacilitySize.Medium:
+                        game.Castle.Hexagons[request.Hexagon].Facilities.Add(new Facility()
+                        {
+                            StartSector = request.StartSector,
+                            Size = request.Size
+                        });
+                        break;
+                    case FacilitySize.Large:
                     default:
                         throw new Exception("Invalid facility size");
                 }

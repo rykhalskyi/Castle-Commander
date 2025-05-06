@@ -29,7 +29,7 @@ namespace CastleCommander.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("addfacility")]
-        public async Task<Game> AddFacility(Game inputGame, int hexagon, int startSector, int size)
+        public async Task<Game> AddFacility(Game inputGame, int hexagon, int startSector, FacilitySize size)
         {
             var game = await mediator.Send(new AddFacility.Query() { 
                 InputGame = inputGame,

@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { HexagonSectorClickArgs } from '../gameLogic/HexagonSectorClickArgs';
 import { CastleHexagonComponent } from '../castle-hexagon/castle-hexagon.component';
-import { Game, Hexagon } from '../api-client';
+import { FacilitySize, Game, Hexagon } from '../api-client';
 import { GameService } from '../services/game.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class PlayfieldComponent implements OnInit {
     if (this.game === null) {
       return;
     }
-    this.gameService.addSmallFacility(this.game, args.hexagon, args.sector)
+    this.gameService.addFacility(this.game, args.hexagon, args.sector, FacilitySize._2)
     console.log("Click "+args.hexagon + ":"+args.sector);
   }
 }

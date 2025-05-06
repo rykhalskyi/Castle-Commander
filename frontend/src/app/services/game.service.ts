@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Client, Game } from '../api-client';
+import { Client, FacilitySize, Game } from '../api-client';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -23,8 +23,8 @@ export class GameService {
     return updatedGame;
   }
 
-  public async addSmallFacility(game: Game, hexagon:number, sector: number): Promise<Game> {
-    const updatedGame = await this.client.addfacility(hexagon, sector, 1, game);
+  public async addFacility(game: Game, hexagon:number, sector: number, size: FacilitySize): Promise<Game> {
+    const updatedGame = await this.client.addfacility(hexagon, sector, size, game);
     this.activeGame.next(updatedGame);
     return updatedGame;
   }

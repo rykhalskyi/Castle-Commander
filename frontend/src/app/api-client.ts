@@ -104,7 +104,7 @@ export class Client {
      * @param body (optional) 
      * @return OK
      */
-    addfacility(hexagon: number | undefined, startSector: number | undefined, size: number | undefined, body: Game | undefined): Promise<Game> {
+    addfacility(hexagon: number | undefined, startSector: number | undefined, size: FacilitySize | undefined, body: Game | undefined): Promise<Game> {
         let url_ = this.baseUrl + "/api/game/addfacility?";
         if (hexagon === null)
             throw new Error("The parameter 'hexagon' cannot be null.");
@@ -200,7 +200,7 @@ export interface ICastle {
 }
 
 export class Facility implements IFacility {
-    size?: number;
+    size?: FacilitySize;
     startSector?: number;
 
     constructor(data?: IFacility) {
@@ -235,8 +235,14 @@ export class Facility implements IFacility {
 }
 
 export interface IFacility {
-    size?: number;
+    size?: FacilitySize;
     startSector?: number;
+}
+
+export enum FacilitySize {
+    _1 = 1,
+    _2 = 2,
+    _3 = 3,
 }
 
 export class Game implements IGame {
