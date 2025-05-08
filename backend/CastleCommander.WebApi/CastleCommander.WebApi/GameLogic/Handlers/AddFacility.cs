@@ -22,19 +22,15 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                     throw new Exception("Game not found");
                 }
 
-                switch (request.Size)
+                var newFacility = new Facility()
                 {
-                    case FacilitySize.Small:
-                    case FacilitySize.Medium:
-                    case FacilitySize.Large:
-                        game.Castle.Hexagons[request.Hexagon].Facilities.Add(new Facility()
-                        {
-                            StartSector = request.StartSector,
-                            Size = request.Size
-                        });
-                        break;
-                    default:
-                        throw new Exception("Invalid facility size");
+                    StartSector = request.StartSector,
+                    Size = request.Size
+                };
+
+                if ( FacilityHelper.DoesFit(game.Castle.Hexagons[request.Hexagon], newFacility))
+                {
+                    game.Castle.Hexagons[request.Hexagon].Facilities.Add(newFacility);
                 }
                
                 return Task.FromResult(game);

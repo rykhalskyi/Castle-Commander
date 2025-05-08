@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { GameService } from '../services/game.service';
 import { Game, Player } from '../api-client';
 import { PlayerListComponent } from '../player-list/player-list.component';
+import { ChooseFacilityComponent } from '../choose-facility/choose-facility.component';
 
 @Component({
   selector: 'app-game-dashboard',
   standalone: true,
-  imports: [CommonModule, PlayerListComponent],
+  imports: [CommonModule, PlayerListComponent, ChooseFacilityComponent],
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']
 })
@@ -34,3 +35,4 @@ constructor(
     }
   }
 }
+

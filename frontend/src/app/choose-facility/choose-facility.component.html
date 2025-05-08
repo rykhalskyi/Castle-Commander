@@ -1,0 +1,6 @@
+
+<div style="display: flex; justify-content: left; align-items: center; gap: 10px;">
+  <div [ngClass]="(selectedFacility === 1) ? 'blue-button-selected' : 'blue-button'" (click)="selectFacility(1)">Small</div>
+  <div [ngClass]="(selectedFacility === 2) ? 'blue-button-selected' : 'blue-button'" (click)="selectFacility(2)">Medium</div>
+  <div [ngClass]="(selectedFacility === 3) ? 'blue-button-selected' : 'blue-button'" (click)="selectFacility(3)">Large</div>
+</div>

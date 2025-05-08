@@ -1,5 +1,9 @@
 :host {
   color: white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .new-game-button {
@@ -50,4 +54,17 @@
   display: flex; 
   justify-content: space-between;
   margin-bottom: 16px;
+}
+
+.new-game-button-flex,
+.new-game-button-flex-16,
+.bottom-left {
+  display: flex;
+}
+
+.center-part {
+  flex-grow: 1;
+  height: 350px;
+  pointer-events: none;
+  z-index: -10;
 }

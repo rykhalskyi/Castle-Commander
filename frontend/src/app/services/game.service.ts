@@ -10,6 +10,7 @@ export class GameService {
 
   public client: Client = new Client(`${environment.apiUrl}`);
   public activeGame: BehaviorSubject<Game | null> = new BehaviorSubject<Game | null>(null);
+  public selectedFacilitySize: FacilitySize | null = null;
 
   public startNewGame: () => Promise<Game> = async () => {
     const game = await this.client.startnew();
