@@ -10,6 +10,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
             public int Hexagon { get; set; }
             public int StartSector { get; set; }
             public FacilitySize Size { get; set; }
+            public int PlayerId { get; set; }
         }
 
         public class Handler(IGamesCache gamesCache, IGameFlow gameFlow) : IRequestHandler<Query, Game>
@@ -25,7 +26,10 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                 var newFacility = new Facility()
                 {
                     StartSector = request.StartSector,
-                    Size = request.Size
+                    Size = request.Size,
+                    PlayerId = request.PlayerId,
+                    PrimaryColor = request.InputGame.Players[request.PlayerId].PrimaryColor,
+                    SecondaryColor = request.InputGame.Players[request.PlayerId].SecondaryColor
                 };
 
                 if ( FacilityHelper.DoesFit(game.Castle.Hexagons[request.Hexagon], newFacility))

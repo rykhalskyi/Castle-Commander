@@ -44,22 +44,30 @@ namespace CastleCommander.WebApi.GameLogic
                         Name = "Jim Bon Jivi",
                         IsActive = true,
                         Resources = GetPlayerResources(),
-                    },
-                    new Player()
-                    {
-                        Name = "Eazy Earsborn",
-                        Resources = GetPlayerResources()
+                        PrimaryColor = "#490101",
+                        SecondaryColor = "#970000",
 
                     },
                     new Player()
                     {
+                        Name = "Eazy Earsborn",
+                        Resources = GetPlayerResources(),
+                        PrimaryColor = "#014905",
+                        SecondaryColor = "#009721",
+                    },
+                    new Player()
+                    {
                         Name = "Linn Tildelman",
-                        Resources = GetPlayerResources()
+                        Resources = GetPlayerResources(),
+                        PrimaryColor = "#011549",
+                        SecondaryColor = "#005D97",
                     },
                     new Player()
                     {
                         Name = "Stiggy Zardust",
-                        Resources = GetPlayerResources()
+                        Resources = GetPlayerResources(),
+                        PrimaryColor = "#493601",
+                        SecondaryColor = "#975D00",
 
                     },
                 }

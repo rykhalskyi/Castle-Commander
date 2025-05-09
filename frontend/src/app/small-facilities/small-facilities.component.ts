@@ -1,17 +1,20 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Hexagon } from '../api-client';
+import { GameService } from '../services/game.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-small-facilities',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './small-faclities.component.svg',
   styleUrl: './small-facilities.component.scss'
 })
 export class SmallFacilitiesComponent implements OnInit, OnChanges {
 
-
   @Input() model: Hexagon | null = null;
-  protected visibility: boolean[] = [false, false, false, false, false, false]
+  protected visibility: boolean[] = [false, false, false, false, false, false];
+  protected primaryColors: string[] = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+  protected secondaryColors: string[] = ['#FFAAAA', '#AAFFAA', '#AAAAFF', '#FFFFAA', '#FFAAFF', '#AAFFFF'];
      
   ngOnInit(): void {
     this.setSmallFacilities();
@@ -30,7 +33,11 @@ export class SmallFacilitiesComponent implements OnInit, OnChanges {
     }
     for (let i = 0; i < smallFacilities.length; i++) {
       this.visibility[smallFacilities[i].startSector!] = true;
+      this.primaryColors[smallFacilities[i].startSector!] = smallFacilities[i].primaryColor ?? "#FF0000";
+      this.secondaryColors[smallFacilities[i].startSector!] = smallFacilities[i].secondaryColor ?? "#FFAAAA";
     }
   }
+
+
 
 }

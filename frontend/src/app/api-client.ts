@@ -98,26 +98,11 @@ export class Client {
     }
 
     /**
-     * @param hexagon (optional) 
-     * @param startSector (optional) 
-     * @param size (optional) 
      * @param body (optional) 
      * @return OK
      */
-    addfacility(hexagon: number | undefined, startSector: number | undefined, size: FacilitySize | undefined, body: Game | undefined): Promise<Game> {
-        let url_ = this.baseUrl + "/api/game/addfacility?";
-        if (hexagon === null)
-            throw new Error("The parameter 'hexagon' cannot be null.");
-        else if (hexagon !== undefined)
-            url_ += "hexagon=" + encodeURIComponent("" + hexagon) + "&";
-        if (startSector === null)
-            throw new Error("The parameter 'startSector' cannot be null.");
-        else if (startSector !== undefined)
-            url_ += "startSector=" + encodeURIComponent("" + startSector) + "&";
-        if (size === null)
-            throw new Error("The parameter 'size' cannot be null.");
-        else if (size !== undefined)
-            url_ += "size=" + encodeURIComponent("" + size) + "&";
+    addfacility(body: AddFacilityInput | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/addfacility";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -153,6 +138,58 @@ export class Client {
         }
         return Promise.resolve<Game>(null as any);
     }
+}
+
+export class AddFacilityInput implements IAddFacilityInput {
+    inputGame?: Game;
+    hexagon?: number;
+    startSector?: number;
+    size?: FacilitySize;
+    playerId?: number;
+
+    constructor(data?: IAddFacilityInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.inputGame = _data["inputGame"] ? Game.fromJS(_data["inputGame"]) : <any>undefined;
+            this.hexagon = _data["hexagon"];
+            this.startSector = _data["startSector"];
+            this.size = _data["size"];
+            this.playerId = _data["playerId"];
+        }
+    }
+
+    static fromJS(data: any): AddFacilityInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new AddFacilityInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["inputGame"] = this.inputGame ? this.inputGame.toJSON() : <any>undefined;
+        data["hexagon"] = this.hexagon;
+        data["startSector"] = this.startSector;
+        data["size"] = this.size;
+        data["playerId"] = this.playerId;
+        return data;
+    }
+}
+
+export interface IAddFacilityInput {
+    inputGame?: Game;
+    hexagon?: number;
+    startSector?: number;
+    size?: FacilitySize;
+    playerId?: number;
 }
 
 export class Castle implements ICastle {
@@ -202,6 +239,9 @@ export interface ICastle {
 export class Facility implements IFacility {
     size?: FacilitySize;
     startSector?: number;
+    playerId?: number;
+    primaryColor?: string | undefined;
+    secondaryColor?: string | undefined;
 
     constructor(data?: IFacility) {
         if (data) {
@@ -216,6 +256,9 @@ export class Facility implements IFacility {
         if (_data) {
             this.size = _data["size"];
             this.startSector = _data["startSector"];
+            this.playerId = _data["playerId"];
+            this.primaryColor = _data["primaryColor"];
+            this.secondaryColor = _data["secondaryColor"];
         }
     }
 
@@ -230,6 +273,9 @@ export class Facility implements IFacility {
         data = typeof data === 'object' ? data : {};
         data["size"] = this.size;
         data["startSector"] = this.startSector;
+        data["playerId"] = this.playerId;
+        data["primaryColor"] = this.primaryColor;
+        data["secondaryColor"] = this.secondaryColor;
         return data;
     }
 }
@@ -237,6 +283,9 @@ export class Facility implements IFacility {
 export interface IFacility {
     size?: FacilitySize;
     startSector?: number;
+    playerId?: number;
+    primaryColor?: string | undefined;
+    secondaryColor?: string | undefined;
 }
 
 export enum FacilitySize {
@@ -374,6 +423,8 @@ export enum HexagonColor {
 export class Player implements IPlayer {
     name?: string | undefined;
     isActive?: boolean;
+    primaryColor?: string | undefined;
+    secondaryColor?: string | undefined;
     resources?: PlayerResource[] | undefined;
     bronze?: number;
     silver?: number;
@@ -392,6 +443,8 @@ export class Player implements IPlayer {
         if (_data) {
             this.name = _data["name"];
             this.isActive = _data["isActive"];
+            this.primaryColor = _data["primaryColor"];
+            this.secondaryColor = _data["secondaryColor"];
             if (Array.isArray(_data["resources"])) {
                 this.resources = [] as any;
                 for (let item of _data["resources"])
@@ -414,6 +467,8 @@ export class Player implements IPlayer {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["isActive"] = this.isActive;
+        data["primaryColor"] = this.primaryColor;
+        data["secondaryColor"] = this.secondaryColor;
         if (Array.isArray(this.resources)) {
             data["resources"] = [];
             for (let item of this.resources)
@@ -429,6 +484,8 @@ export class Player implements IPlayer {
 export interface IPlayer {
     name?: string | undefined;
     isActive?: boolean;
+    primaryColor?: string | undefined;
+    secondaryColor?: string | undefined;
     resources?: PlayerResource[] | undefined;
     bronze?: number;
     silver?: number;

@@ -31,7 +31,9 @@ export class PlayfieldComponent implements OnInit {
   // Add component logic here
   onClick(args:HexagonSectorClickArgs)
   {
-    if (this.game === null || this.gameService.selectedFacilitySize === null) {
+    if (this.game === null 
+      || this.game.currentTurn !== 2
+      || this.gameService.selectedFacilitySize === null) {
       return;
     }
     this.gameService.addFacility(this.game, args.hexagon, args.sector, this.gameService.selectedFacilitySize);
