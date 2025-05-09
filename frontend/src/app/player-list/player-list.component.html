@@ -3,6 +3,8 @@
         <tr *ngFor="let player of players">
             <td >
                 <div class="div-flex">
+                    <div [ngStyle]="{'background-color': player.primaryColor, 'width': '6px', 'height': '15px'}"></div>
+                    <div [ngStyle]="{'background-color': player.secondaryColor, 'width': '6px', 'height': '15px'}"></div>
                     <div [ngStyle]="{'color': player.isActive ? '#FFFFFF' : '#666666'}" class="player-name">
                         {{ player.name }} &nbsp;
                     </div>
