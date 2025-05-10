@@ -14,10 +14,16 @@
 
 <div class ="center-part"></div>
 
+@if (game()?.currentTurn === 0) {
+  <div>
+    <app-dice-roll></app-dice-roll>
+  </div>
+}
 @if (game()?.currentTurn === 2){
 <div >
   <app-choose-facility></app-choose-facility>
 </div>
 }
+
 
 

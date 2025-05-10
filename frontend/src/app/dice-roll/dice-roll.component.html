@@ -1,0 +1,6 @@
+<div class="dice-container">
+  <button class="blue-button" style="height: 30px; width: 105px;" (click)="rollDice()" [disabled]="rolling">Roll Dice</button>
+
+  <div class="dice" [class.rolling]="rolling">{{ dice1 }}</div>
+  <div class="dice" [class.rolling]="rolling">{{ dice2 }}</div>
+</div>

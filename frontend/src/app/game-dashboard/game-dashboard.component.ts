@@ -4,11 +4,12 @@ import { GameService } from '../services/game.service';
 import { Game, Player } from '../api-client';
 import { PlayerListComponent } from '../player-list/player-list.component';
 import { ChooseFacilityComponent } from '../choose-facility/choose-facility.component';
+import { DiceRollComponent } from '../dice-roll/dice-roll.component';
 
 @Component({
   selector: 'app-game-dashboard',
   standalone: true,
-  imports: [CommonModule, PlayerListComponent, ChooseFacilityComponent],
+  imports: [CommonModule, PlayerListComponent, ChooseFacilityComponent, DiceRollComponent],
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']
 })
