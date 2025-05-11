@@ -8,13 +8,13 @@
             return true;
         }
 
-        public void MakeTurn(Game userInput, Game game)
+        public virtual void MakeTurn(Game userInput, Game game)
         {
             game.TurnMessage = Message;
         }
 
 
-        public void UpdateGame(Game userInput, Game game)
+        public virtual void UpdateGame(Game userInput, Game game)
         {
         }
     }

@@ -9,6 +9,7 @@
             var game = GameFlowFactory.CreateGame();
             game.TurnMessage = "Game started";
 
+            Turns[game.CurrentTurn].MakeTurn(userInput, game);
             return game;
         }
 

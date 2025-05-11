@@ -16,7 +16,7 @@
 
 @if (game()?.currentTurn === 0) {
   <div>
-    <app-dice-roll></app-dice-roll>
+    <app-dice-roll  [dice]="game()?.dice ?? null"></app-dice-roll>
   </div>
 }
 @if (game()?.currentTurn === 2){

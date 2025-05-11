@@ -236,6 +236,50 @@ export interface ICastle {
     hexagons?: Hexagon[] | undefined;
 }
 
+export class Dice implements IDice {
+    resorceDice?: number;
+    resourceDiceColor?: string | undefined;
+    bonusDice?: string | undefined;
+
+    constructor(data?: IDice) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.resorceDice = _data["resorceDice"];
+            this.resourceDiceColor = _data["resourceDiceColor"];
+            this.bonusDice = _data["bonusDice"];
+        }
+    }
+
+    static fromJS(data: any): Dice {
+        data = typeof data === 'object' ? data : {};
+        let result = new Dice();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["resorceDice"] = this.resorceDice;
+        data["resourceDiceColor"] = this.resourceDiceColor;
+        data["bonusDice"] = this.bonusDice;
+        return data;
+    }
+}
+
+export interface IDice {
+    resorceDice?: number;
+    resourceDiceColor?: string | undefined;
+    bonusDice?: string | undefined;
+}
+
 export class Facility implements IFacility {
     size?: FacilitySize;
     startSector?: number;
@@ -301,6 +345,7 @@ export class Game implements IGame {
     currentPlayer?: number;
     players?: Player[] | undefined;
     castle?: Castle;
+    dice?: Dice;
 
     constructor(data?: IGame) {
         if (data) {
@@ -323,6 +368,7 @@ export class Game implements IGame {
                     this.players!.push(Player.fromJS(item));
             }
             this.castle = _data["castle"] ? Castle.fromJS(_data["castle"]) : <any>undefined;
+            this.dice = _data["dice"] ? Dice.fromJS(_data["dice"]) : <any>undefined;
         }
     }
 
@@ -345,6 +391,7 @@ export class Game implements IGame {
                 data["players"].push(item ? item.toJSON() : <any>undefined);
         }
         data["castle"] = this.castle ? this.castle.toJSON() : <any>undefined;
+        data["dice"] = this.dice ? this.dice.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -356,6 +403,7 @@ export interface IGame {
     currentPlayer?: number;
     players?: Player[] | undefined;
     castle?: Castle;
+    dice?: Dice;
 }
 
 export class Hexagon implements IHexagon {
