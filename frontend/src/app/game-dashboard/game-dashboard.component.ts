@@ -5,11 +5,12 @@ import { Game, Player } from '../api-client';
 import { PlayerListComponent } from '../player-list/player-list.component';
 import { ChooseFacilityComponent } from '../choose-facility/choose-facility.component';
 import { DiceRollComponent } from '../dice-roll/dice-roll.component';
+import { ResourceExchangeComponent } from '../resource-exchange/resource-exchange.component';
 
 @Component({
   selector: 'app-game-dashboard',
   standalone: true,
-  imports: [CommonModule, PlayerListComponent, ChooseFacilityComponent, DiceRollComponent],
+  imports: [CommonModule, PlayerListComponent, ChooseFacilityComponent, DiceRollComponent, ResourceExchangeComponent],
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']
 })

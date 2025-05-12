@@ -12,7 +12,12 @@
     <app-player-list [players]="game()?.players ?? null"></app-player-list>
 </div>
 
-<div class ="center-part"></div>
+<div class ="center-part">
+  @if (game()?.currentTurn === 2) {
+    <app-resource-exchange></app-resource-exchange>
+  }
+</div>
+
 
 @if (game()?.currentTurn === 0) {
   <div>
@@ -24,6 +29,4 @@
   <app-choose-facility></app-choose-facility>
 </div>
 }
-
-
 
