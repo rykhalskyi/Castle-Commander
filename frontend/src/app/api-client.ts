@@ -138,6 +138,48 @@ export class Client {
         }
         return Promise.resolve<Game>(null as any);
     }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    exchange(body: ExchangeItemInput | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/exchange";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processExchange(_response);
+        });
+    }
+
+    protected processExchange(response: Response): Promise<Game> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Game.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Game>(null as any);
+    }
 }
 
 export class AddFacilityInput implements IAddFacilityInput {
@@ -278,6 +320,56 @@ export interface IDice {
     resorceDice?: number;
     resourceDiceColor?: string | undefined;
     bonusDice?: string | undefined;
+}
+
+export enum ExchangeItem {
+    _0 = 0,
+    _1 = 1,
+    _2 = 2,
+}
+
+export class ExchangeItemInput implements IExchangeItemInput {
+    gameId?: string;
+    item?: ExchangeItem;
+    number?: number;
+
+    constructor(data?: IExchangeItemInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.gameId = _data["gameId"];
+            this.item = _data["item"];
+            this.number = _data["number"];
+        }
+    }
+
+    static fromJS(data: any): ExchangeItemInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ExchangeItemInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["gameId"] = this.gameId;
+        data["item"] = this.item;
+        data["number"] = this.number;
+        return data;
+    }
+}
+
+export interface IExchangeItemInput {
+    gameId?: string;
+    item?: ExchangeItem;
+    number?: number;
 }
 
 export class Facility implements IFacility {
@@ -543,6 +635,7 @@ export interface IPlayer {
 export class PlayerResource implements IPlayerResource {
     number?: number;
     color?: string | undefined;
+    isBase?: boolean;
 
     constructor(data?: IPlayerResource) {
         if (data) {
@@ -557,6 +650,7 @@ export class PlayerResource implements IPlayerResource {
         if (_data) {
             this.number = _data["number"];
             this.color = _data["color"];
+            this.isBase = _data["isBase"];
         }
     }
 
@@ -571,6 +665,7 @@ export class PlayerResource implements IPlayerResource {
         data = typeof data === 'object' ? data : {};
         data["number"] = this.number;
         data["color"] = this.color;
+        data["isBase"] = this.isBase;
         return data;
     }
 }
@@ -578,6 +673,7 @@ export class PlayerResource implements IPlayerResource {
 export interface IPlayerResource {
     number?: number;
     color?: string | undefined;
+    isBase?: boolean;
 }
 
 export class ApiException extends Error {

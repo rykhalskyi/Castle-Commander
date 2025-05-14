@@ -1,5 +1,6 @@
 ﻿using CastleCommander.WebApi.GameLogic;
 using CastleCommander.WebApi.GameLogic.Handlers;
+using CastleCommander.WebApi.Inputs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -39,6 +40,17 @@ namespace CastleCommander.WebApi.Controllers
                 PlayerId = input.PlayerId
             });
             return game;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("exchange")]
+        public async Task<Game> ExchangeItems(ExchangeItemInput input)
+        {
+            return await mediator.Send(new Exchange.Query
+            {
+                GameId = input.GameId,
+                Item = input.Item
+            });
         }
     }
 }

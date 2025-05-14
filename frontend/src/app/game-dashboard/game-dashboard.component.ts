@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameService } from '../services/game.service';
 import { Game, Player } from '../api-client';
@@ -14,26 +14,40 @@ import { ResourceExchangeComponent } from '../resource-exchange/resource-exchang
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']
 })
-export class GameDashboardComponent {
+export class GameDashboardComponent implements OnInit {
 
   protected gameId = signal<string>('');
   protected players = signal<Player[]>([]);
   protected game = signal<Game | null>(null);
+  protected currentPlayer = signal<Player | null>(null);
 
 constructor(
   private readonly gameService: GameService) { }
 
+  ngOnInit(): void {
+    this.gameService.activeGame.subscribe((game) => {
+      if (game) {
+        this.gameId.set(game.id!);
+        this.players.set(game.players!);
+        this.game.set(game);
+        this.currentPlayer.set(game.players![game.currentPlayer!]);
+      }
+    });
+  }
+
   public async newGameClick(): Promise<void> {
     const game =  await this.gameService.startNewGame();
-    this.gameId.set(game.id!);
-    this.players.set(game.players!);
-    this.game.set(game);
+    // this.gameId.set(game.id!);
+    // this.players.set(game.players!);
+    // this.game.set(game);
+    // this.currentPlayer.set(game.players![game.currentPlayer!]);
   }
 
   public async makeTurnClick(): Promise<void> {
     if (this.game !== null) {
       const game = await this.gameService.nextTurn(this.game()!);
-      this.game.set(game);
+      // this.game.set(game);
+      // this.currentPlayer.set(game.players![game.currentPlayer!]);
     }
   }
 }

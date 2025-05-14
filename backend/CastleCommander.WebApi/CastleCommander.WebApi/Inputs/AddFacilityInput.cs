@@ -1,6 +1,6 @@
 ﻿using CastleCommander.WebApi.GameLogic;
 
-namespace CastleCommander.WebApi
+namespace CastleCommander.WebApi.Inputs
 {
     public class AddFacilityInput
     {

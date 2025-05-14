@@ -43,7 +43,7 @@ namespace CastleCommander.WebApi.GameLogic
                     {
                         Name = "Jim Bon Jivi",
                         IsActive = true,
-                        Resources = GetPlayerResources(),
+                        Resources = GetPlayerResources(new[]{1,2,3}),
                         PrimaryColor = "#490101",
                         SecondaryColor = "#970000",
 
@@ -51,21 +51,21 @@ namespace CastleCommander.WebApi.GameLogic
                     new Player()
                     {
                         Name = "Eazy Earsborn",
-                        Resources = GetPlayerResources(),
+                        Resources = GetPlayerResources(new[]{1,3,5}),
                         PrimaryColor = "#014905",
                         SecondaryColor = "#009721",
                     },
                     new Player()
                     {
                         Name = "Linn Tildelman",
-                        Resources = GetPlayerResources(),
+                        Resources = GetPlayerResources(new[]{2,4,6}),
                         PrimaryColor = "#011549",
                         SecondaryColor = "#005D97",
                     },
                     new Player()
                     {
                         Name = "Stiggy Zardust",
-                        Resources = GetPlayerResources(),
+                        Resources = GetPlayerResources(new[]{4,5,6}),
                         PrimaryColor = "#493601",
                         SecondaryColor = "#975D00",
 
@@ -74,9 +74,9 @@ namespace CastleCommander.WebApi.GameLogic
             };
         }
 
-        private static PlayerResource[] GetPlayerResources()
+        private static PlayerResource[] GetPlayerResources(int[] baseResources)
         {
-            return new PlayerResource[]
+            var result = new PlayerResource[]
             {
                 new PlayerResource
                 {
@@ -109,6 +109,13 @@ namespace CastleCommander.WebApi.GameLogic
                     Color = HexagonColors.Values[(int)HexagonColor.Purple],
                 }
             };
+
+            for (int i = 0; i < baseResources.Length; i++)
+            {
+                var resource = baseResources[i] - 1;
+                result[resource].IsBase = true;
+            }
+            return result;
         }
     }
 }

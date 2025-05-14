@@ -1,17 +1,18 @@
-<br/>
 <div class="resource-exchange-container">
-   <div class="blue-button">Buy Bronze</div>
-   <div class="resource-div">1</div>
-   <div class="resource-div">1</div>
-   <div class="resource-div">1</div>
+   <div class="blue-button" (click)="exchange(0)">Buy Bronze</div>
+   <div>
+         <div class="resource-div" *ngFor="let item of bronzePrice" [ngStyle]="{'background-color': item}"></div>
+   </div> 
 
-   <div class="blue-button">Buy Silver</div>
-   <div class="resource-div">1</div>
-   <div class="resource-div">1</div>
-   <div class="resource-div">1</div>
+   <div class="blue-button" (click)="exchange(1)">Buy Silver</div>
+   <div>
+        <div class="resource-div" *ngFor="let item of silverPrice" [ngStyle]="{'background-color': item}">&nbsp;</div>
+        <div class="resource-div" style="background-color: rgb(255, 71, 71);">B</div>   
+   </div>
 
-   <div class="blue-button">Buy Gold</div>
-   <div class="resource-div">1</div>
-   <div class="resource-div">1</div>
-   <div class="resource-div">1</div>
+   <div class="blue-button" (click)="exchange(2)">Buy Gold</div>
+   <div>
+        <div class="resource-div" *ngFor="let item of goldPrice" [ngStyle]="{'background-color': item}">&nbsp;</div>
+        <div class="resource-div" style="background-color: rgb(255, 71, 71);">S</div>
+   </div>
  </div>
