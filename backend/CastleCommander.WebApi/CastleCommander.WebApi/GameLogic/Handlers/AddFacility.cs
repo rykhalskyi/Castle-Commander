@@ -23,6 +23,12 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                     throw new Exception("Game not found");
                 }
 
+                if (!Market.TryBuildFacility(game, request.Size))
+                {
+                    game.Log = "Not enough resources to build facility";
+                    return Task.FromResult(game);
+                }
+
                 var newFacility = new Facility()
                 {
                     StartSector = request.StartSector,

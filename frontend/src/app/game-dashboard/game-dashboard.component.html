@@ -1,32 +1,37 @@
-<div class="new-game-button-flex">
-  <div class="new-game-button" (click)="newGameClick()">new game</div>
-  <div class="game-id">{{ game()?.id || 'No Game ID' }}</div>
-</div>
 
-<div class="new-game-button-flex-16">
+
+<div class="game-dashboard-container">
+  <div class="new-game-button-flex">
+    <div class="new-game-button" (click)="newGameClick()">new game</div>
+    <div class="game-id">{{ game()?.id || 'No Game ID' }}</div>
+  </div>
+
+  <div class="new-game-button-flex-16">
     <div class="make-turn-button" (click)="makeTurnClick()">make turn</div>
     <div class="game-id">{{ game()?.turnMessage || 'No Turn Message' }}</div>
-</div>
-
-<div>
-    <app-player-list [players]="game()?.players ?? null"></app-player-list>
-</div>
-
-<div class ="center-part">
-  @if (game()?.currentTurn === 2) {
-    <app-resource-exchange [player]="currentPlayer()" [gameId]="game()?.id ?? ''"></app-resource-exchange>
-  }
-</div>
-
-
-@if (game()?.currentTurn === 0) {
-  <div>
-    <app-dice-roll  [dice]="game()?.dice ?? null"></app-dice-roll>
   </div>
-}
-@if (game()?.currentTurn === 2){
-<div >
-  <app-choose-facility></app-choose-facility>
+
+  <div>
+    <app-player-list [players]="game()?.players ?? null"></app-player-list>
+  </div>
+
+  <div class="center-part">
+    @if (game()?.currentTurn === 2) {
+      <app-resource-exchange [player]="currentPlayer()" [gameId]="game()?.id ?? ''"></app-resource-exchange>
+      <div>
+        <app-choose-facility></app-choose-facility>
+      </div>
+    }
+  </div>
+
+  @if (game()?.currentTurn === 0) {
+    <div>
+      <app-dice-roll [dice]="game()?.dice ?? null"></app-dice-roll>
+    </div>
+  }
+
+ 
 </div>
-}
+
+
 

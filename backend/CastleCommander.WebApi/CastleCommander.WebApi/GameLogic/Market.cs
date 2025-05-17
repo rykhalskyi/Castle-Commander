@@ -30,5 +30,29 @@
                     return false;
             }
         }   
+
+        public static bool TryBuildFacility(Game game, FacilitySize size)
+        {
+            var player = game.Players[game.CurrentPlayer];
+            switch (size) {
+                case FacilitySize.Small:
+                    if (player.Bronze < 1) return false;
+                    player.Bronze--;
+                    break;
+                case FacilitySize.Medium:
+                    if (player.Silver < 1) return false;
+                    player.Silver--;
+                    break;
+                case FacilitySize.Large:
+                    if (player.Gold < 1) return false;
+                    player.Gold--;
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+
+
+        }
     }
 }

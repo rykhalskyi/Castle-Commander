@@ -438,6 +438,7 @@ export class Game implements IGame {
     players?: Player[] | undefined;
     castle?: Castle;
     dice?: Dice;
+    log?: string | undefined;
 
     constructor(data?: IGame) {
         if (data) {
@@ -461,6 +462,7 @@ export class Game implements IGame {
             }
             this.castle = _data["castle"] ? Castle.fromJS(_data["castle"]) : <any>undefined;
             this.dice = _data["dice"] ? Dice.fromJS(_data["dice"]) : <any>undefined;
+            this.log = _data["log"];
         }
     }
 
@@ -484,6 +486,7 @@ export class Game implements IGame {
         }
         data["castle"] = this.castle ? this.castle.toJSON() : <any>undefined;
         data["dice"] = this.dice ? this.dice.toJSON() : <any>undefined;
+        data["log"] = this.log;
         return data;
     }
 }
@@ -496,6 +499,7 @@ export interface IGame {
     players?: Player[] | undefined;
     castle?: Castle;
     dice?: Dice;
+    log?: string | undefined;
 }
 
 export class Hexagon implements IHexagon {

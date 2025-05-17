@@ -15,6 +15,7 @@
         {
             if (_games.TryGetValue(gameId, out var game))
             {
+                game.Log = string.Empty;
                 return game;
             }
             throw new KeyNotFoundException($"Game with ID {gameId} not found in cache.");

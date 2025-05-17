@@ -12,5 +12,7 @@
 
         public Castle Castle { get; set; }
         public Dice? Dice { get; set; } = null;
-}
+
+        public string? Log { get; set; }
+    }
 }

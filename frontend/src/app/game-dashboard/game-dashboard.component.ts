@@ -10,7 +10,12 @@ import { ResourceExchangeComponent } from '../resource-exchange/resource-exchang
 @Component({
   selector: 'app-game-dashboard',
   standalone: true,
-  imports: [CommonModule, PlayerListComponent, ChooseFacilityComponent, DiceRollComponent, ResourceExchangeComponent],
+  imports: [CommonModule, 
+    PlayerListComponent, 
+    ChooseFacilityComponent, 
+    DiceRollComponent, 
+    ResourceExchangeComponent
+  ],
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']
 })
@@ -31,23 +36,20 @@ constructor(
         this.players.set(game.players!);
         this.game.set(game);
         this.currentPlayer.set(game.players![game.currentPlayer!]);
+
+        if (game.log) console.log('** Game Log:', game.log);
+        
       }
     });
   }
 
   public async newGameClick(): Promise<void> {
     const game =  await this.gameService.startNewGame();
-    // this.gameId.set(game.id!);
-    // this.players.set(game.players!);
-    // this.game.set(game);
-    // this.currentPlayer.set(game.players![game.currentPlayer!]);
   }
 
   public async makeTurnClick(): Promise<void> {
     if (this.game !== null) {
       const game = await this.gameService.nextTurn(this.game()!);
-      // this.game.set(game);
-      // this.currentPlayer.set(game.players![game.currentPlayer!]);
     }
   }
 }
