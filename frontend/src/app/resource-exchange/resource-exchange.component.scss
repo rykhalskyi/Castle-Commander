@@ -14,3 +14,22 @@
     width: 20px;
     margin-left: 4px;
   }
+
+.dropdown-row {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  justify-content: left;
+  height: 30px;
+}
+
+.color-square {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: middle;
+  border-radius: 3px;
+
+}

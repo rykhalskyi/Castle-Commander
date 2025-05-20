@@ -15,4 +15,21 @@
         <div class="resource-div" *ngFor="let item of goldPrice" [ngStyle]="{'background-color': item}">&nbsp;</div>
         <div class="resource-div" style="background-color: rgb(255, 71, 71);">S</div>
    </div>
+   
+   <!-- Dropdowns row -->
+
  </div>
+
+    <div class="dropdown-row">
+      <div class="blue-button" style="width: 100px; height: 20px;" (click)="exchangeWithPlayer()">Exchange</div>
+     <select title="First dropdown" [ngStyle]="{'background-color': selectedResourceColor}" (change)="onResourceChange($event)">
+       <option *ngFor="let item of availiableResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+     </select>
+      for
+     <select title="Second dropdown" (change)="onOtherPlayerChange($event)">
+       <option *ngFor="let item of otherPlayers" [value]="item.name" >{{item.name}} </option>
+     </select>
+      <select title="third dropdown" [ngStyle]="{'background-color': selectedOtherResourceColor}" (change)="onOtherResourceChange($event)">
+       <option *ngFor="let item of otherPlayerResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+     </select>
+   </div>

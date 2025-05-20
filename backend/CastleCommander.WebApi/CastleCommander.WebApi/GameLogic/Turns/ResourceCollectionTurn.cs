@@ -20,7 +20,7 @@
 
                     var earnedResource = (game.CurrentPlayer == facility.PlayerId)
                         ? ApplyBounus(resourceFromFacility, game.Dice?.BonusDice)
-                        : resourceFromFacility;
+                        : 0;//resourceFromFacility;
                  
                     game.Players[facility.PlayerId].Resources[i - 1].Number += GetResourceFromFacility(facility);
 
