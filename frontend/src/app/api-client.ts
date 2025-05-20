@@ -143,7 +143,7 @@ export class Client {
      * @param body (optional) 
      * @return OK
      */
-    buy(body: ExchangeItemInput | undefined): Promise<Game> {
+    buy(body: BuyItemInput | undefined): Promise<Game> {
         let url_ = this.baseUrl + "/api/game/buy";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -232,6 +232,50 @@ export interface IAddFacilityInput {
     startSector?: number;
     size?: FacilitySize;
     playerId?: number;
+}
+
+export class BuyItemInput implements IBuyItemInput {
+    gameId?: string;
+    item?: ExchangeItem;
+    number?: number;
+
+    constructor(data?: IBuyItemInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.gameId = _data["gameId"];
+            this.item = _data["item"];
+            this.number = _data["number"];
+        }
+    }
+
+    static fromJS(data: any): BuyItemInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new BuyItemInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["gameId"] = this.gameId;
+        data["item"] = this.item;
+        data["number"] = this.number;
+        return data;
+    }
+}
+
+export interface IBuyItemInput {
+    gameId?: string;
+    item?: ExchangeItem;
+    number?: number;
 }
 
 export class Castle implements ICastle {
@@ -326,50 +370,6 @@ export enum ExchangeItem {
     _0 = 0,
     _1 = 1,
     _2 = 2,
-}
-
-export class ExchangeItemInput implements IExchangeItemInput {
-    gameId?: string;
-    item?: ExchangeItem;
-    number?: number;
-
-    constructor(data?: IExchangeItemInput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.gameId = _data["gameId"];
-            this.item = _data["item"];
-            this.number = _data["number"];
-        }
-    }
-
-    static fromJS(data: any): ExchangeItemInput {
-        data = typeof data === 'object' ? data : {};
-        let result = new ExchangeItemInput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["gameId"] = this.gameId;
-        data["item"] = this.item;
-        data["number"] = this.number;
-        return data;
-    }
-}
-
-export interface IExchangeItemInput {
-    gameId?: string;
-    item?: ExchangeItem;
-    number?: number;
 }
 
 export class Facility implements IFacility {

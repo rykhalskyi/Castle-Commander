@@ -44,7 +44,7 @@ namespace CastleCommander.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("buy")]
-        public async Task<Game> BuyItems(ExchangeItemInput input)
+        public async Task<Game> BuyItems(BuyItemInput input)
         {
             return await mediator.Send(new Buy.Query
             {
@@ -52,5 +52,9 @@ namespace CastleCommander.WebApi.Controllers
                 Item = input.Item
             });
         }
+
+        //[AllowAnonymous]
+        //[HttpPost("exchange")]
+        //public
     }
 }

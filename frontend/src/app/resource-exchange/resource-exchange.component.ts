@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, input, OnInit } from '@angular/core';
-import { ExchangeItem, ExchangeItemInput, Player, PlayerResource } from '../api-client';
+import { ExchangeItem, BuyItemInput, Player, PlayerResource } from '../api-client';
 import { CommonModule } from '@angular/common';
 import { GameService } from '../services/game.service';
 

@@ -2,7 +2,7 @@
 
 namespace CastleCommander.WebApi.Inputs
 {
-    public class ExchangeItemInput
+    public class BuyItemInput
     {
         public Guid GameId { get; set; }
         public ExchangeItem Item { get; set; }

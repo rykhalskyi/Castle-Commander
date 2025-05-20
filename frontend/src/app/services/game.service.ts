@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { AddFacilityInput, Client, ExchangeItem, ExchangeItemInput, FacilitySize, Game } from '../api-client';
+import { AddFacilityInput, Client, ExchangeItem, BuyItemInput, FacilitySize, Game } from '../api-client';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class GameService {
       gameId: gameId,
       item: item,
       number: 1
-    } as ExchangeItemInput);
+    } as BuyItemInput);
     this.activeGame.next(updatedGame);
     return updatedGame;
   }

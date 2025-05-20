@@ -139,17 +139,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExchangeItemInput"
+                "$ref": "#/components/schemas/BuyItemInput"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ExchangeItemInput"
+                "$ref": "#/components/schemas/BuyItemInput"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ExchangeItemInput"
+                "$ref": "#/components/schemas/BuyItemInput"
               }
             }
           }
@@ -205,6 +205,23 @@
         },
         "additionalProperties": false
       },
+      "BuyItemInput": {
+        "type": "object",
+        "properties": {
+          "gameId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "item": {
+            "$ref": "#/components/schemas/ExchangeItem"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "Castle": {
         "type": "object",
         "properties": {
@@ -244,23 +261,6 @@
         ],
         "type": "integer",
         "format": "int32"
-      },
-      "ExchangeItemInput": {
-        "type": "object",
-        "properties": {
-          "gameId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "item": {
-            "$ref": "#/components/schemas/ExchangeItem"
-          },
-          "number": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
       },
       "Facility": {
         "type": "object",
