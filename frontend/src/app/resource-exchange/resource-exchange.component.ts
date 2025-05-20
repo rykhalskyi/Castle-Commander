@@ -53,12 +53,15 @@ ngOnInit(): void {
  protected async exchange(item: ExchangeItem): Promise<void> {
   if (!this.gameId) return;
 
-   await this.gameService.exchange(this.gameId ?? '', item);
+   await this.gameService.buy(this.gameId ?? '', item);
  }
 
  protected async exchangeWithPlayer()
  {
     if (this.selectedResourceColor && this.selectedOtherResourceColor)
+    {
+
+    }
       console.log('can exchange');
  }
 

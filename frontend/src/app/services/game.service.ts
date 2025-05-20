@@ -35,8 +35,8 @@ export class GameService {
     return updatedGame;
   }
 
-  public async exchange(gameId: string, item: ExchangeItem): Promise<Game> {
-    const updatedGame = await this.client.exchange({
+  public async buy(gameId: string, item: ExchangeItem): Promise<Game> {
+    const updatedGame = await this.client.buy({
       gameId: gameId,
       item: item,
       number: 1

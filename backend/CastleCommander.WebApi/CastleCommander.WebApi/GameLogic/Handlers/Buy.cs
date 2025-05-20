@@ -2,7 +2,7 @@
 
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
-    public class Exchange
+    public class Buy
     {
         public class Query : IRequest<Game>
         {
