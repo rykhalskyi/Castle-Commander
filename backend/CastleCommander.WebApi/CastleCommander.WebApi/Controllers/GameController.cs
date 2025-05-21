@@ -53,8 +53,14 @@ namespace CastleCommander.WebApi.Controllers
             });
         }
 
-        //[AllowAnonymous]
-        //[HttpPost("exchange")]
-        //public
+        [AllowAnonymous]
+        [HttpPost("exchange")]
+        public async Task<Game> ExchangeItems(ExchangeItemInput input)
+        {
+            return await mediator.Send(new Exchange.Query
+            {
+                Input = input
+            });
+        }
     }
 }

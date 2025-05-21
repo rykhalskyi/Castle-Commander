@@ -1,8 +1,11 @@
-﻿namespace CastleCommander.WebApi.GameLogic
+﻿using MediatR;
+using System.Numerics;
+
+namespace CastleCommander.WebApi.GameLogic
 {
     public class Market
     {
-        public static bool Exchange(ExchangeItem item, Player player)
+        public static bool Buy(ExchangeItem item, Player player)
         {
             switch (item)
             {
@@ -51,8 +54,24 @@
                     return false;
             }
             return true;
+        }
 
+        public static bool Exchange(Player player, 
+            Player otherPlayer,
+            int resource, 
+            int otherPlayerResource)
+        {
 
+            if (player.Resources[resource].Number < 1 || 
+                otherPlayer.Resources[otherPlayerResource].Number < 1) return false;
+
+            player.Resources[resource].Number--;
+            otherPlayer.Resources[resource].Number++;
+
+            otherPlayer.Resources[otherPlayerResource].Number--;
+            player.Resources[otherPlayerResource].Number++;
+
+            return true;
         }
     }
 }

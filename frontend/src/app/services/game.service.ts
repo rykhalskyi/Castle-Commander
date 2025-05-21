@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { AddFacilityInput, Client, ExchangeItem, BuyItemInput, FacilitySize, Game } from '../api-client';
+import { AddFacilityInput, Client, ExchangeItem, BuyItemInput, FacilitySize, Game, ExchangeItemInput } from '../api-client';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -41,6 +41,18 @@ export class GameService {
       item: item,
       number: 1
     } as BuyItemInput);
+    this.activeGame.next(updatedGame);
+    return updatedGame;
+  }
+
+  public async exchange(gameId: string, otherPlayer: number, resource:number, otherResource: number): Promise<Game> {
+    const updatedGame = await this.client.exchange({
+      gameId: gameId,
+      otherPlayer: otherPlayer,
+      playerResource: resource,
+      otherResource: otherResource
+    } as ExchangeItemInput);
+
     this.activeGame.next(updatedGame);
     return updatedGame;
   }

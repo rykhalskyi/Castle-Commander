@@ -25,7 +25,6 @@ export class GameDashboardComponent implements OnInit {
   protected players = signal<Player[]>([]);
   protected game = signal<Game | null>(null);
   protected currentPlayer = signal<Player | null>(null);
-  protected otherPlayers = signal<Player[]>([]);
 
 constructor(
   private readonly gameService: GameService) { }
@@ -37,7 +36,7 @@ constructor(
         this.players.set(game.players!);
         this.game.set(game);
         this.currentPlayer.set(game.players![game.currentPlayer!]);
-        this.otherPlayers.set(game.players!.filter((_, idx) => idx !== game.currentPlayer!))
+        
 
         if (game.log) console.log('** Game Log:', game.log);
         

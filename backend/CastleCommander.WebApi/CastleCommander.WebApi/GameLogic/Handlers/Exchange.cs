@@ -1,30 +1,35 @@
-﻿using MediatR;
+﻿using CastleCommander.WebApi.Inputs;
+using MediatR;
 
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
-    public class Buy
+    public class Exchange
     {
         public class Query : IRequest<Game>
         {
-            public Guid GameId { get; set; }
-            public ExchangeItem Item { get; set; }
-            public int Number { get; set; }
-            
+            public ExchangeItemInput Input { get; set; }
         }
 
         public class Handler(IGamesCache gamesCache) : IRequestHandler<Query, Game>
         {
             public Task<Game> Handle(Query request, CancellationToken cancellationToken)
             {
-                var game = gamesCache.GetGame(request.GameId);
+                var game = gamesCache.GetGame(request.Input.GameId);
                 if (game == null)
                 {
                     throw new Exception("Game not found");
                 }
 
                 var player = game.Players[game.CurrentPlayer];
+                var otherPlayer = game.Players[request.Input.OtherPlayer];
 
-                Market.Buy(request.Item, player);
+                var success = Market.Exchange(player, otherPlayer, request.Input.PlayerResource, request.Input.OtherResource);
+
+                if (!success)
+                {
+                    game.Log = "Not enough resources to exchange";
+                }
+
                 return Task.FromResult(game);
             }
         }

@@ -17,7 +17,7 @@
 
   <div class="center-part">
     @if (game()?.currentTurn === 2) {
-      <app-resource-exchange [player]="currentPlayer()" [gameId]="game()?.id ?? ''" [otherPlayers]="otherPlayers()"></app-resource-exchange>
+      <app-resource-exchange [currentPlayer]="game()?.currentPlayer!" [gameId]="game()?.id ?? ''" [players]="game()?.players!"></app-resource-exchange>
       <div>
         <app-choose-facility></app-choose-facility>
       </div>
