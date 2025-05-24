@@ -1,18 +1,19 @@
 ﻿
+using CastleCommander.WebApi.GameLogic.Enemies;
 using CastleCommander.WebApi.GameLogic.Turns;
 
 namespace CastleCommander.WebApi.GameLogic
 {
     public static class GameFlowFactory
     {
-        public static IGameFlow Create()
+        public static IGameFlow Create(IEnemyCardsCache enemyCardsCache)
         {
             return new GameFlow()
             {
                 Turns = new List<IGameTurn>()
                 {
                    new ResourceCollectionTurn(),
-                   new EnemyCardPickTurn(),
+                   new EnemyCardPickTurn(enemyCardsCache),
                    new TradeAndBuildTurn(),
                    new FightTurn(),
                    new AfterFightTurn(),
