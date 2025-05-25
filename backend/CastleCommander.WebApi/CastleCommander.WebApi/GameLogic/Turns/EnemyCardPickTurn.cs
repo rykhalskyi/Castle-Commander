@@ -12,5 +12,12 @@ namespace CastleCommander.WebApi.GameLogic.Turns
         }
         protected override string Message => "Enemy card pick...";
 
+        public override void MakeTurn(Game userInput, Game game)
+        {
+            base.MakeTurn(userInput, game);
+            game.CurrentEnemyCardIndex = _enemyCards.GetNextCardIndex(game.Id);
+            game.CurrentEnemyCardDescription = _enemyCards.Cards[game.CurrentEnemyCardIndex].Description;
+        }
+
     }
 }

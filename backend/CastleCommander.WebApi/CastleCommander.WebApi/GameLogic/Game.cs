@@ -14,5 +14,7 @@
         public Dice? Dice { get; set; } = null;
 
         public string? Log { get; set; }
+        public int CurrentEnemyCardIndex { get; set; }
+        public string CurrentEnemyCardDescription { get; set; } = String.Empty;
     }
 }

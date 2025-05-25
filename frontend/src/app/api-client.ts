@@ -529,6 +529,8 @@ export class Game implements IGame {
     castle?: Castle;
     dice?: Dice;
     log?: string | undefined;
+    currentEnemyCardIndex?: number;
+    currentEnemyCardDescription?: string | undefined;
 
     constructor(data?: IGame) {
         if (data) {
@@ -553,6 +555,8 @@ export class Game implements IGame {
             this.castle = _data["castle"] ? Castle.fromJS(_data["castle"]) : <any>undefined;
             this.dice = _data["dice"] ? Dice.fromJS(_data["dice"]) : <any>undefined;
             this.log = _data["log"];
+            this.currentEnemyCardIndex = _data["currentEnemyCardIndex"];
+            this.currentEnemyCardDescription = _data["currentEnemyCardDescription"];
         }
     }
 
@@ -577,6 +581,8 @@ export class Game implements IGame {
         data["castle"] = this.castle ? this.castle.toJSON() : <any>undefined;
         data["dice"] = this.dice ? this.dice.toJSON() : <any>undefined;
         data["log"] = this.log;
+        data["currentEnemyCardIndex"] = this.currentEnemyCardIndex;
+        data["currentEnemyCardDescription"] = this.currentEnemyCardDescription;
         return data;
     }
 }
@@ -590,6 +596,8 @@ export interface IGame {
     castle?: Castle;
     dice?: Dice;
     log?: string | undefined;
+    currentEnemyCardIndex?: number;
+    currentEnemyCardDescription?: string | undefined;
 }
 
 export class Hexagon implements IHexagon {

@@ -3,6 +3,8 @@ namespace CastleCommander.WebApi.GameLogic.Enemies
 {
     public interface IEnemyCardsCache
     {
-        List<BaseEnemyCard> Deck { get; }
+        List<BaseEnemyCard> Cards { get; }
+        void AddDeck(Guid gameId);
+        int GetNextCardIndex(Guid gameId);
     }
 }

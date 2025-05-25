@@ -401,6 +401,14 @@
           "log": {
             "type": "string",
             "nullable": true
+          },
+          "currentEnemyCardIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currentEnemyCardDescription": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
