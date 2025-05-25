@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { PlayfieldComponent } from './playfield/playfield.component';
-import { GameDashboardComponent } from './game-dashboard/game-dashboard.component';
+import { PlayfieldComponent } from './components/playfield/playfield.component';
+import { GameDashboardComponent } from './components/game-dashboard/game-dashboard.component';
 import { GameService } from './services/game.service';
-import { MessagePopupComponent } from './message-popup/message-popup.component';
+import { MessagePopupComponent } from './components/message-popup/message-popup.component';
 
 @Component({
   selector: 'app-root',

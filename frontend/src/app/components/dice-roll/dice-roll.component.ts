@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Dice } from '../api-client';
+import { Dice } from '../../api-client';
 import { CommonModule } from '@angular/common';
 
 @Component({

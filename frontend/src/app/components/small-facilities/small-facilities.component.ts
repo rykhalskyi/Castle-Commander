@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Hexagon } from '../api-client';
-import { GameService } from '../services/game.service';
+import { Hexagon } from '../../api-client';
+import { GameService } from '../../services/game.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

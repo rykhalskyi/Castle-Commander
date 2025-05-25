@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { FacilitySize } from '../api-client';
+import { GameService } from '../../services/game.service';
+import { FacilitySize } from '../../api-client';
 
 @Component({
   selector: 'app-choose-facility',

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, input, OnInit } from '@angular/core';
-import { ExchangeItem, BuyItemInput, Player, PlayerResource } from '../api-client';
+import { ExchangeItem, BuyItemInput, Player, PlayerResource } from '../../api-client';
 import { CommonModule } from '@angular/common';
-import { GameService } from '../services/game.service';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-resource-exchange',

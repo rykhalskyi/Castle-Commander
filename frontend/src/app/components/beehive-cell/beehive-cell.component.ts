@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HexagonSectorClickArgs } from '../gameLogic/HexagonSectorClickArgs';
-import { Hexagon } from '../api-client';
+import { HexagonSectorClickArgs } from '../../gameLogic/HexagonSectorClickArgs';
+import { Hexagon } from '../../api-client';
 
 
 @Component({

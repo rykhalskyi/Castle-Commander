@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BeehiveCellComponent } from '../beehive-cell/beehive-cell.component';
 import { SmallFacilitiesComponent } from '../small-facilities/small-facilities.component';
-import { HexagonSectorClickArgs } from '../gameLogic/HexagonSectorClickArgs';
-import { CommonModule } from '@angular/common';
-import { Hexagon } from '../api-client';
 import { MediumFacilitiesComponent } from '../medium-facilities/medium-facilities.component';
 import { LargeFacilitiesComponent } from '../large-facilities/large-facilities.component';
+import { HexagonSectorClickArgs } from '../../gameLogic/HexagonSectorClickArgs';
+import { CommonModule } from '@angular/common';
+import { Hexagon } from '../../api-client';
 
 @Component({
   selector: 'app-castle-hexagon',

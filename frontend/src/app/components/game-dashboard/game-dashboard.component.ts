@@ -1,7 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GameService } from '../services/game.service';
-import { Game, Player } from '../api-client';
+import { GameService } from '../../services/game.service';
+import { Game, Player } from '../../api-client';
 import { PlayerListComponent } from '../player-list/player-list.component';
 import { ChooseFacilityComponent } from '../choose-facility/choose-facility.component';
 import { DiceRollComponent } from '../dice-roll/dice-roll.component';

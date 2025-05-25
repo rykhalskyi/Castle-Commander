@@ -1,8 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { HexagonSectorClickArgs } from '../gameLogic/HexagonSectorClickArgs';
+import { HexagonSectorClickArgs } from '../../gameLogic/HexagonSectorClickArgs';
 import { CastleHexagonComponent } from '../castle-hexagon/castle-hexagon.component';
-import { FacilitySize, Game, Hexagon } from '../api-client';
-import { GameService } from '../services/game.service';
+import { FacilitySize, Game, Hexagon } from '../../api-client';
+import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-playfield',

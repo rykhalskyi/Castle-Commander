@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Hexagon } from '../api-client';
+import { Hexagon } from '../../api-client';
 import { CommonModule } from '@angular/common';
 
 @Component({
