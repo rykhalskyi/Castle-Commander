@@ -22,6 +22,9 @@
         <app-choose-facility></app-choose-facility>
       </div>
     }
+    @if (game()?.currentTurn === 1) {
+      <app-enemy-card [enemyText]="game()?.currentEnemyCardDescription ?? 'Error retrieving card'"></app-enemy-card>
+    }
   </div>
 
   @if (game()?.currentTurn === 0) {

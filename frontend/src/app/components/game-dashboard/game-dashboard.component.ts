@@ -6,6 +6,7 @@ import { PlayerListComponent } from '../player-list/player-list.component';
 import { ChooseFacilityComponent } from '../choose-facility/choose-facility.component';
 import { DiceRollComponent } from '../dice-roll/dice-roll.component';
 import { ResourceExchangeComponent } from '../resource-exchange/resource-exchange.component';
+import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
 
 @Component({
   selector: 'app-game-dashboard',
@@ -14,7 +15,8 @@ import { ResourceExchangeComponent } from '../resource-exchange/resource-exchang
     PlayerListComponent, 
     ChooseFacilityComponent, 
     DiceRollComponent, 
-    ResourceExchangeComponent
+    ResourceExchangeComponent,
+    EnemyCardComponent
   ],
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']

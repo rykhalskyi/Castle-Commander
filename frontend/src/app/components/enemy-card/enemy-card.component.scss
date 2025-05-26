@@ -1,0 +1,63 @@
+.enemy-card-container {
+  width: 300px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  border: 2px solid #b22222;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+  transform: rotateY(0deg);
+  perspective: 600px;
+ 
+  overflow: hidden;
+}
+
+.enemy-card-container .enemy-card-content {
+  width: 100%;
+  text-align: center;
+  font-size: 1.0rem;
+  font-weight: 600;
+  color: #b22222;
+  letter-spacing: 1px;
+  transition: opacity 0.3s;
+}
+
+.enemy-card-container .card-back {
+  font-size: 2.5rem;
+  color: #fff;
+  background: #b22222;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(178,34,34,0.15);
+}
+
+.enemy-card-container {
+  /* flip animation */
+  transition: transform 0.5s cubic-bezier(.4,2,.6,1);
+  transform-style: preserve-3d;
+}
+.enemy-card-container:not(.revealed) {
+  /* show back */
+  background: #b22222;
+  color: #fff;
+}
+.enemy-card-container.revealed {
+  transform: rotateY(360deg);
+  background: #fff0f0;
+  box-shadow: 0 8px 24px rgba(178,34,34,0.18);
+
+}
+.enemy-card-container .enemy-card-content {
+  transition: opacity 0.3s;
+}
+.enemy-card-container:not(.revealed) .enemy-card-content {
+  opacity: 1;
+}
+.enemy-card-container.revealed .enemy-card-content {
+  opacity: 1;
+}

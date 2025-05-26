@@ -16,6 +16,7 @@
 
         public string PrimaryColor { get; set; } = "#cccccc";
         public string SecondaryColor { get; set; } = "#666666";
+        public bool Affected { get; set; }
     }
 
     

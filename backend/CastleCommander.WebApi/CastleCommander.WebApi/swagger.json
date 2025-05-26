@@ -353,6 +353,9 @@
           "secondaryColor": {
             "type": "string",
             "nullable": true
+          },
+          "affected": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -429,6 +432,9 @@
               "$ref": "#/components/schemas/Facility"
             },
             "nullable": true
+          },
+          "affected": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

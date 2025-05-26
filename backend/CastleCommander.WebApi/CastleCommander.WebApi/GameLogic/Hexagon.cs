@@ -25,5 +25,6 @@
         public string ColorValue { get; set; }
         public HexagonColor Color { get; set; }
         public List<Facility> Facilities { get; set; } = new();
+        public bool Affected { get; set; }
     }
 }

@@ -468,6 +468,7 @@ export class Facility implements IFacility {
     playerId?: number;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
+    affected?: boolean;
 
     constructor(data?: IFacility) {
         if (data) {
@@ -485,6 +486,7 @@ export class Facility implements IFacility {
             this.playerId = _data["playerId"];
             this.primaryColor = _data["primaryColor"];
             this.secondaryColor = _data["secondaryColor"];
+            this.affected = _data["affected"];
         }
     }
 
@@ -502,6 +504,7 @@ export class Facility implements IFacility {
         data["playerId"] = this.playerId;
         data["primaryColor"] = this.primaryColor;
         data["secondaryColor"] = this.secondaryColor;
+        data["affected"] = this.affected;
         return data;
     }
 }
@@ -512,6 +515,7 @@ export interface IFacility {
     playerId?: number;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
+    affected?: boolean;
 }
 
 export enum FacilitySize {
@@ -604,6 +608,7 @@ export class Hexagon implements IHexagon {
     colorValue?: string | undefined;
     color?: HexagonColor;
     facilities?: Facility[] | undefined;
+    affected?: boolean;
 
     constructor(data?: IHexagon) {
         if (data) {
@@ -623,6 +628,7 @@ export class Hexagon implements IHexagon {
                 for (let item of _data["facilities"])
                     this.facilities!.push(Facility.fromJS(item));
             }
+            this.affected = _data["affected"];
         }
     }
 
@@ -642,6 +648,7 @@ export class Hexagon implements IHexagon {
             for (let item of this.facilities)
                 data["facilities"].push(item ? item.toJSON() : <any>undefined);
         }
+        data["affected"] = this.affected;
         return data;
     }
 }
@@ -650,6 +657,7 @@ export interface IHexagon {
     colorValue?: string | undefined;
     color?: HexagonColor;
     facilities?: Facility[] | undefined;
+    affected?: boolean;
 }
 
 export enum HexagonColor {

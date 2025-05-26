@@ -1,0 +1,6 @@
+<div class="enemy-card-container" [class.revealed]="revealed" (click)="revealCard()">
+  <div class="enemy-card-content">
+    <span *ngIf="revealed">{{ enemyText }}</span>
+    <span *ngIf="!revealed" class="card-back">?</span>
+  </div>
+</div>
