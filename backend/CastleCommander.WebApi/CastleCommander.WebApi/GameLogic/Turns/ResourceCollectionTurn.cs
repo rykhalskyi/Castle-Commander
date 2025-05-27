@@ -9,11 +9,13 @@
             base.MakeTurn(userInput, game);
             game.Dice = DiceHelper.Throw();
             CollectResources(game);
+            CheckEventCards(game);
         }
 
         private void CollectResources(Game game)
         {
-            for (int i = 1; i < game.Castle.Hexagons.Count; i++) {
+            for (int i = 1; i < game.Castle.Hexagons.Count; i++)
+            {
                 foreach (var facility in game.Castle.Hexagons[i].Facilities)
                 {
                     var resourceFromFacility = GetResourceFromFacility(facility);
@@ -21,7 +23,7 @@
                     var earnedResource = (game.CurrentPlayer == facility.PlayerId)
                         ? ApplyBounus(resourceFromFacility, game.Dice?.BonusDice)
                         : 0;//resourceFromFacility;
-                 
+
                     game.Players[facility.PlayerId].Resources[i - 1].Number += GetResourceFromFacility(facility);
 
                 }
@@ -61,6 +63,18 @@
                 case "x1":
                 default:
                     return resource;
+            }
+        }
+
+        private void CheckEventCards(Game game)
+        {
+            foreach (var card in game.CurrentCards.EventCards.ToList())
+            {
+                card.Value--;
+                if (card.Value == 0)
+                {
+                    game.CurrentCards.EventCards.Remove(card);
+                }
             }
         }
     }

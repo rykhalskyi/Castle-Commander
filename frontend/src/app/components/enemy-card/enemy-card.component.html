@@ -3,4 +3,14 @@
     <span *ngIf="revealed">{{ currentCards?.impactCard?.description }}</span>
     <span *ngIf="!revealed" class="card-back">?</span>
   </div>
+ 
+</div>
+<div class="event-cards">
+ <!-- Event cards list, visible if revealed and eventCards has elements -->
+  <ul class="event-cards-list">
+    <li *ngFor="let event of currentCards!.eventCards">
+      <span class="event-desc">{{ event.description }}</span>
+      <span class="event-value" *ngIf="event.value !== undefined">({{ event.value }})</span>
+    </li>
+  </ul>
 </div>

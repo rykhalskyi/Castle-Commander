@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf, NgForOf } from '@angular/common';
 import { GameFlowService, IGameFlowState } from '../../services/game-flow.service';
 import { CurrentCards } from '../../api-client';
 
@@ -8,7 +8,7 @@ import { CurrentCards } from '../../api-client';
   templateUrl: './enemy-card.component.html',
   styleUrl: './enemy-card.component.scss',
   standalone: true,
-  imports: [NgIf]
+  imports: [NgIf, NgForOf]
 })
 export class EnemyCardComponent implements OnInit {
   @Input() currentCards: CurrentCards | null = null; 
