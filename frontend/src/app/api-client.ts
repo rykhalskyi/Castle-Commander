@@ -320,6 +320,50 @@ export interface IBuyItemInput {
     number?: number;
 }
 
+export class CardDto implements ICardDto {
+    index?: number;
+    description?: string | undefined;
+    value?: number;
+
+    constructor(data?: ICardDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.index = _data["index"];
+            this.description = _data["description"];
+            this.value = _data["value"];
+        }
+    }
+
+    static fromJS(data: any): CardDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CardDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["index"] = this.index;
+        data["description"] = this.description;
+        data["value"] = this.value;
+        return data;
+    }
+}
+
+export interface ICardDto {
+    index?: number;
+    description?: string | undefined;
+    value?: number;
+}
+
 export class Castle implements ICastle {
     hexagons?: Hexagon[] | undefined;
 
@@ -362,6 +406,54 @@ export class Castle implements ICastle {
 
 export interface ICastle {
     hexagons?: Hexagon[] | undefined;
+}
+
+export class CurrentCards implements ICurrentCards {
+    impactCard?: CardDto;
+    eventCards?: CardDto[] | undefined;
+
+    constructor(data?: ICurrentCards) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.impactCard = _data["impactCard"] ? CardDto.fromJS(_data["impactCard"]) : <any>undefined;
+            if (Array.isArray(_data["eventCards"])) {
+                this.eventCards = [] as any;
+                for (let item of _data["eventCards"])
+                    this.eventCards!.push(CardDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): CurrentCards {
+        data = typeof data === 'object' ? data : {};
+        let result = new CurrentCards();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["impactCard"] = this.impactCard ? this.impactCard.toJSON() : <any>undefined;
+        if (Array.isArray(this.eventCards)) {
+            data["eventCards"] = [];
+            for (let item of this.eventCards)
+                data["eventCards"].push(item ? item.toJSON() : <any>undefined);
+        }
+        return data;
+    }
+}
+
+export interface ICurrentCards {
+    impactCard?: CardDto;
+    eventCards?: CardDto[] | undefined;
 }
 
 export class Dice implements IDice {
@@ -533,8 +625,7 @@ export class Game implements IGame {
     castle?: Castle;
     dice?: Dice;
     log?: string | undefined;
-    currentEnemyCardIndex?: number;
-    currentEnemyCardDescription?: string | undefined;
+    currentCards?: CurrentCards;
 
     constructor(data?: IGame) {
         if (data) {
@@ -559,8 +650,7 @@ export class Game implements IGame {
             this.castle = _data["castle"] ? Castle.fromJS(_data["castle"]) : <any>undefined;
             this.dice = _data["dice"] ? Dice.fromJS(_data["dice"]) : <any>undefined;
             this.log = _data["log"];
-            this.currentEnemyCardIndex = _data["currentEnemyCardIndex"];
-            this.currentEnemyCardDescription = _data["currentEnemyCardDescription"];
+            this.currentCards = _data["currentCards"] ? CurrentCards.fromJS(_data["currentCards"]) : <any>undefined;
         }
     }
 
@@ -585,8 +675,7 @@ export class Game implements IGame {
         data["castle"] = this.castle ? this.castle.toJSON() : <any>undefined;
         data["dice"] = this.dice ? this.dice.toJSON() : <any>undefined;
         data["log"] = this.log;
-        data["currentEnemyCardIndex"] = this.currentEnemyCardIndex;
-        data["currentEnemyCardDescription"] = this.currentEnemyCardDescription;
+        data["currentCards"] = this.currentCards ? this.currentCards.toJSON() : <any>undefined;
         return data;
     }
 }
@@ -600,8 +689,7 @@ export interface IGame {
     castle?: Castle;
     dice?: Dice;
     log?: string | undefined;
-    currentEnemyCardIndex?: number;
-    currentEnemyCardDescription?: string | undefined;
+    currentCards?: CurrentCards;
 }
 
 export class Hexagon implements IHexagon {

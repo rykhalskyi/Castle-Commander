@@ -1,4 +1,6 @@
-﻿namespace CastleCommander.WebApi.GameLogic
+﻿using CastleCommander.WebApi.GameLogic.Enemies;
+
+namespace CastleCommander.WebApi.GameLogic
 {
     public class Game 
     {
@@ -14,7 +16,6 @@
         public Dice? Dice { get; set; } = null;
 
         public string? Log { get; set; }
-        public int CurrentEnemyCardIndex { get; set; }
-        public string CurrentEnemyCardDescription { get; set; } = String.Empty;
+        public CurrentCards CurrentCards { get; set; } = new();
     }
 }

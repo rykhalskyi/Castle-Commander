@@ -9,13 +9,7 @@
     {
         public int HexNumber { get; set; }
         public int SectorsNumber { get; set; }
-        public int MaxForce { get; set; }
-    }
-
-    public class BonusCard : BaseEnemyCard {
-        public int HexNumber { get; set; }
-        public int SectorsNumber { get; set; }
-        public int RestoreValue { get; set; }
+        public int ImpactValue { get; set; }
     }
 
     public class EventCard : BaseEnemyCard {

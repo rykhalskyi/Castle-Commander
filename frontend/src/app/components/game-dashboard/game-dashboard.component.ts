@@ -7,6 +7,7 @@ import { ChooseFacilityComponent } from '../choose-facility/choose-facility.comp
 import { DiceRollComponent } from '../dice-roll/dice-roll.component';
 import { ResourceExchangeComponent } from '../resource-exchange/resource-exchange.component';
 import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
+import { GameFlowService, IGameFlowState } from '../../services/game-flow.service';
 
 @Component({
   selector: 'app-game-dashboard',
@@ -29,7 +30,8 @@ export class GameDashboardComponent implements OnInit {
   protected currentPlayer = signal<Player | null>(null);
 
 constructor(
-  private readonly gameService: GameService) { }
+  private readonly gameService: GameService,
+private readonly gameFlowService: GameFlowService) { }
 
   ngOnInit(): void {
     this.gameService.activeGame.subscribe((game) => {
@@ -39,6 +41,10 @@ constructor(
         this.game.set(game);
         this.currentPlayer.set(game.players![game.currentPlayer!]);
         
+        if (game.currentTurn == 0)
+        {
+          this.gameFlowService.setDefaultState();
+        }
 
         if (game.log) console.log('** Game Log:', game.log);
         

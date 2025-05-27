@@ -16,21 +16,34 @@ namespace CastleCommander.WebApi.GameLogic.Turns
         {
             base.MakeTurn(userInput, game);
 
-            game.CurrentEnemyCardIndex = _enemyCards.GetNextCardIndex(game.Id);
-            var enemyCard = _enemyCards.Cards[game.CurrentEnemyCardIndex];
-            game.CurrentEnemyCardDescription = enemyCard.Description;
+            var enemyCardIndex = _enemyCards.GetNextCardIndex(game.Id);
+            var enemyCard = _enemyCards.Cards[enemyCardIndex];
 
             ResetAffectedHexagons(game);
 
-            if (enemyCard is EventCard eventCard)
+            while (enemyCard is EventCard eventCard)
             {
+                game.CurrentCards.EventCards.Add(new CurrentCards.CardDto
+                {
+                    Index = enemyCardIndex,
+                    Description = eventCard.Description,
+                    Value = eventCard.Duration,
+                });
 
+                enemyCardIndex = _enemyCards.GetNextCardIndex(game.Id);
+                enemyCard = _enemyCards.Cards[enemyCardIndex];
             }
-            else SeAffectedHexagons(game, enemyCard);
 
+            game.CurrentCards.ImpactCard = new CurrentCards.CardDto
+            {
+                Index = enemyCardIndex,
+                Description = enemyCard.Description,
+                Value = (enemyCard as EnemyCard)?.ImpactValue ?? 0
+            };
+
+            SeAffectedHexagons(game, enemyCard);
 
         }
-
 
 
         private void SeAffectedHexagons(Game game, BaseEnemyCard baseCard)
@@ -41,10 +54,6 @@ namespace CastleCommander.WebApi.GameLogic.Turns
             if (baseCard is EnemyCard enemyCard)
             {
                 sectorsNumber = enemyCard.SectorsNumber;
-            }
-            else if (baseCard is BonusCard bonusCard)
-            {
-                sectorsNumber = bonusCard.SectorsNumber;
             }
 
             for (int i = 0; i < sectorsNumber; i++)

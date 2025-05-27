@@ -270,6 +270,24 @@
         },
         "additionalProperties": false
       },
+      "CardDto": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "Castle": {
         "type": "object",
         "properties": {
@@ -277,6 +295,22 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Hexagon"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CurrentCards": {
+        "type": "object",
+        "properties": {
+          "impactCard": {
+            "$ref": "#/components/schemas/CardDto"
+          },
+          "eventCards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CardDto"
             },
             "nullable": true
           }
@@ -405,13 +439,8 @@
             "type": "string",
             "nullable": true
           },
-          "currentEnemyCardIndex": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "currentEnemyCardDescription": {
-            "type": "string",
-            "nullable": true
+          "currentCards": {
+            "$ref": "#/components/schemas/CurrentCards"
           }
         },
         "additionalProperties": false

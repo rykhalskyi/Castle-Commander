@@ -10,7 +10,7 @@
     <path
       id="outer-path"
       d="M139.725 10L226.477 60V160L139.725 210L52.9718 160V60L139.725 10Z"
-      [ngStyle]="{'fill': color}"
+      [ngStyle]="{'fill': color, 'stroke': strokeColor, 'stroke-width': strokeWidth}"
     
     />
   </g>

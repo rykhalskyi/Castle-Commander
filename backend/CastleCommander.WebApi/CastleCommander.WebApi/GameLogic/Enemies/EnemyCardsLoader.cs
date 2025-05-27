@@ -31,25 +31,16 @@ namespace CastleCommander.WebApi.GameLogic.Enemies
 
                 switch (cardType)
                 {
-                    case "enemy":
+                    case "impact":
                         result.Add(new EnemyCard
                         {
                             Description = cardDescription,
                             HexNumber = int.TryParse(card?["hexNumber"]?.GetValue<string>(), out var hexNumber) ? hexNumber : 0,
                             SectorsNumber = int.TryParse(card?["sectorNumber"]?.GetValue<string>(), out var sectorsNumber) ? sectorsNumber : 0,
-                            MaxForce = int.TryParse(card?["maxAttackForce"]?.GetValue<string>(), out var maxForce) ? maxForce : 0
+                            ImpactValue = int.TryParse(card?["impactValue"]?.GetValue<string>(), out var maxForce) ? maxForce : 0
                         });
                         break;
-                    case "bonus":
-                        result.Add(new BonusCard
-                        {
-                            Description = cardDescription,
-                            HexNumber = int.TryParse(card?["hexNumber"]?.GetValue<string>(), out var bonusHexNumber) ? bonusHexNumber : 0,
-                            SectorsNumber = int.TryParse(card?["sectorNumber"]?.GetValue<string>(), out var bonusSectorsNumber) ? bonusSectorsNumber : 0,
-                            RestoreValue = int.TryParse(card?["restoreValue"]?.GetValue<string>(), out var restoreValue) ? restoreValue : 0
-                        });
-
-                        break;
+                   
                     case "event":
                         result.Add(new EventCard
                         {
