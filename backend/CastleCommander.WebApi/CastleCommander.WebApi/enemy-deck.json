@@ -36,7 +36,7 @@
     },
     {
       "type": "impact",
-      "description": "New clay deposits have been discovered nearby. These resources speed up the repair of all damaged sectors.",
+      "description": "New clay deposits have been discovered nearby. These resources speed up the repair of some damaged sectors.",
       "hexNumber": "3",
       "sectorNumber": "3",
       "impactValue": "3"
