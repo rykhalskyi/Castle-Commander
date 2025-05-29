@@ -8,6 +8,7 @@ import { DiceRollComponent } from '../dice-roll/dice-roll.component';
 import { ResourceExchangeComponent } from '../resource-exchange/resource-exchange.component';
 import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
 import { GameFlowService, IGameFlowState } from '../../services/game-flow.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-game-dashboard',
@@ -17,17 +18,20 @@ import { GameFlowService, IGameFlowState } from '../../services/game-flow.servic
     ChooseFacilityComponent, 
     DiceRollComponent, 
     ResourceExchangeComponent,
-    EnemyCardComponent
+    EnemyCardComponent,
+    FormsModule
   ],
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']
 })
 export class GameDashboardComponent implements OnInit {
 
-  protected gameId = signal<string>('');
+ // protected gameId = signal<string>('');
   protected players = signal<Player[]>([]);
   protected game = signal<Game | null>(null);
   protected currentPlayer = signal<Player | null>(null);
+  protected newGame = true;
+  protected gameId = 'No Game ID';
 
 constructor(
   private readonly gameService: GameService,
@@ -36,7 +40,7 @@ private readonly gameFlowService: GameFlowService) { }
   ngOnInit(): void {
     this.gameService.activeGame.subscribe((game) => {
       if (game) {
-        this.gameId.set(game.id!);
+        this.gameId = game.id!;
         this.players.set(game.players!);
         this.game.set(game);
         this.currentPlayer.set(game.players![game.currentPlayer!]);
@@ -53,12 +57,24 @@ private readonly gameFlowService: GameFlowService) { }
   }
 
   public async newGameClick(): Promise<void> {
-    const game =  await this.gameService.startNewGame();
+    if (this.newGame)
+      {
+        const game =  await this.gameService.startNewGame();
+      }
+    else await this.gameService.getGame(this.gameId);
   }
 
   public async makeTurnClick(): Promise<void> {
     if (this.game !== null) {
       const game = await this.gameService.nextTurn(this.game()!);
+    }
+  }
+
+  public onGameIdInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.gameId = input.value;
+    if (this.game() !== null) {
+      this.game()!.id = input.value;
     }
   }
 }

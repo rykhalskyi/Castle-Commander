@@ -19,7 +19,7 @@ export class CastleHexagonComponent implements OnChanges, OnInit {
   @Input() model: Hexagon | null = null;
   @Input() showScores: boolean = false;
 
-  protected defenceScore: number[] = [1,2,3,4,5,6];
+  protected defenceScore: number[] = [0,0,0,0,0,0];
   protected score: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,14 +1,14 @@
-
-
 <div class="game-dashboard-container">
   <div class="new-game-button-flex">
-    <div class="new-game-button" (click)="newGameClick()">new game</div>
-    <div class="game-id">{{ game()?.id || 'No Game ID' }}</div>
+    <div class="new-game-button btn" (click)="newGameClick()">get game</div>
+    <input class="game-checkbox" type="checkbox" [(ngModel)]="newGame" title="Create new">
+    <input class="game-id" type="text" [value]="gameId" (input)="onGameIdInput($event)" placeholder="Game ID" title="Get Game by ID">
+    
   </div>
 
   <div class="new-game-button-flex-16">
-    <div class="make-turn-button" (click)="makeTurnClick()">make turn</div>
-    <div class="game-id">{{ game()?.turnMessage || 'No Turn Message' }}</div>
+    <div class="make-turn-button btn" (click)="makeTurnClick()">make turn</div>
+    <div class="game-message">{{ game()?.turnMessage || 'No Turn Message' }}</div>
   </div>
 
   <div>

@@ -18,6 +18,12 @@ export class GameService {
     return game;
   }
 
+  public async getGame(gameId: string): Promise<Game> {
+    const game = await this.client.getgame(gameId);
+    this.activeGame.next(game);
+    return game;
+  }
+
   public nextTurn: (game: Game) => Promise<Game> = async (game: Game) => {
     const updatedGame = await this.client.nextturn(game);
     this.activeGame.next(updatedGame);
