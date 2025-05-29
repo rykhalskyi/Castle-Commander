@@ -15,12 +15,12 @@
     {
     <div class="overlay topmost-overlay" >
         <div class="circle-text pos1" [ngStyle]="{'background': model?.sectors?.[0]?.affected ? 'red' : ''}">{{defenceScore[0]}}</div>    
-        <div class="circle-text pos2" [ngStyle]="{'background': model?.sectors?.[2]?.affected ? 'red' : ''}">{{defenceScore[1]}}</div>
-        <div class="circle-text pos3" [ngStyle]="{'background': model?.sectors?.[3]?.affected ? 'red' : ''}">{{defenceScore[2]}}</div>
-        <div class="circle-text pos6" [ngStyle]="{'background': model?.sectors?.[6]?.affected ? 'red' : ''}">{{defenceScore[3]}}</div> 
+        <div class="circle-text pos2" [ngStyle]="{'background': model?.sectors?.[1]?.affected ? 'red' : ''}">{{defenceScore[1]}}</div>
+        <div class="circle-text pos3" [ngStyle]="{'background': model?.sectors?.[2]?.affected ? 'red' : ''}">{{defenceScore[2]}}</div>
+        <div class="circle-text pos6" [ngStyle]="{'background': model?.sectors?.[5]?.affected ? 'red' : ''}">{{defenceScore[5]}}</div> 
         <div class="circle-text-central pos-central">{{score}}</div>
-        <div class="circle-text pos4" [ngStyle]="{'background': model?.sectors?.[4]?.affected ? 'red' : ''}">{{defenceScore[4]}}</div> 
-        <div class="circle-text pos5" [ngStyle]="{'background': model?.sectors?.[5]?.affected ? 'red' : ''}">{{defenceScore[5]}}</div>
+        <div class="circle-text pos4" [ngStyle]="{'background': model?.sectors?.[3]?.affected ? 'red' : ''}">{{defenceScore[3]}}</div> 
+        <div class="circle-text pos5" [ngStyle]="{'background': model?.sectors?.[4]?.affected ? 'red' : ''}">{{defenceScore[4]}}</div>
         
     </div>
     }

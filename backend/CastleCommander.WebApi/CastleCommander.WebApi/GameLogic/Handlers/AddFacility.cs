@@ -41,6 +41,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                 if ( FacilityHelper.DoesFit(game.Castle.Hexagons[request.Hexagon], newFacility))
                 {
                     game.Castle.Hexagons[request.Hexagon].Facilities.Add(newFacility);
+                    FacilityHelper.ApplyFacilitiesToDefenceScore(game.Castle.Hexagons[request.Hexagon]);
                 }
                
                 return Task.FromResult(game);

@@ -20,6 +20,40 @@
             }
         }
 
+        public static void ApplyFacilitiesToDefenceScore(Hexagon hexagon)
+        {
+            if (hexagon.Facilities.Count == 0)
+            {
+                foreach (var sector in hexagon.Sectors)
+                {
+                    sector.DefenceScore = 1;
+                }
+                return;
+            }
+
+            foreach (var facility in hexagon.Facilities)
+            {
+                switch (facility.Size)
+                {
+                    case FacilitySize.Small:
+                        hexagon.Sectors[facility.StartSector-1].DefenceScore = 2;
+                        break;
+                    case FacilitySize.Medium:
+                        hexagon.Sectors[facility.StartSector-1].DefenceScore = 3;
+                        hexagon.Sectors[Offset(facility.StartSector, 1) - 1].DefenceScore = 3;
+                        break;
+                    case FacilitySize.Large:
+                        hexagon.Sectors[facility.StartSector-1].DefenceScore = 4;
+                        hexagon.Sectors[Offset(facility.StartSector, 1)-1].DefenceScore = 4;
+                        hexagon.Sectors[Offset(facility.StartSector, 2)-1].DefenceScore = 4;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+        }
+
         private static bool DoesFitSector(Hexagon hexagon, int sector)
         {
             return !hexagon.Facilities.Any(f=> 
