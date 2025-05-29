@@ -26,5 +26,16 @@
         public HexagonColor Color { get; set; }
         public List<Facility> Facilities { get; set; } = new();
         public bool Affected { get; set; }
+        public Sector[] Sectors { get; } = new[]
+        {
+            new Sector(),
+            new Sector(),
+            new Sector(),
+            new Sector(),
+            new Sector(),
+            new Sector(),
+            new Sector(),
+            new Sector(),
+        };
     }
 }

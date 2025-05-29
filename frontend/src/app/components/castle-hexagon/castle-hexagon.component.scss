@@ -11,3 +11,46 @@
     grid-area: 1/1;
     pointer-events: none;
 }
+
+.topmost-overlay {
+  height: 100px;
+
+}
+
+.circle-text {
+  position: relative;
+  width: 1.7em;
+  height: 1.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  background: rgba(255,255,255,0.0);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.circle-text-central {
+  position: relative;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: red;
+  background: rgba(255,255,255,0.75);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+// Position each text on a circle
+.pos1 { top: 10%; left: 23%; transform: translate(0, 0); }
+.pos2 { top: 0%; left: 55%; transform: translate(0, -70%); }
+.pos3 { top: 0%; left: 55%; transform: translate(100%, 0); }
+.pos4 { bottom: 42%; left: 55%; transform: translate(0, 0); }
+.pos5 { bottom: 78%; left: 22%; transform: translate(0, 0); }
+.pos6 { top: 0%; left: 6%; transform: translate(0, -100%); }
+.pos-central { top: 0%; left: 38%; transform: translate(0, -170%); }

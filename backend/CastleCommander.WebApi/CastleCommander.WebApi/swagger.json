@@ -464,6 +464,14 @@
           },
           "affected": {
             "type": "boolean"
+          },
+          "sectors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sector"
+            },
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -533,6 +541,19 @@
             "nullable": true
           },
           "isBase": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sector": {
+        "type": "object",
+        "properties": {
+          "defenceScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "affected": {
             "type": "boolean"
           }
         },

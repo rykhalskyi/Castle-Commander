@@ -13,6 +13,8 @@ import { GameService } from '../../services/game.service';
 export class PlayfieldComponent implements OnInit {
     protected hexagons = signal<Hexagon[]>([]);
     protected showHexagons = signal<boolean>(false);
+    protected showScores = signal<boolean>(false);
+
     private game: Game | null = null;
 
     constructor(private readonly gameService:GameService
@@ -25,6 +27,7 @@ export class PlayfieldComponent implements OnInit {
           this.hexagons.set(game?.castle?.hexagons ?? []);
           this.showHexagons.set((game?.castle?.hexagons?.length ?? 0) > 0);
           this.game = game;
+          this.showScores.set(this.game?.currentTurn === 3);
         });
     }
 

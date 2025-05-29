@@ -697,6 +697,7 @@ export class Hexagon implements IHexagon {
     color?: HexagonColor;
     facilities?: Facility[] | undefined;
     affected?: boolean;
+    readonly sectors?: Sector[] | undefined;
 
     constructor(data?: IHexagon) {
         if (data) {
@@ -717,6 +718,11 @@ export class Hexagon implements IHexagon {
                     this.facilities!.push(Facility.fromJS(item));
             }
             this.affected = _data["affected"];
+            if (Array.isArray(_data["sectors"])) {
+                (<any>this).sectors = [] as any;
+                for (let item of _data["sectors"])
+                    (<any>this).sectors!.push(Sector.fromJS(item));
+            }
         }
     }
 
@@ -737,6 +743,11 @@ export class Hexagon implements IHexagon {
                 data["facilities"].push(item ? item.toJSON() : <any>undefined);
         }
         data["affected"] = this.affected;
+        if (Array.isArray(this.sectors)) {
+            data["sectors"] = [];
+            for (let item of this.sectors)
+                data["sectors"].push(item ? item.toJSON() : <any>undefined);
+        }
         return data;
     }
 }
@@ -746,6 +757,7 @@ export interface IHexagon {
     color?: HexagonColor;
     facilities?: Facility[] | undefined;
     affected?: boolean;
+    sectors?: Sector[] | undefined;
 }
 
 export enum HexagonColor {
@@ -872,6 +884,46 @@ export interface IPlayerResource {
     number?: number;
     color?: string | undefined;
     isBase?: boolean;
+}
+
+export class Sector implements ISector {
+    defenceScore?: number;
+    affected?: boolean;
+
+    constructor(data?: ISector) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.defenceScore = _data["defenceScore"];
+            this.affected = _data["affected"];
+        }
+    }
+
+    static fromJS(data: any): Sector {
+        data = typeof data === 'object' ? data : {};
+        let result = new Sector();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["defenceScore"] = this.defenceScore;
+        data["affected"] = this.affected;
+        return data;
+    }
+}
+
+export interface ISector {
+    defenceScore?: number;
+    affected?: boolean;
 }
 
 export class ApiException extends Error {

@@ -1,33 +1,18 @@
-<!-- <div class="container">
-    <div class="two-container">
-        <app-beehive-cell class="beehive" [model] = 'hexagons()[1]' (sectorClick) = "onClick($event)"></app-beehive-cell>
-        <app-beehive-cell class="beehive" [model] = 'hexagons()[2]' (sectorClick) = "onClick($event)"></app-beehive-cell>
-    </div>
-    <div class="three-container">
-        <app-beehive-cell class="beehive" [model] = 'hexagons()[5]' (sectorClick) = "onClick($event)"></app-beehive-cell>
-        <app-beehive-cell class="beehive" [model] = 'hexagons()[0]' (sectorClick) = "onClick($event)"></app-beehive-cell>
-        <app-beehive-cell class="beehive" [model] = 'hexagons()[3]' (sectorClick) = "onClick($event)"></app-beehive-cell>
-    </div>    
-    <div class="two-container">
-        <app-beehive-cell class="beehive" [model] = 'hexagons()[4]' (sectorClick) = "onClick($event)"></app-beehive-cell>
-        <app-beehive-cell class="beehive" [model] = 'hexagons()[6]' (sectorClick) = "onClick($event)"></app-beehive-cell>
-    </div>
 
-</div> -->
 @if (showHexagons()) {
 <div class="container">
     <div class="two-columns">
-        <app-castle-hexagon class="beehive" [model] = 'hexagons()[1]' (sectorClick) = "onClick($event)"></app-castle-hexagon>
-        <app-castle-hexagon class="beehive" [model] = 'hexagons()[2]' (sectorClick) = "onClick($event)"></app-castle-hexagon>
+        <app-castle-hexagon class="beehive" [model] = 'hexagons()[1]' [showScores]="showScores()" (sectorClick) = "onClick($event)"></app-castle-hexagon>
+        <app-castle-hexagon class="beehive" [model] = 'hexagons()[2]' [showScores]="showScores()" (sectorClick) = "onClick($event)"></app-castle-hexagon>
     </div>
     <div class="tree-columns">
-        <app-castle-hexagon class="beehive" [model] = 'hexagons()[5]' (sectorClick) = "onClick($event)"></app-castle-hexagon>
-        <app-castle-hexagon class="beehive" [model] = 'hexagons()[0]' (sectorClick) = "onClick($event)"></app-castle-hexagon>
-        <app-castle-hexagon class="beehive" [model] = 'hexagons()[3]' (sectorClick) = "onClick($event)"></app-castle-hexagon>
+        <app-castle-hexagon class="beehive" [model] = 'hexagons()[5]' [showScores]="showScores()" (sectorClick) = "onClick($event)"></app-castle-hexagon>
+        <app-castle-hexagon class="beehive" [model] = 'hexagons()[0]' [showScores]="showScores()" (sectorClick) = "onClick($event)"></app-castle-hexagon>
+        <app-castle-hexagon class="beehive" [model] = 'hexagons()[3]' [showScores]="showScores()" (sectorClick) = "onClick($event)"></app-castle-hexagon>
     </div>    
     <div class="two-columns">
-        <app-castle-hexagon class="beehive" [model] = 'hexagons()[4]' (sectorClick) = "onClick($event)"></app-castle-hexagon>
-        <app-castle-hexagon class="beehive" [model] = 'hexagons()[6]' (sectorClick) = "onClick($event)"></app-castle-hexagon>
+        <app-castle-hexagon class="beehive" [model] = 'hexagons()[4]' [showScores]="showScores()" (sectorClick) = "onClick($event)"></app-castle-hexagon>
+        <app-castle-hexagon class="beehive" [model] = 'hexagons()[6]' [showScores]="showScores()" (sectorClick) = "onClick($event)"></app-castle-hexagon>
     </div>
 
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { BeehiveCellComponent } from '../beehive-cell/beehive-cell.component';
 import { SmallFacilitiesComponent } from '../small-facilities/small-facilities.component';
 import { MediumFacilitiesComponent } from '../medium-facilities/medium-facilities.component';
@@ -13,10 +13,26 @@ import { Hexagon } from '../../api-client';
   templateUrl: './castle-hexagon.component.html',
   styleUrl: './castle-hexagon.component.scss'
 })
-export class CastleHexagonComponent {
-
+export class CastleHexagonComponent implements OnChanges, OnInit {
+  
   @Output() sectorClick = new EventEmitter<HexagonSectorClickArgs>();
   @Input() model: Hexagon | null = null;
+  @Input() showScores: boolean = false;
+
+  protected defenceScore: number[] = [1,2,3,4,5,6];
+  protected score: string = '';
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.defenceScore = this.model!.sectors!.map(i=>i.defenceScore!);
+    const sumDefenceScore = this.defenceScore.reduce((sum, val) => sum + val, 0);
+    this.score = sumDefenceScore.toString();
+  }
+
+  ngOnInit(): void {
+    this.defenceScore = this.model!.sectors!.map(i=>i.defenceScore!);
+    const sumDefenceScore = this.defenceScore.reduce((sum, val) => sum + val, 0);
+    this.score = sumDefenceScore.toString();
+  }
 
   protected onSectorClick(args:HexagonSectorClickArgs) {
     this.sectorClick.emit(args);
