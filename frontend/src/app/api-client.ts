@@ -600,7 +600,6 @@ export class Facility implements IFacility {
     playerId?: number;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
-    affected?: boolean;
 
     constructor(data?: IFacility) {
         if (data) {
@@ -618,7 +617,6 @@ export class Facility implements IFacility {
             this.playerId = _data["playerId"];
             this.primaryColor = _data["primaryColor"];
             this.secondaryColor = _data["secondaryColor"];
-            this.affected = _data["affected"];
         }
     }
 
@@ -636,7 +634,6 @@ export class Facility implements IFacility {
         data["playerId"] = this.playerId;
         data["primaryColor"] = this.primaryColor;
         data["secondaryColor"] = this.secondaryColor;
-        data["affected"] = this.affected;
         return data;
     }
 }
@@ -647,7 +644,6 @@ export interface IFacility {
     playerId?: number;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
-    affected?: boolean;
 }
 
 export enum FacilitySize {
@@ -928,7 +924,7 @@ export interface IPlayerResource {
 
 export class Sector implements ISector {
     defenceScore?: number;
-    affected?: boolean;
+    impactValue?: number;
 
     constructor(data?: ISector) {
         if (data) {
@@ -942,7 +938,7 @@ export class Sector implements ISector {
     init(_data?: any) {
         if (_data) {
             this.defenceScore = _data["defenceScore"];
-            this.affected = _data["affected"];
+            this.impactValue = _data["impactValue"];
         }
     }
 
@@ -956,14 +952,14 @@ export class Sector implements ISector {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["defenceScore"] = this.defenceScore;
-        data["affected"] = this.affected;
+        data["impactValue"] = this.impactValue;
         return data;
     }
 }
 
 export interface ISector {
     defenceScore?: number;
-    affected?: boolean;
+    impactValue?: number;
 }
 
 export class ApiException extends Error {

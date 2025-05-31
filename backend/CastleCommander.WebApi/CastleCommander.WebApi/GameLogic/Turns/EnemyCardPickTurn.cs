@@ -69,9 +69,9 @@ namespace CastleCommander.WebApi.GameLogic.Turns
             foreach (var hex in game.Castle.Hexagons)
             {
                 hex.Affected = false;
-                foreach (var sector in hex.Facilities)
+                foreach (var sector in hex.Sectors)
                 {
-                    sector.Affected = false;
+                    sector.ImpactValue = 0;
                 }
             }
         }

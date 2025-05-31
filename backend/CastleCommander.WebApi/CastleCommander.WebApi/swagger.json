@@ -427,9 +427,6 @@
           "secondaryColor": {
             "type": "string",
             "nullable": true
-          },
-          "affected": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -593,8 +590,9 @@
             "type": "integer",
             "format": "int32"
           },
-          "affected": {
-            "type": "boolean"
+          "impactValue": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

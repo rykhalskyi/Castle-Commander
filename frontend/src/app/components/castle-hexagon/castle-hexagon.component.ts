@@ -23,7 +23,7 @@ export class CastleHexagonComponent implements OnChanges, OnInit {
   protected score: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.defenceScore = this.model!.sectors!.map(i=>i.defenceScore!);
+    this.defenceScore = this.model!.sectors!.map(i=>i.defenceScore!+i.impactValue!);
     const sumDefenceScore = this.defenceScore.reduce((sum, val) => sum + val, 0);
     this.score = sumDefenceScore.toString();
   }
@@ -36,6 +36,11 @@ export class CastleHexagonComponent implements OnChanges, OnInit {
 
   protected onSectorClick(args:HexagonSectorClickArgs) {
     this.sectorClick.emit(args);
+  }
+
+  protected affected(sector: number):boolean{
+    const value = this.model?.sectors?.[sector]?.impactValue ?? 0;
+    return value < 0;
   }
 
 }

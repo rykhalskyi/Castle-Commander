@@ -15,7 +15,7 @@ namespace CastleCommander.WebApi.GameLogic
                    new ResourceCollectionTurn(),
                    new EnemyCardPickTurn(enemyCardsCache),
                    new TradeAndBuildTurn(),
-                   new FightTurn(),
+                   new FightTurn(enemyCardsCache),
                    new AfterFightTurn(),
                 }
             };
