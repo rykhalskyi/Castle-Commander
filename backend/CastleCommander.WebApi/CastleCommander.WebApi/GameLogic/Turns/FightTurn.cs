@@ -14,16 +14,18 @@ namespace CastleCommander.WebApi.GameLogic.Turns
 
             if (enemyCardsCache.Cards[game.CurrentCards.ImpactCard.Index] is EnemyCard enemyCard)
             {
+                var eventCardImpactValue = EventCardImpactValue(game.CurrentCards.EventCards.Select(i => i.Index).ToList());
                 var random = new Random();
                 foreach (var hex in game.Castle.Hexagons.Where(i => i.Affected))
                 {
-                    for (int i = 0; i < enemyCard.SectorsNumber; i++) {
+                    for (int i = 0; i < enemyCard.SectorsNumber; i++)
+                    {
                         var index = random.Next(6);
 
-                        hex.Sectors[index].ImpactValue = enemyCard.ImpactValue;//MakeImpactScore(random, enemyCard.ImpactValue);
+                        hex.Sectors[index].ImpactValue = enemyCard.ImpactValue + eventCardImpactValue;//MakeImpactScore(random, enemyCard.ImpactValue);
                     }
                 }
-            } 
+            }
         }
 
         private int MakeImpactScore(Random random, int maxCardScore)
@@ -33,6 +35,19 @@ namespace CastleCommander.WebApi.GameLogic.Turns
                 return random.Next(Math.Abs(maxCardScore)) * -1;
             }
             return random.Next(maxCardScore);
+        }
+
+        private int EventCardImpactValue(List<int> cardIndexes)
+        {
+            var result = 0;
+            foreach (var index in cardIndexes)
+            {
+                if (enemyCardsCache.Cards[index] is EventCard eventCard)
+                {
+                    result += eventCard.EnemyAttack - eventCard.EnemyAttack;
+                }
+            }
+            return result;
         }
     }
 }

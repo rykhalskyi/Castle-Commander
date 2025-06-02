@@ -27,7 +27,7 @@ export class PlayfieldComponent implements OnInit {
           this.hexagons.set(game?.castle?.hexagons ?? []);
           this.showHexagons.set((game?.castle?.hexagons?.length ?? 0) > 0);
           this.game = game;
-          this.showScores.set(this.game?.currentTurn === 3);
+          this.showScores.set(this.game?.currentTurn === 3 || this.game?.currentTurn === 4);
         });
     }
 

@@ -2,6 +2,7 @@
 {
     public class FacilityHelper
     {
+        private const int MinBuildableSectorScore = 0;
         public static bool DoesFit(Hexagon hexagon, Facility facility)
         {
             switch (facility.Size)
@@ -49,6 +50,26 @@
                         throw new ArgumentOutOfRangeException();
             }
 
+        }
+
+        public static bool AreSectorsDestroyed(Hexagon hex, Facility facility)
+        {
+            if (facility.Size == FacilitySize.Small)
+            {
+                return hex.Sectors[facility.StartSector - 1].DefenceScore < MinBuildableSectorScore;
+            }
+            if (facility.Size == FacilitySize.Medium)
+            {
+                return hex.Sectors[facility.StartSector - 1].DefenceScore < MinBuildableSectorScore &&
+                       hex.Sectors[Offset(facility.StartSector, 1) - 1].DefenceScore < MinBuildableSectorScore;
+            }
+            if (facility.Size == FacilitySize.Large)
+            {
+                return hex.Sectors[facility.StartSector - 1].DefenceScore < MinBuildableSectorScore &&
+                       hex.Sectors[Offset(facility.StartSector, 1) - 1].DefenceScore < MinBuildableSectorScore &&
+                       hex.Sectors[Offset(facility.StartSector, 2) - 1].DefenceScore < MinBuildableSectorScore;
+            }
+            throw new ArgumentOutOfRangeException();
         }
 
         private static bool DoesFitSector(Hexagon hexagon, int sector)

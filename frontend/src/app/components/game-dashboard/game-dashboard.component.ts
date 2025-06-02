@@ -45,7 +45,7 @@ private readonly gameFlowService: GameFlowService) { }
         this.game.set(game);
         this.currentPlayer.set(game.players![game.currentPlayer!]);
         
-        if (game.currentTurn == 0)
+        if (game.currentTurn == 0 || game.currentTurn == 4)
         {
           this.gameFlowService.setDefaultState();
         }
