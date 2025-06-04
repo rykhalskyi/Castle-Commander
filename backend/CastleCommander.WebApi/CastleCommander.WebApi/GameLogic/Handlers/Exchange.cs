@@ -20,14 +20,21 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                     throw new Exception("Game not found");
                 }
 
-                var player = game.Players[game.CurrentPlayer];
-                var otherPlayer = game.Players[request.Input.OtherPlayer];
-
-                var success = Market.Exchange(player, otherPlayer, request.Input.PlayerResource, request.Input.OtherResource);
-
-                if (!success)
+                try
                 {
-                    game.Log = "Not enough resources to exchange";
+                    var player = game.Players[game.CurrentPlayer];
+                    var otherPlayer = game.Players[request.Input.OtherPlayer];
+
+                    var success = Market.Exchange(player, otherPlayer, request.Input.PlayerResource, request.Input.OtherResource);
+
+                    if (!success)
+                    {
+                        game.Log = "Not enough resources to exchange";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    game.Log = ex.Message;
                 }
 
                 return Task.FromResult(game);

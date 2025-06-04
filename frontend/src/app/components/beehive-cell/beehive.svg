@@ -21,7 +21,7 @@
       fill="white"
       fill-opacity="0.3"
       shape-rendering="crispEdges"
-      (click)="onSectorClick(7)"
+      (click)="onSectorClick(6)"
     />
   </g>
   <path
@@ -29,7 +29,7 @@
     d="M139.725 10V60L183.3 85L226.375 60L139.725 10Z"
     fill="white"
     fill-opacity="0.3"
-    (click)="onSectorClick(2)"
+    (click)="onSectorClick(1)"
   />
   <path
     id="top-left-path"
@@ -38,14 +38,14 @@
     fill-opacity="0.3"
     stroke="#D0CBCB"
     stroke-opacity="0.3"
-    (click)="onSectorClick(1)"
+    (click)="onSectorClick(0)"
   />
   <path
     id="bottom-right-path"
     d="M140.225 210V160L183.801 135L226.875 160L140.225 210Z"
     fill="white"
     fill-opacity="0.3"
-    (click)="onSectorClick(4)"
+    (click)="onSectorClick(3)"
   />
   <path
     id="bottom-left-path"
@@ -54,14 +54,14 @@
     fill-opacity="0.3"
     stroke="#D0CBCB"
     stroke-opacity="0.3"
-    (click)="onSectorClick(5)"
+    (click)="onSectorClick(4)"
   />
   <path
     id="left-vertical-path"
     d="M53.325 160.411L96.7013 135.411L96.6018 85.2391L53.3763 60.5L53.325 160.411Z"
     fill="white"
     fill-opacity="0.3"
-    (click)="onSectorClick(6)"
+    (click)="onSectorClick(5)"
   />
   <path
     id="right-vertical-path"
@@ -70,7 +70,7 @@
     fill-opacity="0.3"
     stroke="#D0CBCB"
     stroke-opacity="0.3"
-    (click)="onSectorClick(3)"
+    (click)="onSectorClick(2)"
   />
   <defs>
     <filter

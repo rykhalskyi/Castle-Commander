@@ -67,7 +67,7 @@ ngOnInit(): void {
  {
     if (this.selectedResourceColor && this.selectedOtherResourceColor && this.selectedOtherPlayer)
     {
-        const otherPlayer = this.players.indexOf(this.selectedOtherPlayer!);
+        const otherPlayer = this.players.findIndex(i => i.name === this.selectedOtherPlayer!.name);
         const resource = this.player?.resources?.findIndex(i=> i.color === this.selectedResourceColor);
         const otherPlayerResources = this.selectedOtherPlayer?.resources?.findIndex(i=> i.color === this.selectedOtherResourceColor);
         await this.gameService.exchange(this.gameId!, otherPlayer , resource!, otherPlayerResources!);

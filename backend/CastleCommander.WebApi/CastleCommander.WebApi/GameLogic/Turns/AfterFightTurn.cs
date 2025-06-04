@@ -9,11 +9,19 @@
             base.MakeTurn(userInput, game);
 
             foreach (var hex in game.Castle.Hexagons)
+            {
                 foreach (var sector in hex.Sectors)
                 {
                     sector.DefenceScore += sector.ImpactValue;
                     sector.ImpactValue = 0;
                 }
+                for (int i = 0; i < 6; i++)
+                {
+                    FacilityHelper.CheckAndDestroy(hex, i);
+                }
+                    
+            }
+
         }
     }
 }
