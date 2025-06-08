@@ -70,5 +70,15 @@ namespace CastleCommander.WebApi.Controllers
                 Input = input
             });
         }
+
+        [AllowAnonymous]
+        [HttpPost("repairfacility")]
+        public async Task<Game> RepairCastle(RepairFacilityInput input)
+        {
+            return await mediator.Send(new RepairFacility.Query
+            {
+                Input = input,
+            });
+        }
     }
 }

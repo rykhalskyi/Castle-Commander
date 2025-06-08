@@ -73,5 +73,19 @@ namespace CastleCommander.WebApi.GameLogic
 
             return true;
         }
+
+        public static bool TryRepairFacility(Game game, int hexIndex)
+        {
+            var player = game.Players[game.CurrentPlayer];
+            var hex = game.Castle.Hexagons[hexIndex];
+            var color = (int)hex.Color - 1;
+
+            if (color < 0)return false; //market sector repair is not implemented yet
+            if (player.Resources[color].Number < 1) return false;
+
+            player.Resources[color].Number--;
+            return true;
+
+        }
     }
 }

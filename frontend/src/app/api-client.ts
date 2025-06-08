@@ -262,6 +262,48 @@ export class Client {
         }
         return Promise.resolve<Game>(null as any);
     }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    repairfacility(body: RepairFacilityInput | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/repairfacility";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processRepairfacility(_response);
+        });
+    }
+
+    protected processRepairfacility(response: Response): Promise<Game> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Game.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Game>(null as any);
+    }
 }
 
 export class AddFacilityInput implements IAddFacilityInput {
@@ -920,6 +962,50 @@ export interface IPlayerResource {
     number?: number;
     color?: string | undefined;
     isBase?: boolean;
+}
+
+export class RepairFacilityInput implements IRepairFacilityInput {
+    inputGame?: Game;
+    hexagon?: number;
+    sector?: number;
+
+    constructor(data?: IRepairFacilityInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.inputGame = _data["inputGame"] ? Game.fromJS(_data["inputGame"]) : <any>undefined;
+            this.hexagon = _data["hexagon"];
+            this.sector = _data["sector"];
+        }
+    }
+
+    static fromJS(data: any): RepairFacilityInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new RepairFacilityInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["inputGame"] = this.inputGame ? this.inputGame.toJSON() : <any>undefined;
+        data["hexagon"] = this.hexagon;
+        data["sector"] = this.sector;
+        return data;
+    }
+}
+
+export interface IRepairFacilityInput {
+    inputGame?: Game;
+    hexagon?: number;
+    sector?: number;
 }
 
 export class Sector implements ISector {

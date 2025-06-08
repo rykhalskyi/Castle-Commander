@@ -265,6 +265,54 @@
           }
         }
       }
+    },
+    "/api/game/repairfacility": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairFacilityInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairFacilityInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepairFacilityInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -579,6 +627,23 @@
           },
           "isBase": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RepairFacilityInput": {
+        "type": "object",
+        "properties": {
+          "inputGame": {
+            "$ref": "#/components/schemas/Game"
+          },
+          "hexagon": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sector": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

@@ -37,11 +37,16 @@ export class PlayfieldComponent implements OnInit {
   onClick(args:HexagonSectorClickArgs)
   {
     if (this.game === null 
-      || this.game.currentTurn !== 2
-      || this.gameService.selectedFacilitySize === null) {
-      return;
+      || this.game.currentTurn !== 2) return;
+
+    if (this.gameService.selectedFacilitySize !== null
+          && !this.gameService.rapair) {
+        this.gameService.addFacility(this.game, args.hexagon, args.sector, this.gameService.selectedFacilitySize);
     }
-    this.gameService.addFacility(this.game, args.hexagon, args.sector, this.gameService.selectedFacilitySize);
+    else {
+      this.gameService.repairFacility(this.game, args.hexagon, args.sector)
+    }
+
     console.log("Click "+args.hexagon + ":"+args.sector);
   }
 }
