@@ -1,139 +1,279 @@
- [
-    {
-      "type": "impact",
-      "description": "A massive enemy army is descending from the Western Mountains, surrounding the castle and preparing for a coordinated assault.",
-      "hexNumber": "3",
-      "sectorNumber": "3",
-      "impactValue": "-3"
-    },
-    {
-      "type": "impact",
-      "description": "Light cavalry units have been spotted riding swiftly from the Northern Ridge. A sudden strike is imminent.",
-      "hexNumber": "2",
-      "sectorNumber": "3",
-      "impactValue": "-2"
-    },
-    {
-      "type": "impact",
-      "description": "A gang of ruthless raiders has appeared to the east of the castle, ready to plunder and burn.",
-      "hexNumber": "1",
-      "sectorNumber": "1",
-      "impactValue": "-1"
-    },
-    {
-      "type": "impact",
-      "description": "A violent hurricane is sweeping through the valley. The castle's defenses will be tested like never before.",
-      "hexNumber": "4",
-      "sectorNumber": "3",
-      "impactValue": "-1"
-    },
-    {
-      "type": "impact",
-      "description": "A heavy snowstorm engulfs the region. Visibility is low and structures are under stress.",
-      "hexNumber": "6",
-      "sectorNumber": "2",
-      "impactValue": "-1"
-    },
-    {
-      "type": "impact",
-      "description": "New clay deposits have been discovered nearby. These resources speed up the repair of some damaged sectors.",
-      "hexNumber": "3",
-      "sectorNumber": "3",
-      "impactValue": "3"
-    },
-    {
-      "type": "impact",
-      "description": "Siege machines are being constructed in the southern foothills. Prepare for a long-range assault.",
-      "hexNumber": "5",
-      "sectorNumber": "2",
-      "impactValue": "-4"
-    },
-    {
-      "type": "impact",
-      "description": "Undead warriors rise from ancient graves near the eastern border. Their eerie march cannot be ignored.",
-      "hexNumber": "2",
-      "sectorNumber": "1",
-      "impactValue": "-3"
-    },
-    {
-      "type": "impact",
-      "description": "A fire has broken out in the barracks. Was it sabotage or just bad luck?",
-      "hexNumber": "4",
-      "sectorNumber": "2",
-      "impactValue": "-2"
-    },
-    {
-      "type": "impact",
-      "description": "A group of skilled builders joins your cause. Repair efforts are now faster and more effective.",
-      "hexNumber": "2",
-      "sectorNumber": "1",
-      "impactValue": "2"
-    },
-    {
-      "type": "impact",
-      "description": "A shipment of strong timber arrives from the northern forest. Use it to fortify one sector immediately.",
-      "hexNumber": "1",
-      "sectorNumber": "2",
-      "impactValue": "2"
-    },
-    {
-      "type": "impact",
-      "description": "Bandits ambush a supply caravan en route to the castle, reducing your reinforcement options.",
-      "hexNumber": "5",
-      "sectorNumber": "3",
-      "impactValue": "-2"
-    },
-    {
-      "type": "event",
-      "description": "A lunar eclipse spreads unease across the land. Superstitions affect troop morale.",
-      "defence": "-2",
-      "duration": "1"
-    },
-    {
-      "type": "event",
-      "description": "A famous knight arrives, offering his sword for one battle. He inspires courage and reduces incoming damage.",
-      "defence": "+3",
-      "duration": "1"
-    },
-    {
-      "type": "event",
-      "description": "The local blacksmith unveils new armor upgrades. All sectors gain temporary resistance.",
-      "defence": "+2",
-      "duration": "2"
-    },
-    {
-      "type": "impact",
-      "description": "A healing herb garden blooms after spring rains. Healers can now restore more health per turn.",
-      "hexNumber": "6",
-      "sectorNumber": "1",
-      "impactValue": "3"
-    },
-    {
-      "type": "impact",
-      "description": "A catapult barrage from the eastern hills smashes against your outer defenses.",
-      "hexNumber": "3",
-      "sectorNumber": "2",
-      "impactValue": "-3"
-    },
-    {
-      "type": "event",
-      "description": "Fog blankets the battlefield. All attacks next turn have a chance to miss.",
-      "enemyAttack": "-2",
-      "duration": "1"
-    },
-    {
-      "type": "impact",
-      "description": "Local villagers volunteer to help defend the walls. Their support strengthens the weakest sector.",
-      "hexNumber": "1",
-      "sectorNumber": "3",
-      "impactValue": "1"
-    },
-    {
-      "type": "impact",
-      "description": "Poisoned arrows are fired from unseen enemies in the forest. Defenders are weakened.",
-      "hexNumber": "2",
-      "sectorNumber": "2",
-      "impactValue": "-2"
-    }
-  ]
+[
+  {
+    "type": "impact",
+    "description": "A massive enemy army is descending from the Western Mountains, surrounding the castle and preparing for a coordinated assault.",
+    "hexNumber": "3",
+    "sectorNumber": "3",
+    "impactValue": "-3"
+  },
+  {
+    "type": "impact",
+    "description": "Light cavalry units have been spotted riding swiftly from the Northern Ridge. A sudden strike is imminent.",
+    "hexNumber": "2",
+    "sectorNumber": "3",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "A gang of ruthless raiders has appeared to the east of the castle, ready to plunder and burn.",
+    "hexNumber": "1",
+    "sectorNumber": "1",
+    "impactValue": "-1"
+  },
+  {
+    "type": "impact",
+    "description": "A violent hurricane is sweeping through the valley. The castle's defenses will be tested like never before.",
+    "hexNumber": "4",
+    "sectorNumber": "3",
+    "impactValue": "-1"
+  },
+  {
+    "type": "impact",
+    "description": "A heavy snowstorm engulfs the region. Visibility is low and structures are under stress.",
+    "hexNumber": "6",
+    "sectorNumber": "2",
+    "impactValue": "-1"
+  },
+  {
+    "type": "impact",
+    "description": "New clay deposits have been discovered nearby. These resources speed up the repair of some damaged sectors.",
+    "hexNumber": "6",
+    "sectorNumber": "6",
+    "impactValue": "3"
+  },
+  {
+    "type": "impact",
+    "description": "Siege machines are being constructed in the southern foothills. Prepare for a long-range assault.",
+    "hexNumber": "5",
+    "sectorNumber": "2",
+    "impactValue": "-4"
+  },
+  {
+    "type": "impact",
+    "description": "Undead warriors rise from ancient graves near the eastern border. Their eerie march cannot be ignored.",
+    "hexNumber": "2",
+    "sectorNumber": "1",
+    "impactValue": "-3"
+  },
+  {
+    "type": "impact",
+    "description": "A fire has broken out in the barracks. Was it sabotage or just bad luck?",
+    "hexNumber": "4",
+    "sectorNumber": "2",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "A group of skilled builders joins your cause. Repair efforts are now faster and more effective.",
+    "hexNumber": "6",
+    "sectorNumber": "3",
+    "impactValue": "2"
+  },
+  {
+    "type": "impact",
+    "description": "A shipment of strong timber arrives from the northern forest. Use it to fortify one sector immediately.",
+    "hexNumber": "6",
+    "sectorNumber": "4",
+    "impactValue": "2"
+  },
+  {
+    "type": "impact",
+    "description": "Bandits ambush a supply caravan en route to the castle, reducing your reinforcement options.",
+    "hexNumber": "5",
+    "sectorNumber": "3",
+    "impactValue": "-2"
+  },
+  {
+    "type": "event",
+    "description": "A lunar eclipse spreads unease across the land. Superstitions affect troop morale.",
+    "defence": "-2",
+    "duration": "1"
+  },
+  {
+    "type": "event",
+    "description": "A famous knight arrives, offering his sword for one battle. He inspires courage and reduces incoming damage.",
+    "defence": "+3",
+    "duration": "1"
+  },
+  {
+    "type": "event",
+    "description": "The local blacksmith unveils new armor upgrades. All sectors gain temporary resistance.",
+    "defence": "+2",
+    "duration": "2"
+  },
+  {
+    "type": "impact",
+    "description": "A healing herb garden blooms after spring rains. Healers can now restore more health per turn.",
+    "hexNumber": "6",
+    "sectorNumber": "6",
+    "impactValue": "4"
+  },
+  {
+    "type": "impact",
+    "description": "A catapult barrage from the eastern hills smashes against your outer defenses.",
+    "hexNumber": "3",
+    "sectorNumber": "2",
+    "impactValue": "-3"
+  },
+  {
+    "type": "event",
+    "description": "Fog blankets the battlefield. All attacks next turn have a chance to miss.",
+    "enemyAttack": "-2",
+    "duration": "1"
+  },
+  {
+    "type": "impact",
+    "description": "Local villagers volunteer to help defend the walls. Their support strengthens the weakest sector.",
+    "hexNumber": "6",
+    "sectorNumber": "6",
+    "impactValue": "3"
+  },
+  {
+    "type": "impact",
+    "description": "Poisoned arrows are fired from unseen enemies in the forest. Defenders are weakened.",
+    "hexNumber": "2",
+    "sectorNumber": "2",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "A massive warbeast crashes through the western wall, tearing stone and soldiers alike.",
+    "hexNumber": "4",
+    "sectorNumber": "1",
+    "impactValue": "-4"
+  },
+  {
+    "type": "impact",
+    "description": "A swarm of fire arrows rains down from the cliffs, igniting several supply depots.",
+    "hexNumber": "6",
+    "sectorNumber": "3",
+    "impactValue": "-1"
+  },
+  {
+    "type": "impact",
+    "description": "Dark sorcery drains strength from your frontline defenders.",
+    "hexNumber": "2",
+    "sectorNumber": "4",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "Enemy saboteurs detonate charges beneath the inner keep.",
+    "hexNumber": "3",
+    "sectorNumber": "1",
+    "impactValue": "-5"
+  },
+  {
+    "type": "impact",
+    "description": "A brutal frost giant smashes his way through the outer defenses.",
+    "hexNumber": "5",
+    "sectorNumber": "1",
+    "impactValue": "-4"
+  },
+  {
+    "type": "impact",
+    "description": "Trebuchets launch flaming boulders from afar, causing fires and panic.",
+    "hexNumber": "1",
+    "sectorNumber": "6",
+    "impactValue": "-3"
+  },
+  {
+    "type": "impact",
+    "description": "The enemy tunnels beneath your defenses and emerges from within.",
+    "hexNumber": "2",
+    "sectorNumber": "2",
+    "impactValue": "-5"
+  },
+  {
+    "type": "impact",
+    "description": "A deadly plague spreads through the barracks, weakening your forces.",
+    "hexNumber": "4",
+    "sectorNumber": "5",
+    "impactValue": "-4"
+  },
+  {
+    "type": "impact",
+    "description": "Explosive alchemical mixtures are hurled over the walls, burning defenders.",
+    "hexNumber": "6",
+    "sectorNumber": "4",
+    "impactValue": "-3"
+  },
+  {
+    "type": "impact",
+    "description": "A brutal minotaur charge disrupts your central line.",
+    "hexNumber": "3",
+    "sectorNumber": "4",
+    "impactValue": "-4"
+  },
+  {
+    "type": "impact",
+    "description": "Demoralizing war drums echo across the battlefield, shaking troop resolve.",
+    "hexNumber": "5",
+    "sectorNumber": "6",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "A sneak attack targets your food stores, causing supply shortages.",
+    "hexNumber": "2",
+    "sectorNumber": "5",
+    "impactValue": "-3"
+  },
+  {
+    "type": "impact",
+    "description": "Feral beasts unleashed by enemy druids tear through scouting parties.",
+    "hexNumber": "1",
+    "sectorNumber": "4",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "A massive avalanche strikes from the mountain pass, burying the northern watchtower.",
+    "hexNumber": "6",
+    "sectorNumber": "1",
+    "impactValue": "-5"
+  },
+  {
+    "type": "impact",
+    "description": "A cursed relic is activated by enemy clerics, weakening your spiritual defenses.",
+    "hexNumber": "4",
+    "sectorNumber": "6",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "Mounted lancers break through the southeastern gate in a high-speed assault.",
+    "hexNumber": "1",
+    "sectorNumber": "5",
+    "impactValue": "-2"
+  },
+  {
+    "type": "impact",
+    "description": "Enemy archers with poisoned tips pick off defenders along the walls.",
+    "hexNumber": "3",
+    "sectorNumber": "5",
+    "impactValue": "-3"
+  },
+  {
+    "type": "impact",
+    "description": "Rogue mages unleash a chaotic storm, disabling your magical wards.",
+    "hexNumber": "3",
+    "sectorNumber": "5",
+    "impactValue": "-4"
+  },
+  {
+    "type": "impact",
+    "description": "Enemy infiltrators cut down several key commanders in a coordinated strike.",
+    "hexNumber": "3",
+    "sectorNumber": "3",
+    "impactValue": "-1"
+  },
+  {
+    "type": "impact",
+    "description": "A colossal battering ram smashes into the main gate with devastating force.",
+    "hexNumber": "2",
+    "sectorNumber": "3",
+    "impactValue": "-3"
+  }
+]
 
