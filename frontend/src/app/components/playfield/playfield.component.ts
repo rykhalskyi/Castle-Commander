@@ -3,7 +3,9 @@ import { HexagonSectorClickArgs } from '../../gameLogic/HexagonSectorClickArgs';
 import { CastleHexagonComponent } from '../castle-hexagon/castle-hexagon.component';
 import { FacilitySize, Game, Hexagon } from '../../api-client';
 import { GameService } from '../../services/game.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-playfield',
   templateUrl: './playfield.component.html',
@@ -25,7 +27,9 @@ export class PlayfieldComponent implements OnInit {
       
        
 
-        this.gameService.activeGame.subscribe((game) => {
+        this.gameService.activeGame
+        .pipe(untilDestroyed(this))
+        .subscribe((game) => {
           this.hexagons.set(game?.castle?.hexagons ?? []);
           this.showHexagons.set((game?.castle?.hexagons?.length ?? 0) > 0);
           this.game = game;

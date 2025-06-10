@@ -20,7 +20,7 @@
 
  </div>
 
-    <div class="dropdown-row">
+  <div class="dropdown-row">
       <div class="blue-button" style="width: 100px; height: 20px;" (click)="exchangeWithPlayer()">Exchange</div>
      <select title="First dropdown" [ngStyle]="{'background-color': selectedResourceColor}" (change)="onResourceChange($event)">
        <option *ngFor="let item of availiableResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
@@ -33,3 +33,19 @@
        <option *ngFor="let item of otherPlayerResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
      </select>
    </div>
+
+   @if (playerCanByOnMarket)
+   {
+    <div class="dropdown-row">
+        <div class="blue-button" style="width: 100px; height: 20px;" (click)="buyOnMarket()">Buy</div>
+     
+       <select title="third dropdown" [ngStyle]="{'background-color': selectedBuyOtherResourceColor}" (change)="onOtherBuyResourceChange($event)">
+        <option *ngFor="let item of allResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select>
+        for
+      <select title="First dropdown" [ngStyle]="{'background-color': selectedBuyResourceColor}" (change)="onBuyResourceChange($event)">
+        <option *ngFor="let item of availiableResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select> 
+     
+    </div>
+  }

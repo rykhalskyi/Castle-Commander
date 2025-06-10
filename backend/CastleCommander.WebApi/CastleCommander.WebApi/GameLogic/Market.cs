@@ -34,21 +34,22 @@ namespace CastleCommander.WebApi.GameLogic
             }
         }   
 
-        public static bool TryBuildFacility(Game game, FacilitySize size)
+        public static bool TryBuildFacility(Game game, FacilitySize size, int hexIndex)
         {
             var player = game.Players[game.CurrentPlayer];
+            var price = hexIndex == 0 ? 2 : 1;
             switch (size) {
                 case FacilitySize.Small:
-                    if (player.Bronze < 1) return false;
-                    player.Bronze--;
+                    if (player.Bronze < price) return false;
+                    player.Bronze -= price;
                     break;
                 case FacilitySize.Medium:
-                    if (player.Silver < 1) return false;
-                    player.Silver--;
+                    if (player.Silver < price) return false;
+                    player.Silver -= price;
                     break;
                 case FacilitySize.Large:
-                    if (player.Gold < 1) return false;
-                    player.Gold--;
+                    if (player.Gold < price) return false;
+                    player.Gold -= price;
                     break;
                 default:
                     return false;
@@ -86,6 +87,18 @@ namespace CastleCommander.WebApi.GameLogic
             player.Resources[color].Number--;
             return true;
 
+        }
+
+        public static bool BuyResources(Player player, int resourceToSell, int resourceToBuy, int ratio)
+        {
+            if (player.Resources[resourceToSell].Number < 1)
+            {
+                return false; 
+            }
+
+            player.Resources[resourceToSell].Number--;
+            player.Resources[resourceToBuy].Number += ratio;
+            return true;
         }
     }
 }

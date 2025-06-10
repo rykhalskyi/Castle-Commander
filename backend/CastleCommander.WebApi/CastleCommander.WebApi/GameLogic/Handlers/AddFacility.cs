@@ -38,7 +38,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                     return Task.FromResult(game);
                 }
 
-                if (!Market.TryBuildFacility(game, request.Size))
+                if (!Market.TryBuildFacility(game, request.Size, request.Hexagon))
                 {
                     game.Log = "Not enough resources to build facility";
                     return Task.FromResult(game);
