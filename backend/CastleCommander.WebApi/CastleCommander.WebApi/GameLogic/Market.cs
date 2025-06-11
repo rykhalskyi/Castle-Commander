@@ -57,6 +57,14 @@ namespace CastleCommander.WebApi.GameLogic
             return true;
         }
 
+        public static bool TryBuildTower(Game game, int hexIndex)
+        {
+            var player = game.Players[game.CurrentPlayer];
+            if (player.Gold < 1) return false;
+            player.Gold--;
+            return true;
+        }
+
         public static bool Exchange(Player player, 
             Player otherPlayer,
             int resource, 

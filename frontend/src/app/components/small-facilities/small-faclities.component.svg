@@ -35,4 +35,9 @@
     <path d="M152.745 155.826L127.513 141.025L108.166 152.314L109.127 181.277L152.745 155.826Z" fill="#970000" [ngStyle]="{'fill': primaryColors[3]}"/>
     <path d="M152.745 155.826L139.715 148.378L108.621 166.521L109.127 181.277L152.745 155.826Z" fill="#490101"  [ngStyle]="{'fill': secondaryColors[3]}"/>
 }
+@if (tower){
+    <path d="M87 56L119.909 75V113L87 132L54.091 113V75L87 56Z" fill="#D9D9D9" fill-opacity="0.5"/>
+    <path d="M87 66L111.249 80V108L87 122L62.7513 108V80L87 66Z" fill="#970000" [ngStyle]="{'fill': towerPrimaryColor}"/>
+    <path d="M87 77L101.722 85.5V102.5L87 111L72.2776 102.5V85.5L87 77Z" fill="#490101" [ngStyle]="{'fill': towerSecondaryColor}"/>
+}
 </svg>

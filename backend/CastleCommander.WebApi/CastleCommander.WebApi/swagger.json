@@ -313,6 +313,54 @@
           }
         }
       }
+    },
+    "/api/game/buyonmarket": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyOnMarketInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyOnMarketInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyOnMarketInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -352,6 +400,24 @@
             "$ref": "#/components/schemas/ExchangeItem"
           },
           "number": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuyOnMarketInput": {
+        "type": "object",
+        "properties": {
+          "gameId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "resourceToSell": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "resourceToBuy": {
             "type": "integer",
             "format": "int32"
           }
@@ -557,6 +623,9 @@
             },
             "nullable": true,
             "readOnly": true
+          },
+          "tower": {
+            "$ref": "#/components/schemas/Tower"
           }
         },
         "additionalProperties": false
@@ -658,6 +727,24 @@
           "impactValue": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Tower": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "primaryColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "secondaryColor": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

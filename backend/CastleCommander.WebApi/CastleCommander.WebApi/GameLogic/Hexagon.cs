@@ -37,5 +37,6 @@
             new Sector(),
             new Sector(),
         };
+        public Tower? Tower { get; set; } = null;
     }
 }

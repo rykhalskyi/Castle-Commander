@@ -9,7 +9,9 @@ import { ResourceExchangeComponent } from '../resource-exchange/resource-exchang
 import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
 import { GameFlowService, IGameFlowState } from '../../services/game-flow.service';
 import { FormsModule } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-game-dashboard',
   standalone: true,
@@ -38,7 +40,9 @@ constructor(
 private readonly gameFlowService: GameFlowService) { }
 
   ngOnInit(): void {
-    this.gameService.activeGame.subscribe((game) => {
+    this.gameService.activeGame
+    .pipe(untilDestroyed(this))
+    .subscribe((game) => {
       if (game) {
         this.gameId = game.id!;
         this.players.set(game.players!);

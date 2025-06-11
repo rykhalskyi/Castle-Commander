@@ -80,5 +80,15 @@ namespace CastleCommander.WebApi.Controllers
                 Input = input,
             });
         }
+
+        [AllowAnonymous]
+        [HttpPost("buyonmarket")]
+        public async Task<Game> BuyItemsOnMarket(BuyOnMarketInput input)
+        {
+            return await mediator.Send(new BuyOnMarket.Query
+            {
+                Input = input
+            });
+        }
     }
 }
