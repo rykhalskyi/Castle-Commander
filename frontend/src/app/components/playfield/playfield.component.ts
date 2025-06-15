@@ -24,10 +24,10 @@ export class PlayfieldComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      
         this.gameService.activeGame
         .pipe(untilDestroyed(this))
         .subscribe((game) => {
+          console.log("** updated", this.hexagons());
           this.hexagons.set(game?.castle?.hexagons ?? []);
           this.showHexagons.set((game?.castle?.hexagons?.length ?? 0) > 0);
           this.game = game;
@@ -35,19 +35,37 @@ export class PlayfieldComponent implements OnInit {
     }
 
   // Add component logic here
-  onClick(args:HexagonSectorClickArgs)
+  async onClick(args:HexagonSectorClickArgs):Promise<void>
   {
-    if (this.game === null 
-      || this.game.currentTurn !== 2) return;
+    if (this.game === null ) return;
+    
+    await this.buildOrRepair(args);
 
-    if (this.gameService.selectedFacilitySize !== null
-          && !this.gameService.rapair) {
-        this.gameService.addFacility(this.game, args.hexagon, args.sector, this.gameService.selectedFacilitySize);
-    }
-    else {
-      this.gameService.repairFacility(this.game, args.hexagon, args.sector)
-    }
+    await this.towerAttack(args);
 
     console.log("Click "+args.hexagon + ":"+args.sector);
+  }
+
+  private async towerAttack(args:HexagonSectorClickArgs): Promise<void>
+  {
+      if (this.game!.currentTurn !== 3) return;
+
+      await this.gameService.towerAttack(this.game!.id!, args.hexagon);
+
+  }
+
+  private async buildOrRepair(args:HexagonSectorClickArgs):Promise<void>
+  {
+    if (this.game!.currentTurn !== 2) return;
+
+    if (this.gameService.selectedFacilitySize !== null
+          && !this.gameService.rapair) 
+    {
+        await this.gameService.addFacility(this.game!, args.hexagon, args.sector, this.gameService.selectedFacilitySize);
+    }
+    else 
+    {
+        await this.gameService.repairFacility(this.game!, args.hexagon, args.sector)
+    }
   }
 }

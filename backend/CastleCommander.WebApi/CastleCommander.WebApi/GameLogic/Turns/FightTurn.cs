@@ -18,13 +18,17 @@ namespace CastleCommander.WebApi.GameLogic.Turns
                 var random = new Random();
                 foreach (var hex in game.Castle.Hexagons.Where(i => i.Affected))
                 {
+                    game.Log += $"Hexagon {hex.Color} is affected by enemy card with impact value {enemyCard.ImpactValue} and event card impact value {eventCardImpactValue}.\n";
                     for (int i = 0; i < enemyCard.SectorsNumber; i++)
                     {
                         var index = random.Next(6);
 
                         hex.Sectors[index].ImpactValue = enemyCard.ImpactValue + eventCardImpactValue;//MakeImpactScore(random, enemyCard.ImpactValue);
+                        game.Log += $"Sector {index}, value {hex.Sectors[index].ImpactValue}.\n";
                     }
                 }
+
+                game.Log += "Click on your Tower if exists to eliminate enemies of hex(1 Bronze) or all enemies (1 Gold for market tower)\n";
             }
         }
 
@@ -44,7 +48,7 @@ namespace CastleCommander.WebApi.GameLogic.Turns
             {
                 if (enemyCardsCache.Cards[index] is EventCard eventCard)
                 {
-                    result += eventCard.EnemyAttack - eventCard.EnemyAttack;
+                    result += eventCard.Defence - eventCard.EnemyAttack;
                 }
             }
             return result;

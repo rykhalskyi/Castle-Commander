@@ -90,5 +90,16 @@ namespace CastleCommander.WebApi.Controllers
                 Input = input
             });
         }
+
+        [AllowAnonymous]
+        [HttpPost("towerattack")]
+        public async Task<Game> TowerAttack(Guid GameId, int hex)
+        {
+            return await mediator.Send(new TowerAttack.Query
+            {
+                GameId = GameId,
+                Hexagon = hex
+            });
+        }
     }
 }

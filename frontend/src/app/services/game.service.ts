@@ -86,6 +86,14 @@ export class GameService {
      this.activeGame.next(updatedGame);
      return updatedGame;
   }
+
+  public async towerAttack(gameId: string, hex:number): Promise<Game>
+  {
+    const updatedGame = await this.client.towerattack(gameId, hex);
+    this.activeGame.next(updatedGame);
+    return updatedGame;
+  }
+
   constructor() { } 
  
 }

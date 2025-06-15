@@ -4,5 +4,11 @@
     {
         protected override string Message => "Trade and Build";
 
+        public override void MakeTurn(Game userInput, Game game)
+        {
+            base.MakeTurn(userInput, game);
+            game.Log = "";
+        }
+
     }
 }

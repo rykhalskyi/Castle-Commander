@@ -25,6 +25,12 @@
     @if (game()?.currentTurn === 1) {
       <app-enemy-card [currentCards]="game()?.currentCards ?? null"></app-enemy-card>
     }
+    @if (game()?.currentTurn === 3)
+    {
+      <div>
+        <p class="log-paragraph">{{game()?.log}}</p>
+      </div>
+    }
   </div>
 
   @if (game()?.currentTurn === 0) {
@@ -32,6 +38,8 @@
       <app-dice-roll [dice]="game()?.dice ?? null"></app-dice-roll>
     </div>
   }
+
+
 
  
 </div>

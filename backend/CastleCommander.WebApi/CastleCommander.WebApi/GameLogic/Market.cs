@@ -60,8 +60,10 @@ namespace CastleCommander.WebApi.GameLogic
         public static bool TryBuildTower(Game game, int hexIndex)
         {
             var player = game.Players[game.CurrentPlayer];
-            if (player.Gold < 1) return false;
-            player.Gold--;
+            var price = hexIndex == 0 ? 2 : 1;
+
+            if (player.Gold < price) return false;
+            player.Gold -= price;
             return true;
         }
 
@@ -108,5 +110,22 @@ namespace CastleCommander.WebApi.GameLogic
             player.Resources[resourceToBuy].Number += ratio;
             return true;
         }
+
+        public static bool CanAttack(Player player, int hex) {
+            if (hex == 0)
+            {
+                if (player.Gold <1) return false;
+                player.Gold--;
+                return true;
+            }
+            else
+            {
+                if (player.Bronze < 1) return false;
+                player.Bronze--;
+                return true;
+            }
+            
+        }
+
     }
 }

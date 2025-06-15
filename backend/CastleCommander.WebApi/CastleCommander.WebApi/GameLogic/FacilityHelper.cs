@@ -60,12 +60,12 @@
             }
             if (facility.Size == FacilitySize.Medium)
             {
-                return hex.Sectors[facility.StartSector - 1].DefenceScore < MinBuildableSectorScore &&
+                return hex.Sectors[facility.StartSector].DefenceScore < MinBuildableSectorScore &&
                        hex.Sectors[Offset(facility.StartSector, 1)].DefenceScore < MinBuildableSectorScore;
             }
             if (facility.Size == FacilitySize.Large)
             {
-                return hex.Sectors[facility.StartSector - 1].DefenceScore < MinBuildableSectorScore &&
+                return hex.Sectors[facility.StartSector].DefenceScore < MinBuildableSectorScore &&
                        hex.Sectors[Offset(facility.StartSector, 1)].DefenceScore < MinBuildableSectorScore &&
                        hex.Sectors[Offset(facility.StartSector, 2)].DefenceScore < MinBuildableSectorScore;
             }

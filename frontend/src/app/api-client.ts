@@ -346,6 +346,53 @@ export class Client {
         }
         return Promise.resolve<Game>(null as any);
     }
+
+    /**
+     * @param gameId (optional) 
+     * @param hex (optional) 
+     * @return OK
+     */
+    towerattack(gameId: string | undefined, hex: number | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/towerattack?";
+        if (gameId === null)
+            throw new Error("The parameter 'gameId' cannot be null.");
+        else if (gameId !== undefined)
+            url_ += "GameId=" + encodeURIComponent("" + gameId) + "&";
+        if (hex === null)
+            throw new Error("The parameter 'hex' cannot be null.");
+        else if (hex !== undefined)
+            url_ += "hex=" + encodeURIComponent("" + hex) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "POST",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processTowerattack(_response);
+        });
+    }
+
+    protected processTowerattack(response: Response): Promise<Game> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Game.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Game>(null as any);
+    }
 }
 
 export class AddFacilityInput implements IAddFacilityInput {

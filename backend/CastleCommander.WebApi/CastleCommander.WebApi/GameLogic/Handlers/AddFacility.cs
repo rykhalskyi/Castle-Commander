@@ -73,11 +73,11 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                     return Task.FromResult(game);
                 }
 
-                //if (!Market.TryBuildTower(game, request.Hexagon))
-                //{
-                //    game.Log = "Not enough resources to build facility";
-                //    return Task.FromResult(game);
-                //}
+                if (!Market.TryBuildTower(game, request.Hexagon))
+                {
+                    game.Log = "Not enough resources to build facility";
+                    return Task.FromResult(game);
+                }
 
                 var newTower = new Tower
                 {
