@@ -138,15 +138,18 @@ namespace CastleCommander.WebApi.GameLogic
             switch (item)
             {
                 case ExchangeItem.Bronze:
+                    player.Bronze++;
                     break;
                 case ExchangeItem.Silber:
                     if (player.Bronze < 1) return false;
                     player.Bronze--;
+                    player.Silver++;
                     break;
                 case ExchangeItem.Gold:
                     if (player.Bronze < 1 || player.Silver < 1) return false;
                     player.Bronze--;
                     player.Silver--;
+                    player.Gold++;
                     return true;
             }
 
