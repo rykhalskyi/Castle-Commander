@@ -128,11 +128,15 @@ namespace CastleCommander.WebApi.GameLogic
         }
 
         public static bool BuyCoins(int[] resources, ExchangeItem item, Player player) {
+            
             var grouped = resources.GroupBy(i => i);
-            foreach (var group in grouped)
+            if (item != ExchangeItem.Gold)
             {
-                if (player.Resources[group.Key].Number < group.Count())
-                    return false;
+                foreach (var group in grouped)
+                {
+                    if (player.Resources[group.Key].Number < group.Count())
+                        return false;
+                }
             }
 
             switch (item)
