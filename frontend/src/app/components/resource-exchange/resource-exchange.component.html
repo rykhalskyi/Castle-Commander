@@ -1,27 +1,65 @@
-<div class="resource-exchange-container">
-   <div class="blue-button" (click)="buy(0)">Buy Bronze</div>
-   <div>
-         <div class="resource-div" *ngFor="let item of bronzePrice" [ngStyle]="{'background-color': item}"></div>
-   </div> 
+@if (!playerCanByOnMarket)
+{
+  <div class="resource-exchange-container">
+    <div class="blue-button" (click)="buy(0)">Buy Bronze</div>
+    <div>
+          <div class="resource-div" *ngFor="let item of bronzePrice" [ngStyle]="{'background-color': item}"></div>
+    </div> 
 
-   <div class="blue-button" (click)="buy(1)">Buy Silver</div>
-   <div>
-        <div class="resource-div" *ngFor="let item of silverPrice" [ngStyle]="{'background-color': item}">&nbsp;</div>
-        <div class="resource-div" style="background-color: rgb(255, 71, 71);">B</div>   
-   </div>
+    <div class="blue-button" (click)="buy(1)">Buy Silver</div>
+    <div>
+          <div class="resource-div" *ngFor="let item of silverPrice" [ngStyle]="{'background-color': item}">&nbsp;</div>
+          <div class="resource-div" style="background-color: rgb(255, 71, 71);">B</div>   
+    </div>
 
-   <div class="blue-button" (click)="buy(2)">Buy Gold</div>
-   <div>
-        <div class="resource-div" *ngFor="let item of goldPrice" [ngStyle]="{'background-color': item}">&nbsp;</div>
-        <div class="resource-div" style="background-color: rgb(255, 71, 71);">S</div>
-   </div>
-   
-   <!-- Dropdowns row -->
-
- </div>
-
+    <div class="blue-button" (click)="buy(2)">Buy Gold</div>
+    <div>
+          <div class="resource-div" *ngFor="let item of goldPrice" [ngStyle]="{'background-color': item}">&nbsp;</div>
+          <div class="resource-div" style="background-color: rgb(255, 71, 71);">S</div>
+    </div>
+  </div>
+}
+@if (playerCanByOnMarket)
+{
   <div class="dropdown-row">
-      <div class="blue-button" style="width: 100px; height: 20px;" (click)="exchangeWithPlayer()">Exchange</div>
+    
+    <div class="blue-button buy-button" (click)="buyCoinOnMarket(0)">Buy Bronze</div>
+     <select title="One" [ngStyle]="{'background-color': bronzeOnMarket[0]}" (change)="onResourceArrayChanged($event, bronzeOnMarket, 0)">
+        <option *ngFor="let item of allResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select>
+      <select title="Two" [ngStyle]="{'background-color': bronzeOnMarket[1]}" (change)="onResourceArrayChanged($event, bronzeOnMarket, 1)">
+        <option *ngFor="let item of allResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select>
+      <select title="Three" [ngStyle]="{'background-color': bronzeOnMarket[2]}" (change)="onResourceArrayChanged($event, bronzeOnMarket, 2)">
+        <option *ngFor="let item of allResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select>
+  </div>
+
+  <div class="dropdown-row">    
+     <div class="blue-button buy-button" (click)="buyCoinOnMarket(1)">Buy Silber</div>
+     <select title="One" [ngStyle]="{'background-color': silberOnMarket[0]}" (change)="onResourceArrayChanged($event, silberOnMarket, 0)">
+        <option *ngFor="let item of allResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select>
+      <select title="Two" [ngStyle]="{'background-color': silberOnMarket[1]}" (change)="onResourceArrayChanged($event, silberOnMarket, 1)">
+        <option *ngFor="let item of allResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select>
+      <select title="Three" [ngStyle]="{'background-color': silberOnMarket[2]}" (change)="onResourceArrayChanged($event, silberOnMarket, 2)">
+        <option *ngFor="let item of allResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
+      </select>
+       <div class="resource-div" style="background-color: rgb(255, 71, 71);">B</div>   
+  </div>
+
+    <div class="dropdown-row">    
+     <div class="blue-button buy-button">Buy Gold</div>
+
+     <div class="resource-div" style="background-color: rgb(255, 71, 71);">B</div>   
+     <div class="resource-div" style="background-color: rgb(255, 71, 71);">S</div>  
+  </div>
+  
+}
+
+<div class="dropdown-row">
+     <div class="blue-button" style="width: 100px; height: 20px;" (click)="exchangeWithPlayer()">Exchange</div>
      <select title="First dropdown" [ngStyle]="{'background-color': selectedResourceColor}" (change)="onResourceChange($event)">
        <option *ngFor="let item of availiableResources" [ngStyle]="{'background-color': item}" [value]="item">&nbsp;</option>
      </select>

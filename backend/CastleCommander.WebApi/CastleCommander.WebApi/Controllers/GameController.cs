@@ -101,5 +101,15 @@ namespace CastleCommander.WebApi.Controllers
                 Hexagon = hex
             });
         }
+
+        [AllowAnonymous]
+        [HttpPost("buycoinsonmarket")]
+        public async Task<Game> BuyCoinsOnMarket(BuyCoinsOnMarketInput input)
+        {
+            return await mediator.Send(new BuyCoinsOnMarket.Query
+            {
+                Input = input,
+            });
+        }
     }
 }

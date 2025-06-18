@@ -127,5 +127,36 @@ namespace CastleCommander.WebApi.GameLogic
             
         }
 
+        public static bool BuyCoins(int[] resources, ExchangeItem item, Player player) {
+            var grouped = resources.GroupBy(i => i);
+            foreach (var group in grouped)
+            {
+                if (player.Resources[group.Key].Number < group.Count())
+                    return false;
+            }
+
+            switch (item)
+            {
+                case ExchangeItem.Bronze:
+                    break;
+                case ExchangeItem.Silber:
+                    if (player.Bronze < 1) return false;
+                    player.Bronze--;
+                    break;
+                case ExchangeItem.Gold:
+                    if (player.Bronze < 1 || player.Silver < 1) return false;
+                    player.Bronze--;
+                    player.Silver--;
+                    return true;
+            }
+
+            foreach (var group in grouped)
+            {
+                player.Resources[group.Key].Number -= group.Count();
+            }
+
+            return true;
+        }
+
     }
 }

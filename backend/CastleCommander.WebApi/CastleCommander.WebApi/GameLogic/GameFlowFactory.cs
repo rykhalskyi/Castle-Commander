@@ -47,6 +47,9 @@ namespace CastleCommander.WebApi.GameLogic
                         Resources = GetPlayerResources(new[]{1,2,3}),
                         PrimaryColor = "#490101",
                         SecondaryColor = "#970000",
+                        Bronze = 1,
+                        Silver =1,
+                        Gold = 1
 
                     },
                     new Player()
@@ -55,6 +58,9 @@ namespace CastleCommander.WebApi.GameLogic
                         Resources = GetPlayerResources(new[]{1,3,5}),
                         PrimaryColor = "#014905",
                         SecondaryColor = "#009721",
+                        Bronze = 1,
+                        Silver =1,
+                        Gold = 1
                     },
                     new Player()
                     {
@@ -62,6 +68,9 @@ namespace CastleCommander.WebApi.GameLogic
                         Resources = GetPlayerResources(new[]{2,4,6}),
                         PrimaryColor = "#011549",
                         SecondaryColor = "#005D97",
+                        Bronze = 1,
+                        Silver =1,
+                        Gold = 1
                     },
                     new Player()
                     {
@@ -69,7 +78,9 @@ namespace CastleCommander.WebApi.GameLogic
                         Resources = GetPlayerResources(new[]{4,5,6}),
                         PrimaryColor = "#493601",
                         SecondaryColor = "#975D00",
-
+                        Bronze = 1,
+                        Silver =1,
+                        Gold = 1
                     },
                 }
             };
@@ -116,6 +127,7 @@ namespace CastleCommander.WebApi.GameLogic
                 var resource = baseResources[i] - 1;
                 result[resource].IsBase = true;
             }
+            
             return result;
         }
                

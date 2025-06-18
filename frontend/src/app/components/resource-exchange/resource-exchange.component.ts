@@ -37,6 +37,8 @@ otherPlayerResources: string[] = [];
 protected selectedBuyResourceColor: string = '';
 protected selectedBuyOtherResourceColor: string = '';
 
+protected bronzeOnMarket: string[] = ["","",""];
+protected silberOnMarket: string[] = ["","",""];
 
 constructor(private readonly gameService: GameService,
             private readonly cdr: ChangeDetectorRef
@@ -56,6 +58,8 @@ ngOnInit(): void {
   .map(i=>i.color ?? '#cccccc') ?? [];
 
   this.allResources = this.player?.resources?.map(i=>i.color ?? '#cccccc') ?? [];
+  this.bronzeOnMarket = this.allResources.slice(0,3);
+  this.silberOnMarket = this.allResources.slice(3,6);
 
   this.otherPlayers = this.players.filter((_, idx) => idx !== this.currentPlayer);
 
@@ -131,6 +135,26 @@ protected onBuyResourceChange(event: Event): void {
   const select = event.target as HTMLSelectElement;
   this.selectedBuyOtherResourceColor = select.value;
 }
+
+protected  onResourceArrayChanged(event: Event, array:string[], index: number)
+{
+  const select = event.target as HTMLSelectElement;
+  array[index] = select.value;
+}
+
+protected async buyCoinOnMarket(item:ExchangeItem):Promise<void>
+{
+    let resources: number[] = [0,0,0];
+    if (item === 0 || item === 1) {
+      const marketArray = item === 0 ? this.bronzeOnMarket : this.silberOnMarket;
+      for (let idx = 0; idx < 3; idx++) {
+        resources[idx] = this.player?.resources?.findIndex(i => i.color === marketArray[idx]) ?? 0;
+      }
+    }
+
+    await this.gameService.buyCoinOnMarket(this.gameId!, item, resources);
+}
+
 }
 
 

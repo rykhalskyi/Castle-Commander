@@ -393,6 +393,48 @@ export class Client {
         }
         return Promise.resolve<Game>(null as any);
     }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    buycoinsonmarket(body: BuyCoinsOnMarketInput | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/buycoinsonmarket";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_: RequestInit = {
+            body: content_,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processBuycoinsonmarket(_response);
+        });
+    }
+
+    protected processBuycoinsonmarket(response: Response): Promise<Game> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Game.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Game>(null as any);
+    }
 }
 
 export class AddFacilityInput implements IAddFacilityInput {
@@ -445,6 +487,58 @@ export interface IAddFacilityInput {
     startSector?: number;
     size?: FacilitySize;
     playerId?: number;
+}
+
+export class BuyCoinsOnMarketInput implements IBuyCoinsOnMarketInput {
+    gameId?: string;
+    resources?: number[] | undefined;
+    item?: ExchangeItem;
+
+    constructor(data?: IBuyCoinsOnMarketInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.gameId = _data["gameId"];
+            if (Array.isArray(_data["resources"])) {
+                this.resources = [] as any;
+                for (let item of _data["resources"])
+                    this.resources!.push(item);
+            }
+            this.item = _data["item"];
+        }
+    }
+
+    static fromJS(data: any): BuyCoinsOnMarketInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new BuyCoinsOnMarketInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["gameId"] = this.gameId;
+        if (Array.isArray(this.resources)) {
+            data["resources"] = [];
+            for (let item of this.resources)
+                data["resources"].push(item);
+        }
+        data["item"] = this.item;
+        return data;
+    }
+}
+
+export interface IBuyCoinsOnMarketInput {
+    gameId?: string;
+    resources?: number[] | undefined;
+    item?: ExchangeItem;
 }
 
 export class BuyItemInput implements IBuyItemInput {
