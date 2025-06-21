@@ -1,31 +1,20 @@
-﻿using MediatR;
+﻿using CastleCommander.WebApi.Inputs;
 
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class Buy
     {
-        public class Query : IRequest<Game>
+        public class Request : BaseGameRequest
         {
-            public Guid GameId { get; set; }
             public ExchangeItem Item { get; set; }
-            public int Number { get; set; }
-            
         }
 
-        public class Handler(IGamesCache gamesCache) : IRequestHandler<Query, Game>
+        public class Handler(IGamesCache gamesCache) : BaseGameHandler<Request>(gamesCache)
         {
-            public Task<Game> Handle(Query request, CancellationToken cancellationToken)
+            protected override Task<Game> Process(Request request, CancellationToken cancellationToken)
             {
-                var game = gamesCache.GetGame(request.GameId);
-                if (game == null)
-                {
-                    throw new Exception("Game not found");
-                }
-
-                var player = game.Players[game.CurrentPlayer];
-
-                Market.Buy(request.Item, player);
-                return Task.FromResult(game);
+                Market.Buy(request.Item, Player);
+                return Task.FromResult(Game);
             }
         }
     }

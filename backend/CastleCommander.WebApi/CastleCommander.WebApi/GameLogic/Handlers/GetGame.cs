@@ -5,20 +5,16 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class GetGame
     {
-        public class Query : IRequest<Game>
+        public class Request : BaseGameRequest
         {
-            public Guid GameId { get; set; }
         }
 
         public class Handler(
-            IGameFlow gameFlow,
-            IGamesCache gamesCache,
-            IEnemyCardsCache enemyCardsCache) : IRequestHandler<Query, Game>
+            IGamesCache gamesCache) : BaseGameHandler<Request>(gamesCache)
         {
-            public Task<Game> Handle(Query request, CancellationToken cancellationToken)
+            protected override Task<Game> Process(Request request, CancellationToken cancellationToken)
             {
-                var game = gamesCache.GetGame(request.GameId);
-                return Task.FromResult(game);
+                return Task.FromResult(Game);
             }
         }
     }

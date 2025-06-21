@@ -83,17 +83,16 @@ ngOnInit(): void {
  protected async buy(item: ExchangeItem): Promise<void> {
   if (!this.gameId) return;
 
-   await this.gameService.buy(this.gameId ?? '', item);
+   await this.gameService.buy(this.gameId ?? '', this.player!.id!, item);
  }
 
  protected async exchangeWithPlayer()
  {
     if (this.selectedResourceColor && this.selectedOtherResourceColor && this.selectedOtherPlayer)
     {
-        const otherPlayer = this.players.findIndex(i => i.name === this.selectedOtherPlayer!.name);
         const resource = this.player?.resources?.findIndex(i=> i.color === this.selectedResourceColor);
         const otherPlayerResources = this.selectedOtherPlayer?.resources?.findIndex(i=> i.color === this.selectedOtherResourceColor);
-        await this.gameService.exchange(this.gameId!, otherPlayer , resource!, otherPlayerResources!);
+        await this.gameService.exchange(this.gameId!, this.player!.id!, this.selectedOtherPlayer!.id! , resource!, otherPlayerResources!);
     }
       console.log('can exchange');
  }
@@ -104,7 +103,7 @@ ngOnInit(): void {
     {
         const resourceToSell = this.player?.resources?.findIndex(i=> i.color === this.selectedBuyResourceColor);
         const resourceToBuy = this.player?.resources?.findIndex(i=> i.color === this.selectedBuyOtherResourceColor);
-        await this.gameService.buyOnMarket(this.gameId! , resourceToSell!, resourceToBuy!);
+        await this.gameService.buyOnMarket(this.gameId!, this.player!.id!, resourceToSell!, resourceToBuy!);
     }
  }
 

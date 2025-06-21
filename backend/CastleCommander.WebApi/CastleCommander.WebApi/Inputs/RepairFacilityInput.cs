@@ -2,9 +2,8 @@
 
 namespace CastleCommander.WebApi.Inputs
 {
-    public class RepairFacilityInput
+    public class RepairFacilityInput : BaseInput
     {
-        public Game InputGame { get; set; }
         public int Hexagon { get; set; }
         public int Sector { get; set; }
     }

@@ -50,7 +50,7 @@ export class PlayfieldComponent implements OnInit {
   {
       if (this.game!.currentTurn !== 3) return;
 
-      await this.gameService.towerAttack(this.game!.id!, args.hexagon);
+      await this.gameService.towerAttack(this.game!, args.hexagon);
 
   }
 

@@ -5,32 +5,26 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class BuyOnMarket
     {
-        public class Query : IRequest<Game>
+        public class Request : BaseGameRequest
         {
-            public BuyOnMarketInput Input { get; set; }
+            public int ResourceToSell { get; set; }
+            public int ResourceToBuy { get; set; }
         }
 
-        public class Handler(IGamesCache gamesCache) : IRequestHandler<Query, Game>
+        public class Handler(IGamesCache gamesCache) : BaseGameHandler<Request>(gamesCache)
         {
-            public Task<Game> Handle(Query request, CancellationToken cancellationToken)
+            protected override Task<Game> Process(Request request, CancellationToken cancellationToken)
             {
-                var game = gamesCache.GetGame(request.Input.GameId);
-                if (game == null)
-                {
-                    throw new Exception("Game not found");
-                }
-
-                var player = game.Players[game.CurrentPlayer];
-                var ratio = game.Castle.Hexagons[0]
+                var ratio = Game.Castle.Hexagons[0]
                                 .Facilities
-                                .Where(i => i.PlayerId == game.CurrentPlayer)
+                                .Where(i => i.PlayerId == Game.PlayerId)
                                 .Sum(i => (int)i.Size);
 
-                if (!Market.BuyResources(player, request.Input.ResourceToSell, request.Input.ResourceToBuy, ratio))
+                if (!Market.BuyResources(Player, request.ResourceToSell, request.ResourceToBuy, ratio))
                 {
-                    game.Log = "Not enough resources to buy";
+                    Game.Log = "Not enough resources to buy";
                 }
-                return Task.FromResult(game);
+                return Task.FromResult(Game);
             }
         }
     }

@@ -16,7 +16,15 @@ namespace CastleCommander.WebApi.Controllers
         [HttpGet("getgame/{id}")]
         public async Task<Game> GetGame(Guid id)
         {
-            var game = await mediator.Send(new GetGame.Query() { GameId = id });
+            var game = await mediator.Send(new GetGame.Request() { GameId = id });
+            return game;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("join/{id}")]
+        public async Task<Game> JoinGame(Guid id)
+        {
+            var game = await mediator.Send(new JoinGame.Request() { GameId = id });
             return game;
         }
 
@@ -24,7 +32,7 @@ namespace CastleCommander.WebApi.Controllers
         [HttpGet("startnew")]
         public async Task<Game> StartNewGame()
         {
-            var game = await mediator.Send(new StartNewGame.Query() { });
+            var game = await mediator.Send(new StartNewGame.Request() {  });
             return game;
         }
 
@@ -32,7 +40,11 @@ namespace CastleCommander.WebApi.Controllers
         [HttpPost("nextturn")]
         public async Task<Game> NextTurn(Game inputGame)
         {
-            var game = await mediator.Send(new NextTurn.Query() { InputGame = inputGame});
+            var game = await mediator.Send(new NextTurn.Request() {
+                GameId = inputGame.Id,
+                PlayerId = inputGame.PlayerId,
+                InputGame = inputGame
+            });
             return game;
         }
 
@@ -40,12 +52,12 @@ namespace CastleCommander.WebApi.Controllers
         [HttpPost("addfacility")]
         public async Task<Game> AddFacility(AddFacilityInput input)
         {
-            var game = await mediator.Send(new AddFacility.Query() { 
-                InputGame = input.InputGame,
+            var game = await mediator.Send(new AddFacility.Request() { 
                 Hexagon = input.Hexagon,
                 StartSector = input.StartSector,
-                Size = input.Size,
-                PlayerId = input.PlayerId
+                PlayerId = input.PlayerId,
+                GameId = input.GameId,
+                Size = input.Size
             });
             return game;
         }
@@ -54,10 +66,11 @@ namespace CastleCommander.WebApi.Controllers
         [HttpPost("buy")]
         public async Task<Game> BuyItems(BuyItemInput input)
         {
-            return await mediator.Send(new Buy.Query
+            return await mediator.Send(new Buy.Request
             {
                 GameId = input.GameId,
-                Item = input.Item
+                PlayerId = input.PlayerId,
+                Item = input.Item  
             });
         }
 
@@ -65,9 +78,13 @@ namespace CastleCommander.WebApi.Controllers
         [HttpPost("exchange")]
         public async Task<Game> ExchangeItems(ExchangeItemInput input)
         {
-            return await mediator.Send(new Exchange.Query
+            return await mediator.Send(new Exchange.Request
             {
-                Input = input
+                GameId = input.GameId,
+                PlayerId = input.PlayerId,
+                OtherPlayer = input.OtherPlayer,
+                OtherResource = input.OtherResource,
+                PlayerResource = input.PlayerResource
             });
         }
 
@@ -75,9 +92,12 @@ namespace CastleCommander.WebApi.Controllers
         [HttpPost("repairfacility")]
         public async Task<Game> RepairCastle(RepairFacilityInput input)
         {
-            return await mediator.Send(new RepairFacility.Query
+            return await mediator.Send(new RepairFacility.Request
             {
-                Input = input,
+                GameId = input.GameId,
+                PlayerId = input.PlayerId,
+                Hexagon = input.Hexagon,
+                Sector = input.Sector
             });
         }
 
@@ -85,20 +105,24 @@ namespace CastleCommander.WebApi.Controllers
         [HttpPost("buyonmarket")]
         public async Task<Game> BuyItemsOnMarket(BuyOnMarketInput input)
         {
-            return await mediator.Send(new BuyOnMarket.Query
+            return await mediator.Send(new BuyOnMarket.Request
             {
-                Input = input
+                GameId = input.GameId,
+                PlayerId = input.PlayerId,
+                ResourceToBuy = input.ResourceToBuy,
+                ResourceToSell = input.ResourceToSell
             });
         }
 
         [AllowAnonymous]
         [HttpPost("towerattack")]
-        public async Task<Game> TowerAttack(Guid GameId, int hex)
+        public async Task<Game> TowerAttack(TowerAttackInput input)
         {
-            return await mediator.Send(new TowerAttack.Query
+            return await mediator.Send(new TowerAttack.Request
             {
-                GameId = GameId,
-                Hexagon = hex
+                GameId = input.GameId,
+                PlayerId = input.PlayerId,
+                Hexagon = input.Hexagon
             });
         }
 
@@ -106,9 +130,12 @@ namespace CastleCommander.WebApi.Controllers
         [HttpPost("buycoinsonmarket")]
         public async Task<Game> BuyCoinsOnMarket(BuyCoinsOnMarketInput input)
         {
-            return await mediator.Send(new BuyCoinsOnMarket.Query
+            return await mediator.Send(new BuyCoinsOnMarket.Request
             {
-                Input = input,
+                GameId = input.GameId,
+                PlayerId = input.PlayerId,
+                Item = input.Item,
+                Resources = input.Resources
             });
         }
     }

@@ -2,9 +2,8 @@
 
 namespace CastleCommander.WebApi.Inputs
 {
-    public class BuyCoinsOnMarketInput
+    public class BuyCoinsOnMarketInput : BaseInput
     {
-        public Guid GameId { get; set; }
         public int[] Resources { get; set; } = [];
         public ExchangeItem Item { get; set; }
     }

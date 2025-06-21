@@ -4,13 +4,15 @@
     {
         public IList<IGameTurn> Turns { get; set; }
 
-        public Game StartGame(Game userInput)
+        public Game StartGame()
         {
             var game = GameFlowFactory.CreateGame();
             game.TurnMessage = "Game started";
             game.CurrentTurn = 0;
+            PlayerCreator.AddPlayer(game);
+            
 
-            Turns[game.CurrentTurn].MakeTurn(userInput, game);
+            Turns[game.CurrentTurn].MakeTurn(game, game);
             return game;
         }
 

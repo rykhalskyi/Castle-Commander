@@ -5,10 +5,11 @@ namespace CastleCommander.WebApi.GameLogic
     public class Game 
     {
         public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid PlayerId { get; set; } = Guid.Empty;
 
         public string TurnMessage { get; set; } = string.Empty;
         public int CurrentTurn { get; set; }
-        public int CurrentPlayer { get; set; } = 0;
+        public int CurrentPlayer { get; set; }
 
         public List<Player> Players { get; set; } = new();
 

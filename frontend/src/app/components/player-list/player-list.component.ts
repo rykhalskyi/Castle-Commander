@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 export class PlayerListComponent implements OnChanges {
 
   @Input() players: Player[] | null = null;
+  @Input() playerId: string = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log("PlayerListComponent ngOnChanges", changes);

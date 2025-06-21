@@ -5,19 +5,18 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class StartNewGame
     {
-        public class Query : IRequest<Game>
+        public class Request : IRequest<Game>
         {
-            public Game InputGame { get; set; }
         }
 
         public class Handler(
             IGameFlow gameFlow, 
             IGamesCache gamesCache, 
-            IEnemyCardsCache enemyCardsCache) : IRequestHandler<Query, Game>
+            IEnemyCardsCache enemyCardsCache) : IRequestHandler<Request, Game>
         {
-            public Task<Game> Handle(Query request, CancellationToken cancellationToken)
+            public Task<Game> Handle(Request request, CancellationToken cancellationToken)
             {
-                var newGame = gameFlow.StartGame(request.InputGame);
+                var newGame = gameFlow.StartGame();
                 
                 gamesCache.AddGame(newGame);
                 enemyCardsCache.AddDeck(newGame.Id);

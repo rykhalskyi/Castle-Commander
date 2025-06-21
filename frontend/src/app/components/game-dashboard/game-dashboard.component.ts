@@ -32,7 +32,6 @@ export class GameDashboardComponent implements OnInit {
   protected players = signal<Player[]>([]);
   protected game = signal<Game | null>(null);
   protected currentPlayer = signal<Player | null>(null);
-  protected newGame = true;
   protected gameId = 'No Game ID';
 
 constructor(
@@ -61,11 +60,11 @@ private readonly gameFlowService: GameFlowService) { }
   }
 
   public async newGameClick(): Promise<void> {
-    if (this.newGame)
-      {
-        const game =  await this.gameService.startNewGame();
-      }
-    else await this.gameService.getGame(this.gameId);
+     await this.gameService.startNewGame();
+  }
+
+  public async joinGameClick(): Promise<void> {
+    await this.gameService.joinGame(this.gameId);
   }
 
   public async makeTurnClick(): Promise<void> {

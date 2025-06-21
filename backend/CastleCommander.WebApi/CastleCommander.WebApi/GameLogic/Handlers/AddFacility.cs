@@ -1,47 +1,42 @@
-﻿using MediatR;
+﻿using CastleCommander.WebApi.Inputs;
+using MediatR;
 
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class AddFacility
     {
-        public class Query: IRequest<Game>
+        public class Request: BaseGameRequest
         {
-            public Game InputGame { get; set; }
             public int Hexagon { get; set; }
             public int StartSector { get; set; }
             public FacilitySize Size { get; set; }
-            public int PlayerId { get; set; }
         }
 
-        public class Handler(IGamesCache gamesCache, IGameFlow gameFlow) : IRequestHandler<Query, Game>
+        public class Handler(IGamesCache gamesCache, IGameFlow gameFlow) : BaseGameHandler<Request>(gamesCache)
         {
-            public Task<Game> Handle(Query request, CancellationToken cancellationToken)
-            {
-                var game = gamesCache.GetGame(request.InputGame.Id);
-                if (game == null)
-                {
-                    throw new Exception("Game not found");
-                }
 
+            protected override Task<Game> Process(Request request, CancellationToken cancellationToken)
+            {
                 if (request.StartSector < 6)
                 {
-                    return AddFacility(request, game);
+                    return AddFacility(request, Game);
                 }
                 else
                 {
-                    return AddTower(request, game);
+                    return AddTower(request, Game);
                 }
             }
 
-            private Task<Game> AddFacility(Query request, Game game)
+            private Task<Game> AddFacility(Request request, Game game)
             {
+          
                 var newFacility = new Facility()
                 {
                     StartSector = request.StartSector,
                     Size = request.Size,
                     PlayerId = request.PlayerId,
-                    PrimaryColor = request.InputGame.Players[request.PlayerId].PrimaryColor,
-                    SecondaryColor = request.InputGame.Players[request.PlayerId].SecondaryColor
+                    PrimaryColor = Player.PrimaryColor,
+                    SecondaryColor = Player.SecondaryColor
                 };
 
                 if (FacilityHelper.AreSectorsDestroyed(game.Castle.Hexagons[request.Hexagon], newFacility))
@@ -64,7 +59,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                 return Task.FromResult(game);
             }
 
-            private Task<Game> AddTower(Query request, Game game)
+            private Task<Game> AddTower(Request request, Game game)
             {
 
                 if (game.Castle.Hexagons[request.Hexagon].Tower != null)
@@ -81,9 +76,9 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
 
                 var newTower = new Tower
                 {
-                    PlayerId = request.PlayerId,
-                    PrimaryColor = request.InputGame.Players[request.PlayerId].PrimaryColor,
-                    SecondaryColor = request.InputGame.Players[request.PlayerId].SecondaryColor
+                    PlayerId = Player.Id,
+                    PrimaryColor = Player.PrimaryColor,
+                    SecondaryColor = Player.SecondaryColor
                 };
 
                 game.Castle.Hexagons[request.Hexagon].Tower = newTower;

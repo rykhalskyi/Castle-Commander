@@ -39,50 +39,7 @@ namespace CastleCommander.WebApi.GameLogic
                                             }
                 },
                 Players = new List<Player>()
-                {
-                    new Player()
-                    {
-                        Name = "Jim Bon Jivi",
-                        IsActive = true,
-                        Resources = GetPlayerResources(new[]{1,2,3}),
-                        PrimaryColor = "#490101",
-                        SecondaryColor = "#970000",
-                        Bronze = 1,
-                        Silver =1,
-                        Gold = 1
 
-                    },
-                    new Player()
-                    {
-                        Name = "Eazy Earsborn",
-                        Resources = GetPlayerResources(new[]{1,3,5}),
-                        PrimaryColor = "#014905",
-                        SecondaryColor = "#009721",
-                        Bronze = 1,
-                        Silver =1,
-                        Gold = 1
-                    },
-                    new Player()
-                    {
-                        Name = "Linn Tildelman",
-                        Resources = GetPlayerResources(new[]{2,4,6}),
-                        PrimaryColor = "#011549",
-                        SecondaryColor = "#005D97",
-                        Bronze = 1,
-                        Silver =1,
-                        Gold = 1
-                    },
-                    new Player()
-                    {
-                        Name = "Stiggy Zardust",
-                        Resources = GetPlayerResources(new[]{4,5,6}),
-                        PrimaryColor = "#493601",
-                        SecondaryColor = "#975D00",
-                        Bronze = 1,
-                        Silver =1,
-                        Gold = 1
-                    },
-                }
             };
         }
 

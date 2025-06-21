@@ -1,37 +1,24 @@
-﻿using CastleCommander.WebApi.Inputs;
-using MediatR;
-
+﻿
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class BuyCoinsOnMarket
     {
-        public class Query : IRequest<Game>
+        public class Request : BaseGameRequest
         {
-            public BuyCoinsOnMarketInput Input { get; set; }
+            public int[] Resources { get; set; } = [];
+            public ExchangeItem Item { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Game>
+        public class Handler(IGamesCache gamesCache) : BaseGameHandler<Request>(gamesCache)
         {
-            private readonly IGamesCache _gamesCache;
-            public Handler(IGamesCache gamesCache)
+            protected override Task<Game> Process(Request request, CancellationToken cancellationToken)
             {
-                _gamesCache = gamesCache;
-            }
-            public Task<Game> Handle(Query request, CancellationToken cancellationToken)
-            {
-                var game = _gamesCache.GetGame(request.Input.GameId);
-                if (game == null)
+                if (!Market.BuyCoins(request.Resources, request.Item, Player))
                 {
-                    throw new Exception("Game not found");
-                }
-
-                var player = game.Players[game.CurrentPlayer];
-                if (!Market.BuyCoins(request.Input.Resources, request.Input.Item, player))
-                {
-                    game.Log += "Not enough resources to buy coins\n";
+                    Game.Log += "Not enough resources to buy coins\n";
                 };
 
-                return Task.FromResult(game);
+                return Task.FromResult(Game);
             }
         }
     }

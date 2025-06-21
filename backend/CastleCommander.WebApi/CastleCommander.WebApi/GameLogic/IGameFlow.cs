@@ -6,6 +6,6 @@ namespace CastleCommander.WebApi.GameLogic
         IList<IGameTurn> Turns { get; set; }
 
         Game NextTurn(Game userInput, Game game);
-        Game StartGame(Game userInput);
+        Game StartGame();
     }
 }

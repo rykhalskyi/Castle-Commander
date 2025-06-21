@@ -1,43 +1,36 @@
 ﻿using CastleCommander.WebApi.Inputs;
-using MediatR;
 
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class Exchange
     {
-        public class Query : IRequest<Game>
+        public class Request : BaseGameRequest
         {
-            public ExchangeItemInput Input { get; set; }
+            public Guid OtherPlayer { get; set; }
+            public int PlayerResource { get; set; }
+            public int OtherResource { get; set; }
         }
 
-        public class Handler(IGamesCache gamesCache) : IRequestHandler<Query, Game>
+        public class Handler(IGamesCache gamesCache) : BaseGameHandler<Request>(gamesCache)
         {
-            public Task<Game> Handle(Query request, CancellationToken cancellationToken)
+            protected override Task<Game> Process(Request request, CancellationToken cancellationToken)
             {
-                var game = gamesCache.GetGame(request.Input.GameId);
-                if (game == null)
-                {
-                    throw new Exception("Game not found");
-                }
-
                 try
                 {
-                    var player = game.Players[game.CurrentPlayer];
-                    var otherPlayer = game.Players[request.Input.OtherPlayer];
-
-                    var success = Market.Exchange(player, otherPlayer, request.Input.PlayerResource, request.Input.OtherResource);
+                    var otherPlayer = Game.GetPlayer(request.OtherPlayer);
+                    var success = Market.Exchange(Player, otherPlayer, request.PlayerResource, request.OtherResource);
 
                     if (!success)
                     {
-                        game.Log = "Not enough resources to exchange";
+                        Game.Log = "Not enough resources to exchange";
                     }
                 }
                 catch (Exception ex)
                 {
-                    game.Log = ex.Message;
+                    Game.Log = ex.Message;
                 }
 
-                return Task.FromResult(game);
+                return Task.FromResult(Game);
             }
         }
     }

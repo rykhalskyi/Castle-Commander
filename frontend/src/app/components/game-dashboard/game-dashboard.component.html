@@ -1,7 +1,10 @@
 <div class="game-dashboard-container">
   <div class="new-game-button-flex">
-    <div class="new-game-button btn" (click)="newGameClick()">get game</div>
-    <input class="game-checkbox" type="checkbox" [(ngModel)]="newGame" title="Create new">
+    <div class="new-game-button btn" (click)="newGameClick()">new game</div>
+  </div>
+
+    <div class="new-game-button-flex">
+    <div class="new-game-button btn" (click)="joinGameClick()">join game</div>
     <input class="game-id" type="text" [value]="gameId" (input)="onGameIdInput($event)" placeholder="Game ID" title="Get Game by ID">
     
   </div>
@@ -12,7 +15,7 @@
   </div>
 
   <div>
-    <app-player-list [players]="game()?.players ?? null"></app-player-list>
+    <app-player-list [players]="game()?.players ?? null" [playerId]="game()?.playerId ?? ''" ></app-player-list>
   </div>
 
   <div class="center-part">

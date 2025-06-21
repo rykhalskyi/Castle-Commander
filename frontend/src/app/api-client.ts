@@ -61,6 +61,46 @@ export class Client {
     /**
      * @return OK
      */
+    join(id: string): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/join/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: RequestInit = {
+            method: "GET",
+            headers: {
+                "Accept": "text/plain"
+            }
+        };
+
+        return this.http.fetch(url_, options_).then((_response: Response) => {
+            return this.processJoin(_response);
+        });
+    }
+
+    protected processJoin(response: Response): Promise<Game> {
+        const status = response.status;
+        let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
+        if (status === 200) {
+            return response.text().then((_responseText) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = Game.fromJS(resultData200);
+            return result200;
+            });
+        } else if (status !== 200 && status !== 204) {
+            return response.text().then((_responseText) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            });
+        }
+        return Promise.resolve<Game>(null as any);
+    }
+
+    /**
+     * @return OK
+     */
     startnew(): Promise<Game> {
         let url_ = this.baseUrl + "/api/game/startnew";
         url_ = url_.replace(/[?&]$/, "");
@@ -348,25 +388,20 @@ export class Client {
     }
 
     /**
-     * @param gameId (optional) 
-     * @param hex (optional) 
+     * @param body (optional) 
      * @return OK
      */
-    towerattack(gameId: string | undefined, hex: number | undefined): Promise<Game> {
-        let url_ = this.baseUrl + "/api/game/towerattack?";
-        if (gameId === null)
-            throw new Error("The parameter 'gameId' cannot be null.");
-        else if (gameId !== undefined)
-            url_ += "GameId=" + encodeURIComponent("" + gameId) + "&";
-        if (hex === null)
-            throw new Error("The parameter 'hex' cannot be null.");
-        else if (hex !== undefined)
-            url_ += "hex=" + encodeURIComponent("" + hex) + "&";
+    towerattack(body: TowerAttackInput | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/towerattack";
         url_ = url_.replace(/[?&]$/, "");
 
+        const content_ = JSON.stringify(body);
+
         let options_: RequestInit = {
+            body: content_,
             method: "POST",
             headers: {
+                "Content-Type": "application/json",
                 "Accept": "text/plain"
             }
         };
@@ -438,11 +473,11 @@ export class Client {
 }
 
 export class AddFacilityInput implements IAddFacilityInput {
-    inputGame?: Game;
+    playerId?: string;
+    gameId?: string;
     hexagon?: number;
     startSector?: number;
     size?: FacilitySize;
-    playerId?: number;
 
     constructor(data?: IAddFacilityInput) {
         if (data) {
@@ -455,11 +490,11 @@ export class AddFacilityInput implements IAddFacilityInput {
 
     init(_data?: any) {
         if (_data) {
-            this.inputGame = _data["inputGame"] ? Game.fromJS(_data["inputGame"]) : <any>undefined;
+            this.playerId = _data["playerId"];
+            this.gameId = _data["gameId"];
             this.hexagon = _data["hexagon"];
             this.startSector = _data["startSector"];
             this.size = _data["size"];
-            this.playerId = _data["playerId"];
         }
     }
 
@@ -472,24 +507,25 @@ export class AddFacilityInput implements IAddFacilityInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["inputGame"] = this.inputGame ? this.inputGame.toJSON() : <any>undefined;
+        data["playerId"] = this.playerId;
+        data["gameId"] = this.gameId;
         data["hexagon"] = this.hexagon;
         data["startSector"] = this.startSector;
         data["size"] = this.size;
-        data["playerId"] = this.playerId;
         return data;
     }
 }
 
 export interface IAddFacilityInput {
-    inputGame?: Game;
+    playerId?: string;
+    gameId?: string;
     hexagon?: number;
     startSector?: number;
     size?: FacilitySize;
-    playerId?: number;
 }
 
 export class BuyCoinsOnMarketInput implements IBuyCoinsOnMarketInput {
+    playerId?: string;
     gameId?: string;
     resources?: number[] | undefined;
     item?: ExchangeItem;
@@ -505,6 +541,7 @@ export class BuyCoinsOnMarketInput implements IBuyCoinsOnMarketInput {
 
     init(_data?: any) {
         if (_data) {
+            this.playerId = _data["playerId"];
             this.gameId = _data["gameId"];
             if (Array.isArray(_data["resources"])) {
                 this.resources = [] as any;
@@ -524,6 +561,7 @@ export class BuyCoinsOnMarketInput implements IBuyCoinsOnMarketInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["playerId"] = this.playerId;
         data["gameId"] = this.gameId;
         if (Array.isArray(this.resources)) {
             data["resources"] = [];
@@ -536,12 +574,14 @@ export class BuyCoinsOnMarketInput implements IBuyCoinsOnMarketInput {
 }
 
 export interface IBuyCoinsOnMarketInput {
+    playerId?: string;
     gameId?: string;
     resources?: number[] | undefined;
     item?: ExchangeItem;
 }
 
 export class BuyItemInput implements IBuyItemInput {
+    playerId?: string;
     gameId?: string;
     item?: ExchangeItem;
     number?: number;
@@ -557,6 +597,7 @@ export class BuyItemInput implements IBuyItemInput {
 
     init(_data?: any) {
         if (_data) {
+            this.playerId = _data["playerId"];
             this.gameId = _data["gameId"];
             this.item = _data["item"];
             this.number = _data["number"];
@@ -572,6 +613,7 @@ export class BuyItemInput implements IBuyItemInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["playerId"] = this.playerId;
         data["gameId"] = this.gameId;
         data["item"] = this.item;
         data["number"] = this.number;
@@ -580,12 +622,14 @@ export class BuyItemInput implements IBuyItemInput {
 }
 
 export interface IBuyItemInput {
+    playerId?: string;
     gameId?: string;
     item?: ExchangeItem;
     number?: number;
 }
 
 export class BuyOnMarketInput implements IBuyOnMarketInput {
+    playerId?: string;
     gameId?: string;
     resourceToSell?: number;
     resourceToBuy?: number;
@@ -601,6 +645,7 @@ export class BuyOnMarketInput implements IBuyOnMarketInput {
 
     init(_data?: any) {
         if (_data) {
+            this.playerId = _data["playerId"];
             this.gameId = _data["gameId"];
             this.resourceToSell = _data["resourceToSell"];
             this.resourceToBuy = _data["resourceToBuy"];
@@ -616,6 +661,7 @@ export class BuyOnMarketInput implements IBuyOnMarketInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["playerId"] = this.playerId;
         data["gameId"] = this.gameId;
         data["resourceToSell"] = this.resourceToSell;
         data["resourceToBuy"] = this.resourceToBuy;
@@ -624,6 +670,7 @@ export class BuyOnMarketInput implements IBuyOnMarketInput {
 }
 
 export interface IBuyOnMarketInput {
+    playerId?: string;
     gameId?: string;
     resourceToSell?: number;
     resourceToBuy?: number;
@@ -816,8 +863,9 @@ export enum ExchangeItem {
 }
 
 export class ExchangeItemInput implements IExchangeItemInput {
+    playerId?: string;
     gameId?: string;
-    otherPlayer?: number;
+    otherPlayer?: string;
     playerResource?: number;
     otherResource?: number;
 
@@ -832,6 +880,7 @@ export class ExchangeItemInput implements IExchangeItemInput {
 
     init(_data?: any) {
         if (_data) {
+            this.playerId = _data["playerId"];
             this.gameId = _data["gameId"];
             this.otherPlayer = _data["otherPlayer"];
             this.playerResource = _data["playerResource"];
@@ -848,6 +897,7 @@ export class ExchangeItemInput implements IExchangeItemInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["playerId"] = this.playerId;
         data["gameId"] = this.gameId;
         data["otherPlayer"] = this.otherPlayer;
         data["playerResource"] = this.playerResource;
@@ -857,8 +907,9 @@ export class ExchangeItemInput implements IExchangeItemInput {
 }
 
 export interface IExchangeItemInput {
+    playerId?: string;
     gameId?: string;
-    otherPlayer?: number;
+    otherPlayer?: string;
     playerResource?: number;
     otherResource?: number;
 }
@@ -866,7 +917,7 @@ export interface IExchangeItemInput {
 export class Facility implements IFacility {
     size?: FacilitySize;
     startSector?: number;
-    playerId?: number;
+    playerId?: string;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
 
@@ -910,7 +961,7 @@ export class Facility implements IFacility {
 export interface IFacility {
     size?: FacilitySize;
     startSector?: number;
-    playerId?: number;
+    playerId?: string;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
 }
@@ -923,6 +974,7 @@ export enum FacilitySize {
 
 export class Game implements IGame {
     id?: string;
+    playerId?: string;
     turnMessage?: string | undefined;
     currentTurn?: number;
     currentPlayer?: number;
@@ -944,6 +996,7 @@ export class Game implements IGame {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.playerId = _data["playerId"];
             this.turnMessage = _data["turnMessage"];
             this.currentTurn = _data["currentTurn"];
             this.currentPlayer = _data["currentPlayer"];
@@ -969,6 +1022,7 @@ export class Game implements IGame {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["playerId"] = this.playerId;
         data["turnMessage"] = this.turnMessage;
         data["currentTurn"] = this.currentTurn;
         data["currentPlayer"] = this.currentPlayer;
@@ -987,6 +1041,7 @@ export class Game implements IGame {
 
 export interface IGame {
     id?: string;
+    playerId?: string;
     turnMessage?: string | undefined;
     currentTurn?: number;
     currentPlayer?: number;
@@ -1080,6 +1135,7 @@ export enum HexagonColor {
 }
 
 export class Player implements IPlayer {
+    id?: string;
     name?: string | undefined;
     isActive?: boolean;
     primaryColor?: string | undefined;
@@ -1100,6 +1156,7 @@ export class Player implements IPlayer {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.name = _data["name"];
             this.isActive = _data["isActive"];
             this.primaryColor = _data["primaryColor"];
@@ -1124,6 +1181,7 @@ export class Player implements IPlayer {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["name"] = this.name;
         data["isActive"] = this.isActive;
         data["primaryColor"] = this.primaryColor;
@@ -1141,6 +1199,7 @@ export class Player implements IPlayer {
 }
 
 export interface IPlayer {
+    id?: string;
     name?: string | undefined;
     isActive?: boolean;
     primaryColor?: string | undefined;
@@ -1196,7 +1255,8 @@ export interface IPlayerResource {
 }
 
 export class RepairFacilityInput implements IRepairFacilityInput {
-    inputGame?: Game;
+    playerId?: string;
+    gameId?: string;
     hexagon?: number;
     sector?: number;
 
@@ -1211,7 +1271,8 @@ export class RepairFacilityInput implements IRepairFacilityInput {
 
     init(_data?: any) {
         if (_data) {
-            this.inputGame = _data["inputGame"] ? Game.fromJS(_data["inputGame"]) : <any>undefined;
+            this.playerId = _data["playerId"];
+            this.gameId = _data["gameId"];
             this.hexagon = _data["hexagon"];
             this.sector = _data["sector"];
         }
@@ -1226,7 +1287,8 @@ export class RepairFacilityInput implements IRepairFacilityInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["inputGame"] = this.inputGame ? this.inputGame.toJSON() : <any>undefined;
+        data["playerId"] = this.playerId;
+        data["gameId"] = this.gameId;
         data["hexagon"] = this.hexagon;
         data["sector"] = this.sector;
         return data;
@@ -1234,7 +1296,8 @@ export class RepairFacilityInput implements IRepairFacilityInput {
 }
 
 export interface IRepairFacilityInput {
-    inputGame?: Game;
+    playerId?: string;
+    gameId?: string;
     hexagon?: number;
     sector?: number;
 }
@@ -1280,7 +1343,7 @@ export interface ISector {
 }
 
 export class Tower implements ITower {
-    playerId?: number;
+    playerId?: string;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
 
@@ -1318,9 +1381,53 @@ export class Tower implements ITower {
 }
 
 export interface ITower {
-    playerId?: number;
+    playerId?: string;
     primaryColor?: string | undefined;
     secondaryColor?: string | undefined;
+}
+
+export class TowerAttackInput implements ITowerAttackInput {
+    playerId?: string;
+    gameId?: string;
+    hexagon?: number;
+
+    constructor(data?: ITowerAttackInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.playerId = _data["playerId"];
+            this.gameId = _data["gameId"];
+            this.hexagon = _data["hexagon"];
+        }
+    }
+
+    static fromJS(data: any): TowerAttackInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new TowerAttackInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["playerId"] = this.playerId;
+        data["gameId"] = this.gameId;
+        data["hexagon"] = this.hexagon;
+        return data;
+    }
+}
+
+export interface ITowerAttackInput {
+    playerId?: string;
+    gameId?: string;
+    hexagon?: number;
 }
 
 export class ApiException extends Error {

@@ -1,51 +1,44 @@
-﻿using MediatR;
-
+﻿
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
     public class TowerAttack
     {
-        public class Query : IRequest<Game>
+        public class Request : BaseGameRequest
         {
-            public Guid GameId { get; set; }
             public int Hexagon { get; set; }
         }
 
-        public class Handler(IGamesCache cache) : IRequestHandler<Query, Game>
+        public class Handler(IGamesCache gamesCahce) : BaseGameHandler<Request>(gamesCahce)
         {
-            public async Task<Game> Handle(Query request, CancellationToken cancellationToken)
+            protected override async Task<Game> Process(Request request, CancellationToken cancellationToken)
             {
-                var game = cache.GetGame(request.GameId);
-                if (game == null)
+
+                var tower = Game.Castle.Hexagons[request.Hexagon].Tower;
+                if (tower == null || tower.PlayerId != Player.Id)
                 {
-                    throw new Exception("Game not found");
+                    Game.Log += "You have no tower in this hex \n";
+                    return await Task.FromResult(Game);
                 }
 
-                var tower = game.Castle.Hexagons[request.Hexagon].Tower;
-                if (tower == null || tower.PlayerId != game.CurrentPlayer)
+                if (!Market.CanAttack(Player, request.Hexagon))
                 {
-                    game.Log += "You have no tower in this hex \n";
-                    return await Task.FromResult(game);
-                }
-
-                if (!Market.CanAttack(game.Players[game.CurrentPlayer], request.Hexagon))
-                {
-                    game.Log += "You have no enough bronye to attack \n";
-                    return await Task.FromResult(game);
+                    Game.Log += "You have no enough bronye to attack \n";
+                    return await Task.FromResult(Game);
                 }
 
                 if (request.Hexagon == 0) 
                 {
                     //Let's eliminate all threats if market attacks
                     for (int i=1; i<7; i++)
-                        ClearImpactValue(i, game);
+                        ClearImpactValue(i, Game);
                 }
                 else
                 {
-                    ClearImpactValue(request.Hexagon, game);
+                    ClearImpactValue(request.Hexagon, Game);
                 }
 
 
-                return await Task.FromResult(game);
+                return await Task.FromResult(Game);
             }
 
             private static void ClearImpactValue(int hex, Game game)

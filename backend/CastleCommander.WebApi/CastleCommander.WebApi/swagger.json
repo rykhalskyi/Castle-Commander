@@ -45,6 +45,46 @@
         }
       }
     },
+    "/api/game/join/{id}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Game"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/game/startnew": {
       "get": {
         "tags": [
@@ -367,24 +407,25 @@
         "tags": [
           "Game"
         ],
-        "parameters": [
-          {
-            "name": "GameId",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "hex",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TowerAttackInput"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TowerAttackInput"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TowerAttackInput"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -463,8 +504,13 @@
       "AddFacilityInput": {
         "type": "object",
         "properties": {
-          "inputGame": {
-            "$ref": "#/components/schemas/Game"
+          "playerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "gameId": {
+            "type": "string",
+            "format": "uuid"
           },
           "hexagon": {
             "type": "integer",
@@ -476,10 +522,6 @@
           },
           "size": {
             "$ref": "#/components/schemas/FacilitySize"
-          },
-          "playerId": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -487,6 +529,10 @@
       "BuyCoinsOnMarketInput": {
         "type": "object",
         "properties": {
+          "playerId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "gameId": {
             "type": "string",
             "format": "uuid"
@@ -508,6 +554,10 @@
       "BuyItemInput": {
         "type": "object",
         "properties": {
+          "playerId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "gameId": {
             "type": "string",
             "format": "uuid"
@@ -525,6 +575,10 @@
       "BuyOnMarketInput": {
         "type": "object",
         "properties": {
+          "playerId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "gameId": {
             "type": "string",
             "format": "uuid"
@@ -617,13 +671,17 @@
       "ExchangeItemInput": {
         "type": "object",
         "properties": {
+          "playerId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "gameId": {
             "type": "string",
             "format": "uuid"
           },
           "otherPlayer": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
           "playerResource": {
             "type": "integer",
@@ -647,8 +705,8 @@
             "format": "int32"
           },
           "playerId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
           "primaryColor": {
             "type": "string",
@@ -674,6 +732,10 @@
         "type": "object",
         "properties": {
           "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "playerId": {
             "type": "string",
             "format": "uuid"
           },
@@ -762,6 +824,10 @@
       "Player": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
           "name": {
             "type": "string",
             "nullable": true
@@ -819,8 +885,13 @@
       "RepairFacilityInput": {
         "type": "object",
         "properties": {
-          "inputGame": {
-            "$ref": "#/components/schemas/Game"
+          "playerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "gameId": {
+            "type": "string",
+            "format": "uuid"
           },
           "hexagon": {
             "type": "integer",
@@ -851,8 +922,8 @@
         "type": "object",
         "properties": {
           "playerId": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
           "primaryColor": {
             "type": "string",
@@ -861,6 +932,24 @@
           "secondaryColor": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TowerAttackInput": {
+        "type": "object",
+        "properties": {
+          "playerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "gameId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "hexagon": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
