@@ -31,7 +31,8 @@ namespace CastleCommander.WebApi
                 var enemyCardsCache = sp.GetRequiredService<IEnemyCardsCache>();
                 return GameFlowFactory.Create(enemyCardsCache);
             });
-            
+            builder.Services.AddSingleton<IGameEventSender, SseGameEventSender>();
+
         }
     }
 }

@@ -34,6 +34,8 @@ export class GameDashboardComponent implements OnInit {
   protected currentPlayer = signal<Player | null>(null);
   protected gameId = 'No Game ID';
 
+  private eventSource: EventSource | null = null;
+
 constructor(
   private readonly gameService: GameService,
 private readonly gameFlowService: GameFlowService) { }
@@ -57,14 +59,18 @@ private readonly gameFlowService: GameFlowService) { }
         
       }
     });
+
+    
   }
 
   public async newGameClick(): Promise<void> {
      await this.gameService.startNewGame();
+     this.subscribeToServerEvents();
   }
 
   public async joinGameClick(): Promise<void> {
     await this.gameService.joinGame(this.gameId);
+    this.subscribeToServerEvents();
   }
 
   public async makeTurnClick(): Promise<void> {
@@ -79,6 +85,16 @@ private readonly gameFlowService: GameFlowService) { }
     if (this.game() !== null) {
       this.game()!.id = input.value;
     }
+  }
+
+  private subscribeToServerEvents():void{
+    if (this.eventSource !== null) this.eventSource.close();
+
+    this.eventSource = this.gameService.subscribeToGameEvents(this.game()?.id!, 
+    (data) => {
+        console.log("server event ", data);
+    }
+  )
   }
 }
 

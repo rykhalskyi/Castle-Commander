@@ -122,6 +122,27 @@ export class GameService {
     }
   
 
+  public subscribeToGameEvents(
+    gameId: string,
+    onEvent: (data: { gameId: string; playerId: string }) => void
+  ): EventSource {
+    const url = `${this.client["baseUrl"]}/api/game/events/${encodeURIComponent(gameId)}`;
+    const eventSource = new EventSource(url);
+    eventSource.onmessage = (event) => {
+      try {
+        // event.data is a string like: { "gameId": "...", "playerId": "..." }
+        const data = JSON.parse(event.data);
+        onEvent(data);
+      } catch (e) {
+        console.error("Failed to parse SSE event data", e, event.data);
+      }
+    };
+    eventSource.onerror = (err) => {
+      console.error("SSE connection error", err);
+    };
+    return eventSource;
+  }
+
   constructor() { } 
  
 }

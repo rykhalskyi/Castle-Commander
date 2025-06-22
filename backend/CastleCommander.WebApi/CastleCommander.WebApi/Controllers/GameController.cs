@@ -138,5 +138,21 @@ namespace CastleCommander.WebApi.Controllers
                 Resources = input.Resources
             });
         }
+
+        [AllowAnonymous]
+        [HttpGet("events/{gameId}")]
+        public async Task Events(Guid gameId)
+        {
+            Response.Headers.Append("Content-Type", "text/event-stream");
+
+            var eventSender = HttpContext.RequestServices.GetRequiredService<IGameEventSender>() as SseGameEventSender;
+            eventSender?.RegisterClient(gameId, Response);
+
+            // Keep the connection open
+            while (!HttpContext.RequestAborted.IsCancellationRequested)
+            {
+                await Task.Delay(1000);
+            }
+        }
     }
 }
