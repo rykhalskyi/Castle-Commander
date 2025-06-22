@@ -14,9 +14,12 @@ namespace CastleCommander.WebApi.Controllers
     {
         [AllowAnonymous]
         [HttpGet("getgame/{id}")]
-        public async Task<Game> GetGame(Guid id)
+        public async Task<Game> GetGame(Guid id, Guid playerId)
         {
-            var game = await mediator.Send(new GetGame.Request() { GameId = id });
+            var game = await mediator.Send(new GetGame.Request() { 
+                GameId = id,
+                PlayerId = playerId
+            });
             return game;
         }
 

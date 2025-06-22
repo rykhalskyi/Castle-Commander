@@ -19,13 +19,18 @@ export class Client {
     }
 
     /**
+     * @param playerId (optional) 
      * @return OK
      */
-    getgame(id: string): Promise<Game> {
-        let url_ = this.baseUrl + "/api/game/getgame/{id}";
+    getgame(id: string, playerId: string | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/getgame/{id}?";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        if (playerId === null)
+            throw new Error("The parameter 'playerId' cannot be null.");
+        else if (playerId !== undefined)
+            url_ += "playerId=" + encodeURIComponent("" + playerId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {

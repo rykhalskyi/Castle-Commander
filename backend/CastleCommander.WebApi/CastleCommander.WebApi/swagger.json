@@ -19,6 +19,14 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "name": "playerId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           }
         ],
         "responses": {

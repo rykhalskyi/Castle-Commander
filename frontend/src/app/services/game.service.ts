@@ -20,8 +20,8 @@ export class GameService {
     return game;
   }
 
-  public async getGame(gameId: string): Promise<Game> {
-    const game = await this.client.getgame(gameId);
+  public async getGame(gameId: string, playerId: string): Promise<Game> {
+    const game = await this.client.getgame(gameId, playerId);
     this.activeGame.next(game);
     return game;
   }

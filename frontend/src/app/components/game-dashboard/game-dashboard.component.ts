@@ -92,7 +92,12 @@ private readonly gameFlowService: GameFlowService) { }
 
     this.eventSource = this.gameService.subscribeToGameEvents(this.game()?.id!, 
     (data) => {
-        console.log("server event ", data);
+        if (data.playerId !== this.game()?.playerId)
+        {
+            console.log("Another player server event ", data);
+            this.gameService.getGame(this.game()!.id!, this.game()!.playerId!);
+        }
+        
     }
   )
   }
