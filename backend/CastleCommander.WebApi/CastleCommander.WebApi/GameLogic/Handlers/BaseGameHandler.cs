@@ -11,6 +11,12 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
         {
             Game = GetGame(request);
             Player = Game.GetPlayer(request.PlayerId);
+            if (!Validate())
+            {
+                Game.Log = "Player cannot perform this action now";
+                Game.PlayerId = request.PlayerId;
+                return Game;
+            }
 
             var result = await Process(request, cancellationToken);
             result.PlayerId = request.PlayerId;
@@ -28,6 +34,11 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
             }
 
             return game;
+        }
+
+        protected virtual bool Validate()
+        {
+            return Player.Id == Game.Players[Game.CurrentPlayer].Id;
         }
     }
 }

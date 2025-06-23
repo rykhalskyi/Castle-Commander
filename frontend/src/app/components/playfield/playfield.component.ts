@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, Input, OnInit, signal } from '@angular/core';
 import { HexagonSectorClickArgs } from '../../gameLogic/HexagonSectorClickArgs';
 import { CastleHexagonComponent } from '../castle-hexagon/castle-hexagon.component';
 import { FacilitySize, Game, Hexagon } from '../../api-client';
@@ -13,6 +13,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   styleUrls: ['./playfield.component.scss']
 })
 export class PlayfieldComponent implements OnInit {
+    private buttonsDisabled: boolean = false;
+
     protected hexagons = signal<Hexagon[]>([]);
     protected showHexagons = signal<boolean>(false);
     protected showScores = signal<boolean>(true);
@@ -24,20 +26,22 @@ export class PlayfieldComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.buttonsDisabled = this.game?.playerId !== this.game?.players![this.game.currentPlayer!].id;
+        
         this.gameService.activeGame
         .pipe(untilDestroyed(this))
         .subscribe((game) => {
-          console.log("** updated", this.hexagons());
           this.hexagons.set(game?.castle?.hexagons ?? []);
           this.showHexagons.set((game?.castle?.hexagons?.length ?? 0) > 0);
           this.game = game;
+          this.buttonsDisabled = this.game?.playerId !== this.game?.players![this.game.currentPlayer!].id;
         });
     }
 
   // Add component logic here
   async onClick(args:HexagonSectorClickArgs):Promise<void>
   {
-    if (this.game === null ) return;
+    if (this.game === null || this.buttonsDisabled) return;
     
     await this.buildOrRepair(args);
 

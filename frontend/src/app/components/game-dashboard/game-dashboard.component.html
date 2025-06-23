@@ -10,7 +10,7 @@
   </div>
 
   <div class="new-game-button-flex-16">
-    <div class="make-turn-button btn" (click)="makeTurnClick()">make turn</div>
+    <div [ngClass]="buttonsDisabled ? 'blue-button-disabled btn' : 'make-turn-button btn'" (click)="makeTurnClick()">make turn</div>
     <div class="game-message">{{ game()?.turnMessage || 'No Turn Message' }}</div>
   </div>
 
@@ -20,9 +20,9 @@
 
   <div class="center-part">
     @if (game()?.currentTurn === 2) {
-      <app-resource-exchange [currentPlayer]="game()?.currentPlayer!" [gameId]="game()?.id ?? ''" [players]="game()?.players!"></app-resource-exchange>
+      <app-resource-exchange [buttonsDisabled]="buttonsDisabled" [currentPlayerId]="game()?.playerId!" [gameId]="game()?.id ?? ''" [players]="game()?.players!"></app-resource-exchange>
       <div>
-        <app-choose-facility></app-choose-facility>
+        <app-choose-facility [buttonsDisabled]="buttonsDisabled"></app-choose-facility>
       </div>
     }
     @if (game()?.currentTurn === 1) {

@@ -36,6 +36,8 @@ export class GameDashboardComponent implements OnInit {
 
   private eventSource: EventSource | null = null;
 
+  protected buttonsDisabled: boolean = false;
+
 constructor(
   private readonly gameService: GameService,
 private readonly gameFlowService: GameFlowService) { }
@@ -56,7 +58,9 @@ private readonly gameFlowService: GameFlowService) { }
         }
 
         if (game.log) console.log('** Game Log:', game.log);
-        
+
+        this.buttonsDisabled = this.game()!.playerId !== this.currentPlayer()?.id;
+        console.log('***', this.game()?.playerId, this.currentPlayer()?.id, this.buttonsDisabled);
       }
     });
 
@@ -69,12 +73,15 @@ private readonly gameFlowService: GameFlowService) { }
   }
 
   public async joinGameClick(): Promise<void> {
+    if (this.game()) return;
+
     await this.gameService.joinGame(this.gameId);
     this.subscribeToServerEvents();
   }
 
   public async makeTurnClick(): Promise<void> {
-    if (this.game !== null) {
+    console.log('*** maketurn', this.game()?.playerId, this.currentPlayer()?.id, this.buttonsDisabled);
+    if (this.game !== null && !this.buttonsDisabled) {
       const game = await this.gameService.nextTurn(this.game()!);
     }
   }

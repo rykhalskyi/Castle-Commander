@@ -12,11 +12,12 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
 
         public class Handler(IGamesCache gamesCache, IGameFlow gameFlow, IGameEventSender eventSender) : BaseGameHandler<Request>(gamesCache)
         {
-            protected override Task<Game> Process(Request request, CancellationToken cancellationToken)
+            protected override async Task<Game> Process(Request request, CancellationToken cancellationToken)
             {
-                
-                var result = Task.FromResult(gameFlow.NextTurn(request.InputGame, Game));
-                eventSender.NextUpdate(Game.Id, request.PlayerId);
+                var result = gameFlow.NextTurn(request.InputGame, Game);
+                result.PlayerId = request.PlayerId;
+
+                await eventSender.NextUpdate(Game.Id, request.PlayerId);
                 return result;
 
             }

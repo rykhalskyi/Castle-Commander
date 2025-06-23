@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { FacilitySize } from '../../api-client';
 
@@ -11,8 +11,10 @@ import { FacilitySize } from '../../api-client';
 })
 export class ChooseFacilityComponent {
 
-  selectedFacility: number = 0;
+  @Input() buttonsDisabled: boolean = false;
 
+  selectedFacility: number = 0;
+ 
 constructor (private readonly gameService: GameService) { }
 
   selectFacility(facilitySize: number): void {

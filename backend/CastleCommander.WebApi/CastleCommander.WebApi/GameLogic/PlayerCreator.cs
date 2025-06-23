@@ -1,4 +1,5 @@
-﻿namespace CastleCommander.WebApi.GameLogic
+﻿
+namespace CastleCommander.WebApi.GameLogic
 {
     public class PlayerCreator
     {
@@ -10,6 +11,7 @@
 
             game.Players.Add(newPlayer);
             game.PlayerId = newPlayer.Id;
+
             return game;
         }
 

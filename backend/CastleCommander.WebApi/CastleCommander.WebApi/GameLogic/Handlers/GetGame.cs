@@ -16,6 +16,11 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
             {
                 return Task.FromResult(Game);
             }
+
+            protected override bool Validate()
+            {
+                return true;
+            }
         }
     }
 }
