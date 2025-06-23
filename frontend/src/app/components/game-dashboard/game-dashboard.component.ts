@@ -39,7 +39,7 @@ export class GameDashboardComponent implements OnInit {
   protected buttonsDisabled: boolean = false;
 
 constructor(
-  private readonly gameService: GameService,
+  protected readonly gameService: GameService,
 private readonly gameFlowService: GameFlowService) { }
 
   ngOnInit(): void {
@@ -59,8 +59,8 @@ private readonly gameFlowService: GameFlowService) { }
 
         if (game.log) console.log('** Game Log:', game.log);
 
-        this.buttonsDisabled = this.game()!.playerId !== this.currentPlayer()?.id;
-        console.log('***', this.game()?.playerId, this.currentPlayer()?.id, this.buttonsDisabled);
+        this.buttonsDisabled = this.gameService.playerId !== this.currentPlayer()?.id;
+      
       }
     });
 
@@ -80,7 +80,7 @@ private readonly gameFlowService: GameFlowService) { }
   }
 
   public async makeTurnClick(): Promise<void> {
-    console.log('*** maketurn', this.game()?.playerId, this.currentPlayer()?.id, this.buttonsDisabled);
+   
     if (this.game !== null && !this.buttonsDisabled) {
       const game = await this.gameService.nextTurn(this.game()!);
     }
@@ -99,10 +99,11 @@ private readonly gameFlowService: GameFlowService) { }
 
     this.eventSource = this.gameService.subscribeToGameEvents(this.game()?.id!, 
     (data) => {
+        console.log("Server event ", data);
         if (data.playerId !== this.game()?.playerId)
         {
-            console.log("Another player server event ", data);
-            this.gameService.getGame(this.game()!.id!, this.game()!.playerId!);
+            console.log("Requesting data ", data);
+            this.gameService.getGame(this.game()!.id!);
         }
         
     }

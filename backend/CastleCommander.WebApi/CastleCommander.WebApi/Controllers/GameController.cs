@@ -41,11 +41,11 @@ namespace CastleCommander.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("nextturn")]
-        public async Task<Game> NextTurn(Game inputGame)
+        public async Task<Game> NextTurn(Game inputGame, Guid playerId)
         {
             var game = await mediator.Send(new NextTurn.Request() {
                 GameId = inputGame.Id,
-                PlayerId = inputGame.PlayerId,
+                PlayerId = playerId,
                 InputGame = inputGame
             });
             return game;

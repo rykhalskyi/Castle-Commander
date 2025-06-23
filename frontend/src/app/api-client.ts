@@ -141,11 +141,16 @@ export class Client {
     }
 
     /**
+     * @param playerId (optional) 
      * @param body (optional) 
      * @return OK
      */
-    nextturn(body: Game | undefined): Promise<Game> {
-        let url_ = this.baseUrl + "/api/game/nextturn";
+    nextturn(playerId: string | undefined, body: Game | undefined): Promise<Game> {
+        let url_ = this.baseUrl + "/api/game/nextturn?";
+        if (playerId === null)
+            throw new Error("The parameter 'playerId' cannot be null.");
+        else if (playerId !== undefined)
+            url_ += "playerId=" + encodeURIComponent("" + playerId) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);

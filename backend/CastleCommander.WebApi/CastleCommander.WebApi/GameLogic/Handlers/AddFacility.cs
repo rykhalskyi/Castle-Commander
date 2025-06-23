@@ -12,7 +12,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
             public FacilitySize Size { get; set; }
         }
 
-        public class Handler(IGamesCache gamesCache, IGameFlow gameFlow) : BaseGameHandler<Request>(gamesCache)
+        public class Handler(IGamesCache gamesCache, IGameFlow gameFlow, IGameEventSender eventSender) : BaseGameHandler<Request>(gamesCache, eventSender)
         {
 
             protected override Task<Game> Process(Request request, CancellationToken cancellationToken)

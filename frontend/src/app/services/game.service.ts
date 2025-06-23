@@ -12,28 +12,35 @@ export class GameService {
   public activeGame: BehaviorSubject<Game | null> = new BehaviorSubject<Game | null>(null);
   public selectedFacilitySize: FacilitySize | null = null;
   public rapair: boolean = false;
-  private playerId: string = "";
+
+  public get playerId(): string {
+      return this._playerId;
+  }
+
+  private _playerId: string = "";
 
   public startNewGame: () => Promise<Game> = async () => {
     const game = await this.client.startnew();
+    this._playerId = game.playerId!;
     this.activeGame.next(game);
     return game;
   }
 
-  public async getGame(gameId: string, playerId: string): Promise<Game> {
-    const game = await this.client.getgame(gameId, playerId);
+  public async getGame(gameId: string): Promise<Game> {
+    const game = await this.client.getgame(gameId, this._playerId);
     this.activeGame.next(game);
     return game;
   }
 
   public async joinGame(gameId: string): Promise<Game>{
     const game = await this.client.join(gameId);
+    this._playerId = game.playerId!;
     this.activeGame.next(game);
     return game;
   }
 
   public nextTurn: (game: Game) => Promise<Game> = async (game: Game) => {
-    const updatedGame = await this.client.nextturn(game);
+    const updatedGame = await this.client.nextturn(this.playerId, game);
     this.activeGame.next(updatedGame);
     return updatedGame;
   }
@@ -44,15 +51,15 @@ export class GameService {
       startSector : sector,
       size : size, 
       gameId: game.id,
-      playerId: game.playerId} as AddFacilityInput);
+      playerId: this._playerId} as AddFacilityInput);
     this.activeGame.next(updatedGame);
     return updatedGame;
   }
 
-  public async buy(gameId: string, playerId:string, item: ExchangeItem): Promise<Game> {
+  public async buy(gameId: string, item: ExchangeItem): Promise<Game> {
     const updatedGame = await this.client.buy({
       gameId: gameId,
-      playerId: playerId,
+      playerId: this._playerId,
       item: item,
       number: 1
     } as BuyItemInput);
@@ -60,10 +67,10 @@ export class GameService {
     return updatedGame;
   }
 
-  public async exchange(gameId: string, playerId:string, otherPlayer: string, resource:number, otherResource: number): Promise<Game> {
+  public async exchange(gameId: string, otherPlayer: string, resource:number, otherResource: number): Promise<Game> {
     const updatedGame = await this.client.exchange({
       gameId: gameId,
-      playerId: playerId,
+      playerId: this._playerId,
       otherPlayer: otherPlayer,
       playerResource: resource,
       otherResource: otherResource
@@ -76,7 +83,7 @@ export class GameService {
   public async repairFacility(game: Game, hexagon: number, sector: number){
     const updatedGame = await this.client.repairfacility({
       gameId: game.id,
-      playerId: game.playerId,
+      playerId: this._playerId,
       hexagon: hexagon,
       sector: sector
     } as RepairFacilityInput);
@@ -85,11 +92,11 @@ export class GameService {
     return updatedGame;
   }
 
-  public async buyOnMarket(gameId: string, playerId:string, resourceTosell: number, resourceToBuy: number): Promise<Game>
+  public async buyOnMarket(gameId: string, resourceTosell: number, resourceToBuy: number): Promise<Game>
   {
      const updatedGame = await this.client.buyonmarket({
       gameId: gameId,
-      playerId: playerId,
+      playerId: this._playerId,
       resourceToBuy: resourceToBuy,
       resourceToSell: resourceTosell
      } as BuyOnMarketInput);
@@ -102,7 +109,7 @@ export class GameService {
   {
     const updatedGame = await this.client.towerattack({
       gameId : game.id,
-      playerId: this.playerId,
+      playerId: this._playerId,
       hexagon: hex
     } as TowerAttackInput);
     this.activeGame.next(updatedGame);

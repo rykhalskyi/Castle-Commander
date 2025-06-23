@@ -8,7 +8,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
             public int Hexagon { get; set; }
         }
 
-        public class Handler(IGamesCache gamesCahce) : BaseGameHandler<Request>(gamesCahce)
+        public class Handler(IGamesCache gamesCahce, IGameEventSender eventSender) : BaseGameHandler<Request>(gamesCahce, eventSender)
         {
             protected override async Task<Game> Process(Request request, CancellationToken cancellationToken)
             {

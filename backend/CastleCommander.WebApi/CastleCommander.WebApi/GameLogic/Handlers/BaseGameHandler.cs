@@ -2,7 +2,7 @@
 
 namespace CastleCommander.WebApi.GameLogic.Handlers
 {
-    public abstract class BaseGameHandler<T>(IGamesCache gamesCache) : IRequestHandler<T, Game> where T: IBaseGameRequest
+    public abstract class BaseGameHandler<T>(IGamesCache gamesCache, IGameEventSender eventSender) : IRequestHandler<T, Game> where T: IBaseGameRequest
     {
         protected Game Game { get; private set; }
         protected Player Player { get; private set; }
@@ -20,6 +20,8 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
 
             var result = await Process(request, cancellationToken);
             result.PlayerId = request.PlayerId;
+
+            //await eventSender.NextUpdate(Game.Id, request.PlayerId);
             return result;
         }
 
