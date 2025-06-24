@@ -8,6 +8,8 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
         {
             public Guid GameId { get; set; }
             public int Hexagon { get; set; }
+
+            public int Player { get; set; }
         }
 
         public class Handler(IGamesCache cache) : IRequestHandler<Query, Game>
@@ -21,13 +23,13 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
                 }
 
                 var tower = game.Castle.Hexagons[request.Hexagon].Tower;
-                if (tower == null || tower.PlayerId != game.CurrentPlayer)
+                if (tower == null || tower.PlayerId != request.Player)
                 {
                     game.Log += "You have no tower in this hex \n";
                     return await Task.FromResult(game);
                 }
 
-                if (!Market.CanAttack(game.Players[game.CurrentPlayer], request.Hexagon))
+                if (!Market.CanAttack(game.Players[request.Player], request.Hexagon))
                 {
                     game.Log += "You have no enough bronye to attack \n";
                     return await Task.FromResult(game);

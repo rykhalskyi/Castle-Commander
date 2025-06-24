@@ -383,6 +383,14 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "player",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {

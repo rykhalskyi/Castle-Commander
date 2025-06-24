@@ -350,9 +350,10 @@ export class Client {
     /**
      * @param gameId (optional) 
      * @param hex (optional) 
+     * @param player (optional) 
      * @return OK
      */
-    towerattack(gameId: string | undefined, hex: number | undefined): Promise<Game> {
+    towerattack(gameId: string | undefined, hex: number | undefined, player: number | undefined): Promise<Game> {
         let url_ = this.baseUrl + "/api/game/towerattack?";
         if (gameId === null)
             throw new Error("The parameter 'gameId' cannot be null.");
@@ -362,6 +363,10 @@ export class Client {
             throw new Error("The parameter 'hex' cannot be null.");
         else if (hex !== undefined)
             url_ += "hex=" + encodeURIComponent("" + hex) + "&";
+        if (player === null)
+            throw new Error("The parameter 'player' cannot be null.");
+        else if (player !== undefined)
+            url_ += "player=" + encodeURIComponent("" + player) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: RequestInit = {

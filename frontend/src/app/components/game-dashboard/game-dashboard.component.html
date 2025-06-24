@@ -27,6 +27,7 @@
     }
     @if (game()?.currentTurn === 3)
     {
+      <app-choose-player [players]="game()?.players!" [currentPlayer]="game()?.currentPlayer!"></app-choose-player>
       <div>
         <p class="log-paragraph">{{game()?.log}}</p>
       </div>

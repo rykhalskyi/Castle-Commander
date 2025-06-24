@@ -93,7 +93,7 @@ namespace CastleCommander.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("towerattack")]
-        public async Task<Game> TowerAttack(Guid GameId, int hex)
+        public async Task<Game> TowerAttack(Guid GameId, int hex, int player)
         {
             return await mediator.Send(new TowerAttack.Query
             {
