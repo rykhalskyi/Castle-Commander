@@ -12,6 +12,7 @@ export class GameService {
   public activeGame: BehaviorSubject<Game | null> = new BehaviorSubject<Game | null>(null);
   public selectedFacilitySize: FacilitySize | null = null;
   public rapair: boolean = false;
+  public selectedPlayerId: string = this.playerId;
 
   public get playerId(): string {
       return this._playerId;
@@ -34,13 +35,14 @@ export class GameService {
 
   public async joinGame(gameId: string): Promise<Game>{
     const game = await this.client.join(gameId);
-    this._playerId = game.playerId!;
+   // this._playerId = game.playerId!;
     this.activeGame.next(game);
     return game;
   }
 
   public nextTurn: (game: Game) => Promise<Game> = async (game: Game) => {
     const updatedGame = await this.client.nextturn(this.playerId, game);
+    this._playerId = updatedGame.playerId!;
     this.activeGame.next(updatedGame);
     return updatedGame;
   }

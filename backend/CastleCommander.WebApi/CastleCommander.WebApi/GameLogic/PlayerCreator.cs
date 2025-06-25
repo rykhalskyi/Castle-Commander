@@ -5,7 +5,11 @@ namespace CastleCommander.WebApi.GameLogic
     {
         public static Game AddPlayer(Game game)
         {
-            if (game.Players.Count >= 4) throw new InvalidOperationException("There're already 4 players");
+            if (game.Players.Count >= 4) {
+                game.Log = "there's already 4 players in the game, you can't add more players.";
+                return game;
+            }
+            
             var newPlayer = _players[game.Players.Count];
             newPlayer.Id = Guid.NewGuid();
 

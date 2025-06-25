@@ -4,7 +4,7 @@
   </div>
 
     <div class="new-game-button-flex">
-    <div class="new-game-button btn" (click)="joinGameClick()">join game</div>
+    <div class="new-game-button btn" (click)="joinGameClick()">add player</div>
     <input class="game-id" type="text" [value]="gameId" (input)="onGameIdInput($event)" placeholder="Game ID" title="Get Game by ID">
     
   </div>
@@ -30,6 +30,7 @@
     }
     @if (game()?.currentTurn === 3)
     {
+        <app-choose-player [players]="game()?.players!" [currentPlayer]="game()?.currentPlayer!"></app-choose-player>
       <div>
         <p class="log-paragraph">{{game()?.log}}</p>
       </div>
@@ -42,9 +43,6 @@
     </div>
   }
 
-
-
- 
 </div>
 
 

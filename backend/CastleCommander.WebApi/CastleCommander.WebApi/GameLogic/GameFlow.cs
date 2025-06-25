@@ -10,7 +10,8 @@
             game.TurnMessage = "Game started";
             game.CurrentTurn = 0;
             PlayerCreator.AddPlayer(game);
-            
+            game.Players[0].IsActive = true;
+
 
             Turns[game.CurrentTurn].MakeTurn(game, game);
             return game;

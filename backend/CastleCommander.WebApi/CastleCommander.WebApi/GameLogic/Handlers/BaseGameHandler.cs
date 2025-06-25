@@ -19,7 +19,7 @@ namespace CastleCommander.WebApi.GameLogic.Handlers
             }
 
             var result = await Process(request, cancellationToken);
-            result.PlayerId = request.PlayerId;
+            result.PlayerId = result.Players[result.CurrentPlayer].Id;
 
             //await eventSender.NextUpdate(Game.Id, request.PlayerId);
             return result;
