@@ -34,13 +34,14 @@ export class GameService {
 
   public async joinGame(gameId: string): Promise<Game>{
     const game = await this.client.join(gameId);
-    this._playerId = game.playerId!;
+   // this._playerId = game.playerId!;
     this.activeGame.next(game);
     return game;
   }
 
   public nextTurn: (game: Game) => Promise<Game> = async (game: Game) => {
     const updatedGame = await this.client.nextturn(this.playerId, game);
+    this._playerId = updatedGame.playerId!;
     this.activeGame.next(updatedGame);
     return updatedGame;
   }

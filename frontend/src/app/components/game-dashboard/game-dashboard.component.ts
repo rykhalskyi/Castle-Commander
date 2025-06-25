@@ -58,8 +58,9 @@ private readonly gameFlowService: GameFlowService) { }
         }
 
         if (game.log) console.log('** Game Log:', game.log);
-
-        this.buttonsDisabled = this.gameService.playerId !== this.currentPlayer()?.id;
+       
+       //One User Mode  
+       // this.buttonsDisabled = this.gameService.playerId !== this.currentPlayer()?.id;
       
       }
     });
@@ -73,7 +74,6 @@ private readonly gameFlowService: GameFlowService) { }
   }
 
   public async joinGameClick(): Promise<void> {
-    if (this.game()) return;
 
     await this.gameService.joinGame(this.gameId);
     this.subscribeToServerEvents();
