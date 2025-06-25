@@ -10,6 +10,7 @@ import { EnemyCardComponent } from '../enemy-card/enemy-card.component';
 import { GameFlowService, IGameFlowState } from '../../services/game-flow.service';
 import { FormsModule } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ChoosePlayerComponent } from '../choose-player/choose-player.component';
 
 @UntilDestroy()
 @Component({
@@ -21,7 +22,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     DiceRollComponent, 
     ResourceExchangeComponent,
     EnemyCardComponent,
-    FormsModule
+    FormsModule,
+    ChoosePlayerComponent
   ],
   templateUrl: './game-dashboard.component.html',
   styleUrls: ['./game-dashboard.component.scss']

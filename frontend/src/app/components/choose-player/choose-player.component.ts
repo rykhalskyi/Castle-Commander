@@ -8,8 +8,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-choose-player',
   templateUrl: './choose-player.component.html',
   imports: [CommonModule, FormsModule],
-  styleUrls: ['./choose-player.component.scss'],
-  standalone: true
+  styleUrls: ['./choose-player.component.scss']
 })
 export class ChoosePlayerComponent implements OnInit {
   @Input() players: Player[] = [];
@@ -22,16 +21,16 @@ export class ChoosePlayerComponent implements OnInit {
     if (this.players && this.players.length > 0) 
     {
         this.selectedPlayerName = this.players[this.currentPlayer].name!;
-        this.gameService.selectedPlayer = this.currentPlayer;
+        this.gameService.selectedPlayerId = this.players[this.currentPlayer].id!;
     }
-     console.log('players', this.gameService.selectedPlayer, this.selectedPlayerName);
+    // console.log('players', this.gameService.selectedPlayerId, this.selectedPlayerName);
   }
 
   onPlayerChange(event: Event): void {
     const name = (event.target as HTMLSelectElement).value;
     const player = this.players.find(p => p.name === name);
     if (player) {
-      this.gameService.selectedPlayer = this.players.indexOf(player);
+      this.gameService.selectedPlayerId = player.id!;
     }
   }
 }

@@ -12,6 +12,7 @@ export class GameService {
   public activeGame: BehaviorSubject<Game | null> = new BehaviorSubject<Game | null>(null);
   public selectedFacilitySize: FacilitySize | null = null;
   public rapair: boolean = false;
+  public selectedPlayerId: string = this.playerId;
 
   public get playerId(): string {
       return this._playerId;
