@@ -79,7 +79,7 @@ ngOnInit(): void {
    .pipe(untilDestroyed(this))
    .subscribe((game) => {
       if (game) {
-        const marketFacilities = game.castle!.hexagons![0].facilities?.filter(i=>i.playerId == game.currentPlayer)
+        const marketFacilities = game.castle!.hexagons![0].facilities?.filter(i=>i.playerId == game.playerId);
         this.playerCanByOnMarket = marketFacilities !== undefined && marketFacilities.length > 0;
       }
     });

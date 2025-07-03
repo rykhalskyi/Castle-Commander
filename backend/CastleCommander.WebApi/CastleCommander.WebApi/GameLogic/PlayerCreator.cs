@@ -10,8 +10,7 @@ namespace CastleCommander.WebApi.GameLogic
                 return game;
             }
             
-            var newPlayer = _players[game.Players.Count];
-            newPlayer.Id = Guid.NewGuid();
+            var newPlayer = Create(game.Players.Count);
 
             game.Players.Add(newPlayer);
             game.PlayerId = newPlayer.Id;
@@ -64,6 +63,23 @@ namespace CastleCommander.WebApi.GameLogic
                         Gold = 1
                     },
                 };
+
+        private static Player Create(int index)
+        {
+            var player = _players[index];
+            return new Player
+            {
+                Id = Guid.NewGuid(),
+                Name = player.Name,
+                IsActive = player.IsActive,
+                PrimaryColor = player.PrimaryColor,
+                SecondaryColor = player.SecondaryColor,
+                Bronze = player.Bronze,
+                Silver = player.Silver,
+                Gold = player.Gold,
+                Resources = GetPlayerResources(new[] { 1, 2, 3 }) // This should be replaced with actual logic to set resources
+            };
+        }
 
 
         private static PlayerResource[] GetPlayerResources(int[] baseResources)
