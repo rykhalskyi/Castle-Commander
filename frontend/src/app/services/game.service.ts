@@ -109,9 +109,10 @@ export class GameService {
 
   public async towerAttack(game: Game, hex:number): Promise<Game>
   {
+    //use selected player id here to emulate attacks from any player
     const updatedGame = await this.client.towerattack({
       gameId : game.id,
-      playerId: this._playerId,
+      playerId: this.selectedPlayerId,
       hexagon: hex
     } as TowerAttackInput);
     this.activeGame.next(updatedGame);
